@@ -34,11 +34,19 @@
         (:name color-theme-arjen
                :type git
                :url "https://github.com/credmp/color-theme-arjen.git")
+        (:name color-theme-hober2
+               :type http
+               :features color-theme-hober2
+               :url "http://edward.oconnor.cx/config/elisp/color-theme-hober2.el")
         (:name gist
                :type git
                :url "https://github.com/mcfunley/gist.el.git"
                :features gist)
-        ;; idle-highlight fails to load from elpa for some reason
-        (:name idle-highlight
-               :type http
-               :url "https://github.com/technomancy/dotfiles/raw/master/.emacs.old/idle-highlight.el")))
+        (:name highlight-parentheses
+               :type git
+               :url "git://github.com/nschum/highlight-parentheses.el.git"
+               :features highlight-parentheses)
+	(:name idle-highlight 
+	       :type git
+	       :url "https://github.com/emacsmirror/idle-highlight.git")))
+

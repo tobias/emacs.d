@@ -6,26 +6,36 @@
 (setq custom-file (concat my-config-dir "personal/custom.el"))
 (load custom-file 'noerror)
 
+(defun load-personal()
+  (load "personal/env")
+  (load "personal/defuns")
+  (load "personal/bindings")
+  (load "personal/theme")
+  (load "personal/tab-completion")
+  (load "personal/ido")
+  (load "personal/lisp")
+  (load "personal/ruby"))
+
 ;; el-get
 (add-to-list 'load-path (concat my-config-dir "el-get/el-get"))
 (if (require 'el-get nil t)
     (progn
       (load "personal/packages")	
       (el-get 'sync)
-      (load "personal/env")
-      (load "personal/defuns")
-      (load "personal/bindings")
-      (load "personal/theme")
-      (load "personal/tab-completion")
-      (load "personal/ido")
-      (load "personal/lisp")
-      (load "personal/ruby"))
+      (load-personal))
   (progn
     (message "We need to install el-get")
     (url-retrieve
      "https://github.com/dimitri/el-get/raw/master/el-get-install.el"
      (lambda (s)
        (end-of-buffer)
-       (eval-print-last-sexp)))))
+       (eval-print-last-sexp)
+       (load "personal/packages")
+       (el-get 'sync)
+       (load-personal)))))
 
+
+;; el-get fails to load magit for some reason, so we do it manually
+(add-to-list 'load-path (concat my-config-dir "el-get/magit"))
+(load "magit")
 
