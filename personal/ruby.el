@@ -18,7 +18,9 @@
 (add-to-list 'auto-mode-alist '("\\.scss$" . css-mode))
 
 (require 'ruby-electric)
-(add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode)))
+(add-hook 'ruby-mode-hook '(lambda ()
+                             (ruby-electric-mode)
+                             (local-set-key (kbd "TAB") 'smart-tab)))
 (add-hook 'ruby-mode-hook 'run-coding-hook)
 (add-hook 'ruby-mode-hook 'idle-highlight)
 
