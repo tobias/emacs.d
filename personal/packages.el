@@ -37,6 +37,7 @@
         (:name color-theme-hober2
                :type http
                :features color-theme-hober2
+               :compile "nothing"
                :url "http://edward.oconnor.cx/config/elisp/color-theme-hober2.el")
         (:name gist
                :type git

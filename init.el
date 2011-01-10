@@ -11,10 +11,10 @@
   (load "personal/defuns")
   (load "personal/bindings")
   (load "personal/theme")
+  (load "personal/ruby")
   (load "personal/tab-completion")
   (load "personal/ido")
-  (load "personal/lisp")
-  (load "personal/ruby"))
+  (load "personal/lisp"))
 
 ;; el-get
 (add-to-list 'load-path (concat my-config-dir "el-get/el-get"))
