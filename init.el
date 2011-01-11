@@ -6,14 +6,17 @@
 (setq custom-file (concat my-config-dir "personal/custom.el"))
 (load custom-file 'noerror)
 
+(load "personal/env")
+
 (defun load-personal()
-  (load "personal/env")
+  (load "personal/settings")
   (load "personal/defuns")
   (load "personal/bindings")
   (load "personal/theme")
   (load "personal/ruby")
   (load "personal/tab-completion")
   (load "personal/ido")
+  (load "personal/mac")
   (load "personal/lisp"))
 
 ;; el-get
