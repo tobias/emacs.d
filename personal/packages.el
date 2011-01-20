@@ -14,10 +14,6 @@
                :url "http://shylock.uw.hu/Emacs/ruby-electric.el")
         rvm
         ;;inf-ruby
-        yasnippet
-        (:name yasnippets-rails
-               :type git
-               :url "https://github.com/eschulte/yasnippets-rails.git")
         elunit                          ;rinari needs this
         (:name rinari
                :type git

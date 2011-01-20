@@ -60,6 +60,8 @@
 
 (global-auto-revert-mode t)
 
+(delete-selection-mode t)
+
 (mouse-avoidance-mode 'exile)
 
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
