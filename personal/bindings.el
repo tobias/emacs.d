@@ -45,6 +45,7 @@
                                     (save-buffer)))
 
 (global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "C-x C-g") 'magit-status)
 
 ;; make the rinari navigation a bit shorter
 (global-set-key (kbd "C-c f c") 'rinari-find-controller)

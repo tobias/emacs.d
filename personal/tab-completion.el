@@ -40,10 +40,15 @@
 (defun smart-indent ()
   "Indents region if mark is active, or current line otherwise."
   (interactive)
-  (if mark-active
-    (indent-region (region-beginning)
-                   (region-end))
-    (indent-for-tab-command)))
+  (if (minibufferp)
+      (minibuffer-complete)
+    (if mark-active
+        (indent-region (region-beginning)
+                       (region-end))
+      (indent-for-tab-command))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(global-set-key (kbd "TAB") 'smart-tab)
+;;(global-set-key (kbd "<tab>") 'smart-indent)
+(global-set-key (kbd "<C-tab>") 'smart-tab)
+
+
