@@ -30,6 +30,9 @@
         (:name color-theme-arjen
                :type git
                :url "https://github.com/credmp/color-theme-arjen.git")
+        (:name zenburn
+               :type git
+               :url "https://github.com/bbatsov/zenburn-emacs.git")
         (:name color-theme-hober2
                :type http
                :features color-theme-hober2

@@ -1,7 +1,9 @@
 ;(color-theme-topfunky)
 ;(color-theme-arjen)
 ;(color-theme-ir-black)
-(color-theme-hober2)
+;(color-theme-hober2)
+(require 'zenburn)
+(zenburn)
 
 (when window-system
   (if (eq system-type 'darwin)
