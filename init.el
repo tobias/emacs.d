@@ -14,6 +14,7 @@
   (load "personal/bindings")
   (load "personal/theme")
   (load "personal/ruby")
+  (load "personal/java")
   (load "personal/tab-completion")
   (load "personal/ido")
   (load "personal/mac")
