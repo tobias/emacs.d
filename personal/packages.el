@@ -3,7 +3,7 @@
 (setq el-get-sources
       '(el-get
         todochiku
-        maxframe
+        ;; maxframe                        
         magit
         ;;js2-mode
         markdown-mode
@@ -27,12 +27,12 @@
                :type git
                :url "https://github.com/nschum/full-ack.git")
         color-theme
-        (:name color-theme-arjen
-               :type git
-               :url "https://github.com/credmp/color-theme-arjen.git")
-        (:name zenburn
-               :type git
-               :url "https://github.com/bbatsov/zenburn-emacs.git")
+        ;; (:name color-theme-arjen
+        ;;        :type git
+        ;;        :url "https://github.com/credmp/color-theme-arjen.git")
+        ;; (:name zenburn
+        ;;        :type git
+        ;;        :url "https://github.com/bbatsov/zenburn-emacs.git")
         (:name color-theme-hober2
                :type http
                :features color-theme-hober2
