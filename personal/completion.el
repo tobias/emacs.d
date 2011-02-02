@@ -6,6 +6,6 @@
         try-complete-lisp-symbol))
 
 (global-set-key (kbd "<M-return>") 'hippie-expand)
-
+(global-set-key (kbd "<C-tab>") 'hippie-expand)
 
 

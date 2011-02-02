@@ -18,11 +18,9 @@
 (add-to-list 'auto-mode-alist '("\\.scss$" . css-mode))
 
 (require 'ruby-electric)
-(add-hook 'ruby-mode-hook '(lambda ()
-                             (ruby-electric-mode)
-                             (local-set-key (kbd "TAB") 'smart-tab)))
 (add-hook 'ruby-mode-hook 'run-coding-hook)
 (add-hook 'ruby-mode-hook 'idle-highlight)
+(add-hook 'ruby-mode-hook 'ruby-electric-mode)
 
 (defun rails-generate-migration (args)
    "Runs 'script/generate migration ARGS' and opens the new migration in a buffer."

@@ -67,5 +67,9 @@
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
+;; Split windows in Emacs 22 compatible way
+(setq split-height-threshold nil)
+(setq split-width-threshold most-positive-fixnum)
+
 (server-start)
 
