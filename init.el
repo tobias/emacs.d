@@ -18,6 +18,7 @@
   (load "personal/tab-completion")
   (load "personal/ido")
   (load "personal/mac")
+  (load "personal/nxml")
   (load "personal/lisp"))
 
 ;; el-get
