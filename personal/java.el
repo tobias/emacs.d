@@ -32,4 +32,5 @@
 ;; (add-hook 'java-mode-hook 'jtags-mode)
 ;; (autoload 'jtags-mode "jtags")
 
-(define-key java-mode-map (kbd "C-c m") 'mvn)
+;(define-key java-mode-map (kbd "C-c m") 'mvn)
+(global-set-key (kbd "C-c m") 'mvn)
