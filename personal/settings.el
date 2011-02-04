@@ -14,7 +14,7 @@
   (blink-cursor-mode -1)
   (global-hl-line-mode t))
 
-(cua-mode f)
+(cua-mode nil)
 
 (add-hook 'before-make-frame-hook 'turn-off-tool-bar)
 
