@@ -15,6 +15,12 @@
 
   (setq default-frame-alist
         (cons '(cursor-type . bar)
-              (copy-alist default-frame-alist))))
+              (copy-alist default-frame-alist)))
+
+  ;; don't open a new frame when the os tells emacs to open a file
+  (setq ns-pop-up-frames nil)
+  
+  (load "personal/peepopen"))
+
 
 
