@@ -29,5 +29,5 @@
         (setq prev-dir dir
               dir (file-name-directory (directory-file-name dir)))))))
 
-(global-set-key (kbd "C-x t") 'peepopen-goto-file-gui)
+(global-set-key (kbd "C-x y") 'peepopen-goto-file-gui)
 
