@@ -56,7 +56,7 @@
 
 (load "echo-area-bell")
 
-(global-linum-mode 1)
+;(global-linum-mode 1)
 
 (global-auto-revert-mode t)
 

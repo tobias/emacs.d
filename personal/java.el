@@ -16,6 +16,8 @@
       (compile (read-from-minibuffer "Command: " 
                                      (concat "mvn -f " dir "pom.xml test") nil nil 'mvn-command-history)))))
 
+
+
 ;;; For maven 2/3 output
 (add-to-list 'compilation-error-regexp-alist
              '("^.*?\\(/.*\\):\\[\\([0-9]*\\),\\([0-9]*\\)\\]" 1 2 3))
@@ -34,3 +36,5 @@
 
 ;(define-key java-mode-map (kbd "C-c m") 'mvn)
 (global-set-key (kbd "C-c m") 'mvn)
+
+(add-hook 'java-mode-hook 'linum-mode)

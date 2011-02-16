@@ -21,6 +21,8 @@
 (add-hook 'ruby-mode-hook 'run-coding-hook)
 (add-hook 'ruby-mode-hook 'idle-highlight)
 (add-hook 'ruby-mode-hook 'ruby-electric-mode)
+(add-hook 'ruby-mode-hook 'linum-mode)
+
 
 (defun rails-generate-migration (args)
    "Runs 'script/generate migration ARGS' and opens the new migration in a buffer."
