@@ -10,8 +10,9 @@
        (concat
         "Can't find a suitable project root")))
     (shell-command-to-string
-     (format "open -a PeepOpen '%s'"
-             (expand-file-name root)))))
+     (format "open 'peepopen://%s?editor=%s'"
+             (expand-file-name root)
+             (invocation-name)))))
 
 
 ;; borrowed from full-ack, and modified

@@ -44,3 +44,4 @@
 (add-to-list 'load-path (concat my-config-dir "el-get/magit"))
 (load "magit")
 
+(put 'upcase-region 'disabled nil)

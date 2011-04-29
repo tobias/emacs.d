@@ -33,11 +33,15 @@
         ;; (:name zenburn
         ;;        :type git
         ;;        :url "https://github.com/bbatsov/zenburn-emacs.git")
-        (:name color-theme-hober2
-               :type http
-               :features color-theme-hober2
-               :compile "nothing"
-               :url "http://edward.oconnor.cx/config/elisp/color-theme-hober2.el")
+        ;; (:name color-theme-hober2
+        ;;        :type http
+        ;;        :features color-theme-hober2
+        ;;        :compile "nothing"
+        ;;        :url "http://edward.oconnor.cx/config/elisp/color-theme-hober2.el")
+        ;;(:name color-theme-solarized
+        ;;       :type http
+        ;;       :compile "nothing"
+        ;;       :url "https://github.com/flavorjones/solarized/raw/master/emacs-color-theme-solarized/color-theme-solarized.el")
         (:name gist
                :type git
                :url "https://github.com/mcfunley/gist.el.git"
