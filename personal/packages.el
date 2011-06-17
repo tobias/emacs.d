@@ -38,10 +38,10 @@
         ;;        :features color-theme-hober2
         ;;        :compile "nothing"
         ;;        :url "http://edward.oconnor.cx/config/elisp/color-theme-hober2.el")
-        ;;(:name color-theme-solarized
-        ;;       :type http
-        ;;       :compile "nothing"
-        ;;       :url "https://github.com/flavorjones/solarized/raw/master/emacs-color-theme-solarized/color-theme-solarized.el")
+        (:name color-theme-sanityinc-solarized
+               :type http
+               :compile "nothing"
+               :url "https://github.com/purcell/color-theme-sanityinc-solarized/raw/master/color-theme-sanityinc-solarized.el")
         (:name gist
                :type git
                :url "https://github.com/mcfunley/gist.el.git"

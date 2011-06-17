@@ -43,8 +43,8 @@
       show-paren-mode t
       blink-cursor-mode nil
       x-select-enable-clipboard t
-      backup-directory-alist `(("." . ,(expand-file-name
-                                        (concat my-config-dir "backups")))))
+      backup-directory-alist `((".*" . ,temporary-file-directory))
+      auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
 
 (set-default 'indent-tabs-mode nil)
 (set-default 'indicate-empty-lines t)

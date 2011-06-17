@@ -171,3 +171,13 @@ Symbols matching the text at point are put first in the completion list."
 
  
 
+(defun random-color-theme ()
+  (interactive)
+  (random t)
+  (let ((theme (car (nth (random (length color-themes)) color-themes))))
+    (message "Setting theme to %s" theme)
+    (funcall theme)))
+
+;(random-color-theme)(run-with-timer 1 (* 60 60) 'random-color-theme)
+
+
