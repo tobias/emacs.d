@@ -9,6 +9,7 @@
         markdown-mode
         textile-mode
         yaml-mode
+        clojure-mode
         (:name ruby-electric
                :type http
                :url "http://shylock.uw.hu/Emacs/ruby-electric.el")
