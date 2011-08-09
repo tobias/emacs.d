@@ -61,3 +61,9 @@
 (global-set-key (kbd "C-c f v") 'rinari-find-view)
 ;(global-set-key "\C-cfa" 'ack-in-project)
 
+(global-set-key (kbd "C-c e") '(lambda ()
+                                 (interactive)
+                                 (dired (concat my-config-dir "personal"))))
+                              
+
+
