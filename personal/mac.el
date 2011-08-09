@@ -9,13 +9,13 @@
 
   ;; sets the cursor to a bar. useful on carbon emacs 23, since a block
   ;; cursor obscures the character below
-  (setq initial-frame-alist
-        (cons '(cursor-type . bar)
-              (copy-alist initial-frame-alist)))
+  ;; (setq initial-frame-alist
+  ;;       (cons '(cursor-type . bar)
+  ;;             (copy-alist initial-frame-alist)))
 
-  (setq default-frame-alist
-        (cons '(cursor-type . bar)
-              (copy-alist default-frame-alist)))
+  ;; (setq default-frame-alist
+  ;;       (cons '(cursor-type . bar)
+  ;;             (copy-alist default-frame-alist)))
 
   ;; don't open a new frame when the os tells emacs to open a file
   (setq ns-pop-up-frames nil)
