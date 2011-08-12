@@ -55,6 +55,8 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 (load "echo-area-bell")
+(load "php-mode")
+(load "flymake-cursor")
 
 ;(global-linum-mode 1)
 
@@ -71,5 +73,8 @@
 (setq split-height-threshold nil)
 (setq split-width-threshold most-positive-fixnum)
 
+(put 'upcase-region 'disabled nil)
+
 (server-start)
+
 

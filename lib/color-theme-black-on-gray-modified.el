@@ -62,7 +62,7 @@ the look of \"angry fruit salad\" when editing."
      (font-lock-reference-face ((t (:foreground "red3"))))
      (font-lock-string-face ((t (:italic t))))
      (font-lock-type-face ((t (nil))))
-     (font-lock-variable-name-face ((t (nil))))
+     (font-lock-variable-name-face ((t (:foreground "firebrick4"))))
      (font-lock-warning-face ((t (nil))))
      (green ((t (:foreground "green"))))
      (gui-button-face ((t (:background "grey75"))))

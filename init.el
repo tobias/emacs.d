@@ -19,7 +19,8 @@
   (load "personal/ido")
   (load "personal/mac")
   (load "personal/nxml")
-  (load "personal/lisp"))
+  (load "personal/lisp")
+  (load "personal/php-mode"))
 
 ;; el-get
 (add-to-list 'load-path (concat my-config-dir "el-get/el-get"))
@@ -44,4 +45,3 @@
 (add-to-list 'load-path (concat my-config-dir "el-get/magit"))
 (load "magit")
 
-(put 'upcase-region 'disabled nil)

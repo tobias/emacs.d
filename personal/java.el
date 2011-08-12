@@ -38,3 +38,9 @@
 (global-set-key (kbd "C-c m") 'mvn)
 
 (add-hook 'java-mode-hook 'linum-mode)
+
+(add-hook
+ 'java-mode-hook
+ '(lambda () "Treat Java 1.5 @-style annotations as comments."
+    (setq c-comment-start-regexp "(@|/(/|[*][*]?))")
+    (modify-syntax-entry ?@ "< b" java-mode-syntax-table)))
