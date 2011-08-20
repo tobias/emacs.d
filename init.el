@@ -19,8 +19,7 @@
   (load "personal/ido")
   (load "personal/mac")
   (load "personal/nxml")
-  (load "personal/lisp")
-  (load "personal/php-mode"))
+  (load "personal/lisp"))
 
 ;; el-get
 (add-to-list 'load-path (concat my-config-dir "el-get/el-get"))

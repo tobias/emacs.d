@@ -1,4 +1,4 @@
-(load "personal/color-theme-black-on-gray-modified")
+(load "lib/color-theme-black-on-gray-modified")
 (color-theme-black-on-gray-modified)
 
 (when window-system

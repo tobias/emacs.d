@@ -24,6 +24,7 @@
                :features rinari)
         haml-mode
         sass-mode
+        php-mode-improved
         (:name full-ack
                :type git
                :url "https://github.com/nschum/full-ack.git")
