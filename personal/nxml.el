@@ -1,2 +1,2 @@
 (eval-after-load 'rng-loc
-  '(add-to-list 'rng-schema-locating-files (concat my-config-dir "schemas/schemas.xml")))
+  '(add-to-list 'rng-schema-locating-files (concat user-emacs-directory "schemas/schemas.xml")))

@@ -14,7 +14,7 @@
     (if (not found)
         (message "No pom.xml found")
       (compile (read-from-minibuffer "Command: " 
-                                     (concat "mvn -f " dir "pom.xml install -Dmaven.test.skip=true") nil nil 'mvn-command-history)))))
+                                     (concat "mvn -f " dir "pom.xml install -Dmaven.test.skip") nil nil 'mvn-command-history)))))
 
 
 
@@ -44,3 +44,19 @@
  '(lambda () "Treat Java 1.5 @-style annotations as comments."
     (setq c-comment-start-regexp "(@|/(/|[*][*]?))")
     (modify-syntax-entry ?@ "< b" java-mode-syntax-table)))
+
+;; (add-to-list 'load-path (concat user-emacs-directory "lib/malabar-1.5-SNAPSHOT/lisp"))
+
+;; (setq semantic-default-submodes '(global-semantic-idle-scheduler-mode
+;;                                       global-semanticdb-minor-mode
+;;                                       global-semantic-idle-summary-mode
+;;                                       global-semantic-mru-bookmark-mode))
+;; (semantic-mode 1)
+;; (require 'malabar-mode)
+;; (setq malabar-groovy-lib-dir (concat user-emacs-directory "lib/malabar-1.5-SNAPSHOT/lib"))
+;; (add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode))
+
+;; (add-to-list 'load-path (concat user-emacs-directory "lib/jdibug-0.5"))
+
+;; (require 'cedet)
+;; (require 'jdibug)

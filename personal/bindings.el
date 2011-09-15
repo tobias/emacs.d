@@ -15,6 +15,10 @@
 
 (global-set-key (kbd "C-x C-i") 'ido-imenu)
 
+;; navigation
+(global-set-key (kbd "M-[") 'backward-paragraph)
+(global-set-key (kbd "M-]") 'forward-paragraph)
+
 ;; Window switching. (C-x o goes to the next window)
 (windmove-default-keybindings) ;; Shift+direction
 (global-set-key (kbd "C-x O") (lambda () (interactive) (other-window -1))) ;; back one
@@ -63,7 +67,7 @@
 
 (global-set-key (kbd "C-c e") '(lambda ()
                                  (interactive)
-                                 (dired (concat my-config-dir "personal"))))
+                                 (dired (concat user-emacs-directory "personal"))))
                               
-
+(global-set-key (kbd "C-c d") 'deft)
 

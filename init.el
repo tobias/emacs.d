@@ -1,9 +1,10 @@
-(setq my-config-dir (file-name-directory (or (buffer-file-name) load-file-name)))
-(add-to-list 'load-path my-config-dir)
-(add-to-list 'load-path (concat my-config-dir "lib"))
+(setq user-emacs-directory (file-name-directory (or (buffer-file-name) load-file-name)))
+
+(add-to-list 'load-path user-emacs-directory)
+(add-to-list 'load-path (concat user-emacs-directory "lib"))
 
 ;; keep customize settings in their own file
-(setq custom-file (concat my-config-dir "personal/custom.el"))
+(setq custom-file (concat user-emacs-directory "personal/custom.el"))
 (load custom-file 'noerror)
 
 (load "personal/env")
@@ -15,6 +16,7 @@
   (load "personal/theme")
   (load "personal/ruby")
   (load "personal/java")
+  (load "personal/clojure")
   (load "personal/completion")
   (load "personal/ido")
   (load "personal/mac")
@@ -22,7 +24,7 @@
   (load "personal/lisp"))
 
 ;; el-get
-(add-to-list 'load-path (concat my-config-dir "el-get/el-get"))
+(add-to-list 'load-path (concat user-emacs-directory "el-get/el-get"))
 (if (require 'el-get nil t)
     (progn
       (load "personal/packages")	
@@ -41,6 +43,6 @@
 
 
 ;; el-get fails to load magit for some reason, so we do it manually
-(add-to-list 'load-path (concat my-config-dir "el-get/magit"))
+(add-to-list 'load-path (concat user-emacs-directory "el-get/magit"))
 (load "magit")
 
