@@ -5,3 +5,5 @@ places
 auto-save-list
 el-get
 url
+*.elc
+elpa

@@ -1,35 +1,18 @@
 ;; for el-get
 
 (setq el-get-sources
-      '(el-get
-        todochiku
-        ;; maxframe                        
-        magit
-        ;;js2-mode
-        markdown-mode
-        textile-mode
-        yaml-mode
-        clojure-mode
-        paredit
-        (:name ruby-electric
+      '((:name ruby-electric
                :type http
                :url "http://shylock.uw.hu/Emacs/ruby-electric.el")
-        rvm
-        ;;inf-ruby
-        elunit                          ;rinari needs this
         (:name rinari
                :type git
                :url "http://github.com/eschulte/rinari.git"
                :load-path ("." "util" "util/jump")
                :compile "nothing" ;("\.el$" "util")
                :features rinari)
-        haml-mode
-        sass-mode
-        php-mode-improved
         (:name full-ack
                :type git
                :url "https://github.com/nschum/full-ack.git")
-        color-theme
         (:name gist
                :type git
                :url "https://github.com/mcfunley/gist.el.git"
@@ -40,5 +23,26 @@
                :features highlight-parentheses)
 	(:name idle-highlight 
 	       :type git
-	       :url "https://github.com/emacsmirror/idle-highlight.git")))
+	       :url "https://github.com/emacsmirror/idle-highlight.git")
+	;; (:name slime
+	;;        :description "Superior Lisp Interaction Mode for Emacs"
+	;;        :type git
+	;;        :module "slime"
+	;;        :url "https://github.com/nablaone/slime.git"
+	;;        :load-path ("." "contrib")
+	;;        :compile (".")
+	;;        )
+        )) 
 
+(setq my-packages 
+      (append 
+       '(todochiku markdown-mode textile-mode yaml-mode
+	 clojure-mode midje-mode paredit rvm elunit haml-mode sass-mode php-mode-improved
+	 color-theme)
+       (mapcar 'el-get-source-name el-get-sources)))
+
+;; ELPA
+
+(require 'package)
+(add-to-list 'package-archives
+             '("marmalade" . "http://marmalade-repo.org/packages/") t)

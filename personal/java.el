@@ -14,7 +14,7 @@
     (if (not found)
         (message "No pom.xml found")
       (compile (read-from-minibuffer "Command: " 
-                                     (concat "mvn -f " dir "pom.xml install -Dmaven.test.skip") nil nil 'mvn-command-history)))))
+                                     (concat "mvn -f " dir "pom.xml install") nil nil 'mvn-command-history)))))
 
 
 

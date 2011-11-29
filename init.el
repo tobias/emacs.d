@@ -10,26 +10,26 @@
 (load "personal/env")
 
 (defun load-personal()
-  (load "personal/settings")
-  (load "personal/defuns")
-  (load "personal/bindings")
-  (load "personal/theme")
-  (load "personal/ruby")
-  (load "personal/java")
-  (load "personal/clojure")
-  (load "personal/completion")
-  (load "personal/ido")
-  (load "personal/mac")
-  (load "personal/nxml")
-  (load "personal/lisp"))
+   (load "personal/settings")
+   (load "personal/defuns")
+   (load "personal/bindings")
+   (load "personal/theme")
+   (load "personal/ruby")
+   (load "personal/java")
+   (load "personal/clojure")
+   (load "personal/completion")
+   (load "personal/ido")
+   (load "personal/mac")
+   (load "personal/nxml")
+   (load "personal/lisp"))
 
 ;; el-get
 (add-to-list 'load-path (concat user-emacs-directory "el-get/el-get"))
 (if (require 'el-get nil t)
     (progn
       (load "personal/packages")	
-      (el-get 'sync)
-      (load-personal))
+      (el-get 'sync my-packages)
+      (load-personal))			
   (progn
     (message "We need to install el-get")
     (url-retrieve
@@ -42,7 +42,7 @@
        (load-personal)))))
 
 
-;; el-get fails to load magit for some reason, so we do it manually
-(add-to-list 'load-path (concat user-emacs-directory "el-get/magit"))
+(add-to-list 'load-path (concat user-emacs-directory "vendor/magit"))
 (load "magit")
+;(load "slime")
 
