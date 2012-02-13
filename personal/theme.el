@@ -1,9 +1,11 @@
-;(load "lib/color-theme-black-on-gray-modified")
-;(color-theme-black-on-gray-modified)
+;; (load "lib/color-theme-black-on-gray-modified") 
+;; (color-theme-black-on-gray-modified)
 
-(add-to-list 'load-path (concat user-emacs-directory "vendor/emacs-color-theme-solarized"))
-(load "color-theme-solarized")
-(color-theme-solarized-dark)
+;; (add-to-list 'load-path (concat user-emacs-directory "vendor/emacs-color-theme-solarized"))
+;; (load "color-theme-solarized")
+;; (color-theme-solarized-dark)
+
+(color-theme-xemacs)
 
 (when window-system
   (if (eq system-type 'darwin)
