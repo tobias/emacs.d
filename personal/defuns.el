@@ -162,6 +162,7 @@ Symbols matching the text at point are put first in the completion list."
                              (kill-new location))))))
             (kill-buffer))))
 
+
 (defun fix-tb-stack ()
   (interactive)
   (goto-char (point-min))
@@ -178,6 +179,37 @@ Symbols matching the text at point are put first in the completion list."
     (message "Setting theme to %s" theme)
     (funcall theme)))
 
-;(random-color-theme)(run-with-timer 1 (* 60 60) 'random-color-theme)
+;;(random-color-theme)(run-with-timer 1 (* 60 60) 'random-color-theme)
+
+
+(defvar *split-windows-list* '())
+
+(defun switch-to-split-window (idx)
+  (let ((win (nth idx *split-windows-list*)))
+    (when win
+      (select-window win))))
+
+(defun win-split-3 ()
+  (interactive)
+  (delete-other-windows)
+  (setq *split-windows-list*
+        (list (selected-window)
+              (select-window (split-window-horizontally))
+              (split-window-vertically)))
+  (select-window (first *split-windows-list*)))
+
+(defun win-split-5 ()
+  (interactive)
+  (delete-other-windows)
+  (let* ((top-left-w (selected-window))
+         (center-w (split-window-horizontally (/ (frame-width) 3))))
+    (setq *split-windows-list*
+          (list top-left-w
+                (split-window-vertically)                   ; bottom left
+                (select-window center-w)            
+                (select-window (split-window-horizontally)) ; top right
+                (split-window-vertically)))                 ;bottom right
+    (select-window center-w)))
+
 
 

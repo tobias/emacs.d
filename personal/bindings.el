@@ -25,18 +25,25 @@
 (global-set-key (kbd "C-x C-o") (lambda () (interactive) (other-window 2))) ;; forward two
 
 ;; Map the window manipulation keys to meta 0, 1, 2, o
-(global-set-key (kbd "M-3") 'split-window-horizontally) ; was digit-argument
-(global-set-key (kbd "M-2") 'split-window-vertically) ; was digit-argument
-(global-set-key (kbd "M-1") 'delete-other-windows) ; was digit-argument
+;; (global-set-key (kbd "M-3") 'split-window-horizontally) ; was digit-argument
+;; (global-set-key (kbd "M-2") 'split-window-vertically) ; was digit-argument
+;; (global-set-key (kbd "M-1") 'delete-other-windows) ; was digit-argument
+
+(global-set-key (kbd "M-1") '(lambda () (interactive) (switch-to-split-window 0)))
+(global-set-key (kbd "M-2") '(lambda () (interactive) (switch-to-split-window 1)))
+(global-set-key (kbd "M-3") '(lambda () (interactive) (switch-to-split-window 2)))
+(global-set-key (kbd "M-4") '(lambda () (interactive) (switch-to-split-window 3)))
+(global-set-key (kbd "M-5") '(lambda () (interactive) (switch-to-split-window 4)))
+
 (global-set-key (kbd "M-0") 'delete-window) ; was digit-argument
 (global-set-key (kbd "M-o") 'other-window) ; was facemenu-keymap
 
 ;; To help Unlearn C-x 0, 1, 2, o
-(global-unset-key (kbd "C-x 3")) ; was split-window-horizontally
-(global-unset-key (kbd "C-x 2")) ; was split-window-vertically
-(global-unset-key (kbd "C-x 1")) ; was delete-other-windows
-(global-unset-key (kbd "C-x 0")) ; was delete-window
-(global-unset-key (kbd "C-x o")) ; was other-window
+;; (global-unset-key (kbd "C-x 3")) ; was split-window-horizontally
+;; (global-unset-key (kbd "C-x 2")) ; was split-window-vertically
+;; (global-unset-key (kbd "C-x 1")) ; was delete-other-windows
+;; (global-unset-key (kbd "C-x 0")) ; was delete-window
+;; (global-unset-key (kbd "C-x o")) ; was other-window
 
 ;; Never iconify...
 (global-unset-key (kbd "C-z"))
@@ -52,17 +59,17 @@
 ;(global-set-key (kbd "C-x C-g") 'magit-status)
 
 ;; make the rinari navigation a bit shorter
-(global-set-key (kbd "C-c f c") 'rinari-find-controller)
-(global-set-key (kbd "C-c f e") 'rinari-find-environment)
-(global-set-key (kbd "C-c f f") 'rinari-find-file-in-project)
-(global-set-key (kbd "C-c f h") 'rinari-find-helper)
-(global-set-key (kbd "C-c f i") 'rinari-find-migration)
-(global-set-key (kbd "C-c f j") 'rinari-find-javascript)
-(global-set-key (kbd "C-c f m") 'rinari-find-model)
-(global-set-key (kbd "C-c f n") 'rinari-find-configuration)
-(global-set-key (kbd "C-c f s") 'rinari-find-stylesheet)
-(global-set-key (kbd "C-c f t") 'rinari-find-test)
-(global-set-key (kbd "C-c f v") 'rinari-find-view)
+;; (global-set-key (kbd "C-c f c") 'rinari-find-controller)
+;; (global-set-key (kbd "C-c f e") 'rinari-find-environment)
+;; (global-set-key (kbd "C-c f f") 'rinari-find-file-in-project)
+;; (global-set-key (kbd "C-c f h") 'rinari-find-helper)
+;; (global-set-key (kbd "C-c f i") 'rinari-find-migration)
+;; (global-set-key (kbd "C-c f j") 'rinari-find-javascript)
+;; (global-set-key (kbd "C-c f m") 'rinari-find-model)
+;; (global-set-key (kbd "C-c f n") 'rinari-find-configuration)
+;; (global-set-key (kbd "C-c f s") 'rinari-find-stylesheet)
+;; (global-set-key (kbd "C-c f t") 'rinari-find-test)
+;; (global-set-key (kbd "C-c f v") 'rinari-find-view)
 ;(global-set-key "\C-cfa" 'ack-in-project)
 
 (global-set-key (kbd "C-c e") '(lambda ()
