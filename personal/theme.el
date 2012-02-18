@@ -5,7 +5,8 @@
 ;; (load "color-theme-solarized")
 ;; (color-theme-solarized-dark)
 
-(color-theme-xemacs)
+;;(color-theme-xemacs)
+(color-theme-hober)
 
 (when window-system
   (if (eq system-type 'darwin)
