@@ -3,8 +3,19 @@
 (require 'erc-highlight-nicknames)
 (require 'erc-nicklist)
 
+(setq erc-interpret-mirc-color t)
 (setq erc-nicklist-use-icons nil)
 (setq erc-fill-column 98)
+(setq erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
+                                "324" "329" "332" "333" "353" "477"))
+(setq erc-track-exclude-server-buffer t)
+(setq erc-hide-list '("MODE" "KICK"))
+
+;; highlight queries in the mode line as if my nick is mentioned
+(defadvice erc-track-find-face (around erc-track-find-face-promote-query activate)
+  (if (erc-query-buffer-p) 
+      (setq ad-return-value (intern "erc-current-nick-face"))
+    ad-do-it))
 
 ;;; change header line face if disconnected
 (defface erc-header-line-disconnected
@@ -33,7 +44,7 @@
                 (setq members (1+ members)))
               erc-channel-users)
      ;; (format " %S/%S/%S" ops voices members)
-     (format ":%S members" members)
+     (format " %S" members)
      )))
 
 (add-hook 'erc-mode-hook 'ncm-mode)
@@ -79,8 +90,9 @@ Assumes message is either of two forms: '* nick does something' or '<nick> says 
   (and (string-match "^[*<][^*]" msg)
        (> (length msg) 0)
        (or (member channel irc-channels-for-alerting)
-           (not (string-match "^#" channel)) ;;query
-           (string-match (erc-current-nick) msg))
+           (not (string-match "^#" channel)) ;; query
+           (and (not (string-match "^*" msg)) ;; /me
+                (string-match (erc-current-nick) msg)))
        (progn
          (play-irc-alert-sound)
          (irc-growl channel msg))))
