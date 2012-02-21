@@ -10,6 +10,7 @@
                                 "324" "329" "332" "333" "353" "477"))
 (setq erc-track-exclude-server-buffer t)
 (setq erc-hide-list '("MODE" "KICK"))
+(setq erc-current-nick-highlight-type 'all)
 
 ;; highlight queries in the mode line as if my nick is mentioned
 (defadvice erc-track-find-face (around erc-track-find-face-promote-query activate)
