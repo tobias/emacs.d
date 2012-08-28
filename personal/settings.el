@@ -55,7 +55,6 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 (load "echo-area-bell")
-(load "php-mode")
 (load "flymake-cursor")
 
 ;(global-linum-mode 1)
@@ -77,9 +76,9 @@
 
 ;; deft config
 (require 'deft)
-(setq deft-extension "md")
+;(setq deft-extension "md")
 (setq deft-directory "~/Dropbox/notes/")
-(setq deft-text-mode 'markdown-mode)
+;(setq deft-text-mode 'markdown-mode)
 
 (defadvice zap-to-char (after my-zap-to-char-advice (arg char) activate)
     "Kill up to the ARG'th occurence of CHAR, and leave CHAR. If
@@ -87,6 +86,9 @@
   put before CHAR"
     (insert char)
     (if (< 0 arg) (forward-char -1)))
+
+;(require 'smex)
+;(smex-initialize)
 
 (server-start)
 

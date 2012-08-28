@@ -198,6 +198,18 @@ Symbols matching the text at point are put first in the completion list."
               (split-window-vertically)))
   (select-window (first *split-windows-list*)))
 
+(defun win-split-4 ()
+  (interactive)
+  (delete-other-windows)
+  (let* ((top-left-w (selected-window))
+         (center-w (split-window-horizontally (/ (frame-width) 3))))
+    (setq *split-windows-list*
+          (list top-left-w
+                (split-window-vertically)     ; bottom left
+                (select-window center-w)            
+                (split-window-horizontally))) ; right                 
+    (select-window center-w)))
+
 (defun win-split-5 ()
   (interactive)
   (delete-other-windows)

@@ -25,7 +25,7 @@
                                    default-directory)))
           (prev-dir nil))
       (while (not (equal dir prev-dir))
-        (when (directory-files dir nil "\\`.git\\'" t)
+        (when (directory-files dir nil "^\\.\\(git\\|hg\\|svn\\)$" t)
           (throw 'root dir))
         (setq prev-dir dir
               dir (file-name-directory (directory-file-name dir)))))))

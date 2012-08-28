@@ -15,6 +15,7 @@
  '(erc-system-name nil)
  '(erc-user-full-name nil)
  '(menu-bar-mode nil)
+ '(org-hide-leading-stars t)
  '(save-place t nil (saveplace))
  '(show-paren-mode t)
  '(tool-bar-mode nil))
@@ -23,5 +24,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(cursor ((t (:background "#aaa"))))
- '(hl-line ((t (:inherit highlight :background "#222" :foreground "#fff")))))
+ '(erc-current-nick-face ((t (:background "gray90" :foreground "Black" :weight bold))))
+ '(erc-notice-face ((t (:foreground "SlateGray" :height 0.8))))
+ '(erc-pal-face ((t (:foreground "darkred" :weight bold))))
+ '(erc-timestamp-face ((t (:foreground "Blue" :weight bold))))
+ '(fg:erc-color-face10 ((t (:foreground "blue"))))
+ '(flyspell-duplicate ((t (:foreground "DarkRed" :underline t :weight bold))))
+ '(flyspell-incorrect ((t (:foreground "DarkRed" :underline t :weight bold))))
+ '(hl-line ((t (:inherit highlight :background "#ccc" :foreground "#000")))))

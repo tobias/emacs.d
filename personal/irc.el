@@ -52,14 +52,14 @@
 
 (defun irc-connect-internal ()
   (interactive)
-  (erc :server my-internal-irc-server :port 6667 :nick "tcrawley" :full-name "Toby Crawley"))
-(defun irc-connect-freenode ()
+  (erc :server my-internal-irc-server :port 6667 :nick "tcrawley" ))
+(defun irc-connect-bouncer ()
   (interactive)
-  (erc :server "irc.freenode.net" :port 6667 :nick "tcrawley" :password my-freenode-password :full-name "Toby Crawley"))
+  (erc-tls :server "bouncer" :port 6565 :nick "tcrawley" :password my-bouncer-password))
 (defun irc-connect-all ()
   (interactive)
   (irc-connect-internal)
-  (irc-connect-freenode))
+  (irc-connect-bouncer))
 
 (defvar irc-channels-for-alerting
   '()

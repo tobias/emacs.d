@@ -13,10 +13,10 @@
         (:name full-ack
                :type git
                :url "https://github.com/nschum/full-ack.git")
-        (:name gist
-               :type git
-               :url "https://github.com/mcfunley/gist.el.git"
-               :features gist)
+        ;; (:name gist
+        ;;        :type git
+        ;;        :url "https://github.com/defunkt/gist.el.git"
+        ;;        :features gist)
         (:name highlight-parentheses
                :type git
                :url "git://github.com/nschum/highlight-parentheses.el.git"
@@ -37,8 +37,7 @@
 (setq my-packages 
       (append 
        '(todochiku markdown-mode textile-mode yaml-mode
-	 clojure-mode midje-mode paredit rvm elunit haml-mode sass-mode php-mode-improved
-	 color-theme)
+	 clojure-mode midje-mode paredit rvm elunit haml-mode sass-mode color-theme)
        (mapcar 'el-get-source-name el-get-sources)))
 
 ;; ELPA
@@ -46,4 +45,6 @@
 (when (string-prefix-p "24" emacs-version)
   (require 'package)
   (add-to-list 'package-archives
-               '("marmalade" . "http://marmalade-repo.org/packages/") t))
+               '("marmalade" . "http://marmalade-repo.org/packages/") t)
+  (add-to-list 'package-archives
+               '("melpa" . "http://melpa.milkbox.net/packages/") t))

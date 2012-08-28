@@ -8,6 +8,10 @@
 
 (eval-after-load 'clojure-mode
   '(define-clojure-indent
+     (contract 'defun)
+     (defconstrainedfn 'defun)
+     (defcontract 'defun)
+     (provide 'defun)
      (describe 'defun)
      (it 'defun)
      (before 'defun)
