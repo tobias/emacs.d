@@ -44,7 +44,8 @@
        (load-personal)))))
 
 
-(add-to-list 'load-path (concat user-emacs-directory "vendor/magit"))
-(load "magit")
+;(add-to-list 'load-path (concat user-emacs-directory "vendor/magit"))
+;(load "magit")
+
 ;(load "slime")
 
