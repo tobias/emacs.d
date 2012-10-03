@@ -29,14 +29,14 @@
 ;; (global-set-key (kbd "M-2") 'split-window-vertically) ; was digit-argument
 ;; (global-set-key (kbd "M-1") 'delete-other-windows) ; was digit-argument
 
-(global-set-key (kbd "M-1") '(lambda () (interactive) (switch-to-split-window 0)))
-(global-set-key (kbd "M-2") '(lambda () (interactive) (switch-to-split-window 1)))
-(global-set-key (kbd "M-3") '(lambda () (interactive) (switch-to-split-window 2)))
-(global-set-key (kbd "M-4") '(lambda () (interactive) (switch-to-split-window 3)))
-(global-set-key (kbd "M-5") '(lambda () (interactive) (switch-to-split-window 4)))
+;(global-set-key (kbd "M-1") '(lambda () (interactive) (switch-to-split-window 0)))
+;(global-set-key (kbd "M-2") '(lambda () (interactive) (switch-to-split-window 1)))
+;(global-set-key (kbd "M-3") '(lambda () (interactive) (switch-to-split-window 2)))
+;(global-set-key (kbd "M-4") '(lambda () (interactive) (switch-to-split-window 3)))
+;(global-set-key (kbd "M-5") '(lambda () (interactive) (switch-to-split-window 4)))
 
-(global-set-key (kbd "M-0") 'delete-window) ; was digit-argument
-(global-set-key (kbd "M-o") 'other-window) ; was facemenu-keymap
+;(global-set-key (kbd "M-0") 'delete-window) ; was digit-argument
+;(global-set-key (kbd "M-o") 'other-window) ; was facemenu-keymap
 
 ;; To help Unlearn C-x 0, 1, 2, o
 ;; (global-unset-key (kbd "C-x 3")) ; was split-window-horizontally
@@ -76,7 +76,7 @@
                                  (interactive)
                                  (dired (concat user-emacs-directory "personal"))))
                               
-(global-set-key (kbd "C-c d") 'deft)
+(global-set-key (kbd "C-c c") 'compile)
 
 ;; (global-set-key (kbd "M-x") 'smex)
 ;; (global-set-key (kbd "M-X") 'smex-major-mode-commands)
