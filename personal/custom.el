@@ -4,6 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
+ '(custom-safe-themes (quote ("a84a555176a5566700bd07632550e3178cbf1ba9" default)))
  '(display-battery-mode t)
  '(erc-auto-set-away nil)
  '(erc-email-userid "tcrawley")
@@ -29,6 +30,5 @@
  '(erc-pal-face ((t (:foreground "darkred" :weight bold))))
  '(erc-timestamp-face ((t (:foreground "Blue" :weight bold))))
  '(fg:erc-color-face10 ((t (:foreground "blue"))))
- '(flyspell-duplicate ((t (:foreground "DarkRed" :underline t :weight bold))))
- '(flyspell-incorrect ((t (:foreground "DarkRed" :underline t :weight bold))))
- '(hl-line ((t (:inherit highlight :background "#ccc" :foreground "#000")))))
+ '(flyspell-duplicate ((t (:foreground "gold" :underline t :weight bold))))
+ '(flyspell-incorrect ((t (:foreground "gold" :underline t :weight bold)))))

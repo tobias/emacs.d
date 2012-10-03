@@ -8,10 +8,12 @@
 ;;(color-theme-xemacs)
 ;;(color-theme-hober)
 
-(require 'color-theme)
-(color-theme-initialize)
-(require 'half-blind)
-(half-blind)
+;; (require 'color-theme)
+;; (color-theme-initialize)
+;; (require 'half-blind)
+;; (add-hook 'after-init-hook 'half-blind)
+
+(add-hook 'after-init-hook (lambda () (load-theme 'zenburn)))
 
 (when window-system
   (if (eq system-type 'darwin)
@@ -20,7 +22,7 @@
 
 (defun prep-for-preso ()
   (interactive)
-  (set-face-font `default "-apple-inconsolata-medium-r-normal--22-0-72-72-m-0-iso10646-1")
+  (set-face-font `default "-apple-inconsolata-medium-r-normal--18-0-72-72-m-0-iso10646-1")
   (yas/global-mode t)
   (dired "~/presentations/rubyconfbr/rubyconfbr-demo/ideabox/"))
 
