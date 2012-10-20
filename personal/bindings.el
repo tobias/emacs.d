@@ -84,3 +84,6 @@
 ;; (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 ;; ;; This is your old M-x.
 ;; (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+
+(global-set-key (kbd "C-c SPC") 'ace-jump-mode)
+(global-set-key (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
