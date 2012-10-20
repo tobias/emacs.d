@@ -14,8 +14,6 @@
   (blink-cursor-mode -1)
   (global-hl-line-mode t))
 
-(cua-mode nil)
-
 (add-hook 'before-make-frame-hook 'turn-off-tool-bar)
 
 (set-terminal-coding-system 'utf-8)
@@ -95,6 +93,20 @@
   (toggle-read-only)
   (ansi-color-apply-on-region (point-min) (point-max))
   (toggle-read-only))
+
+(autoload
+  'ace-jump-mode
+  "ace-jump-mode"
+  "Emacs quick move minor mode"
+  t)
+
+(autoload
+  'ace-jump-mode-pop-mark
+  "ace-jump-mode"
+  "Ace jump back:-)"
+  t)
+(eval-after-load "ace-jump-mode"
+  '(ace-jump-mode-enable-mark-sync))
 
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 

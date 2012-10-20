@@ -4,6 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
+ '(cua-mode nil nil (cua-base))
  '(custom-safe-themes (quote ("93815fc47d9324a7761b56754bc46cd8b8544a60fca513e634dfa16b8c761400" "a84a555176a5566700bd07632550e3178cbf1ba9" default)))
  '(display-battery-mode t)
  '(erc-auto-set-away nil)
