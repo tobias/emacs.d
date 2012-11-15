@@ -6,6 +6,10 @@
   (interactive)
   (slime-connect "localhost" 4005))
 
+(add-to-list 'auto-mode-alist '("\\.dtm$" . clojure-mode))
+
+(setq nrepl-popup-stacktraces nil)
+
 (eval-after-load 'clojure-mode
   '(define-clojure-indent
      (contract 'defun)
