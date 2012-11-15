@@ -9,7 +9,7 @@
 
 (global-set-key (kbd "C-c n") 'cleanup-buffer)
 
-(global-set-key (kbd "C-c s") 'swap-windows)
+;(global-set-key (kbd "C-c s") 'swap-windows)
 
 (global-set-key (kbd "C-c t") 'toggle-selective-display)
 
