@@ -72,12 +72,6 @@
 
 (put 'upcase-region 'disabled nil)
 
-;; deft config
-(require 'deft)
-;(setq deft-extension "md")
-(setq deft-directory "~/Dropbox/notes/")
-;(setq deft-text-mode 'markdown-mode)
-
 (defadvice zap-to-char (after my-zap-to-char-advice (arg char) activate)
     "Kill up to the ARG'th occurence of CHAR, and leave CHAR. If
   you are deleting forward, the CHAR is replaced and the point is
@@ -85,14 +79,15 @@
     (insert char)
     (if (< 0 arg) (forward-char -1)))
 
-;(require 'smex)
-;(smex-initialize)
-
 (require 'ansi-color)
 (defun colorize-compilation-buffer ()
   (toggle-read-only)
   (ansi-color-apply-on-region (point-min) (point-max))
   (toggle-read-only))
+
+;; gpg
+(require 'epa-file)
+;(epa-file-enable)
 
 (autoload
   'ace-jump-mode
@@ -100,16 +95,18 @@
   "Emacs quick move minor mode"
   t)
 
-(autoload
-  'ace-jump-mode-pop-mark
-  "ace-jump-mode"
-  "Ace jump back:-)"
-  t)
-(eval-after-load "ace-jump-mode"
-  '(ace-jump-mode-enable-mark-sync))
+;; (autoload
+;;   'ace-jump-mode-pop-mark
+;;   "ace-jump-mode"
+;;   "Ace jump back:-)"
+;;   t)
+;; (eval-after-load "ace-jump-mode"
+;;   '(ace-jump-mode-enable-mark-sync))
 
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
-(add-hook 'after-init-hook 'server-start)
+(require 'server)
+(unless (server-running-p)
+  (add-hook 'after-init-hook 'server-start))
 
 

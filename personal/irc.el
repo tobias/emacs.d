@@ -12,6 +12,14 @@
 (setq erc-hide-list '("MODE" "KICK"))
 (setq erc-current-nick-highlight-type 'all)
 
+(setq erc-keywords '("^\\(<\\| \\).*\\btorquebox\\b" "^\\(<\\| \\).*\\bimmutant\\b"))
+(setq erc-keyword-highlight-type 'all)
+
+(setq erc-log-matches-types-alist
+      '((keyword . "ERC Matches")
+        (current-nick . "ERC Matches")))
+(setq erc-log-matches-flag t)
+
 ;; highlight queries in the mode line as if my nick is mentioned
 (defadvice erc-track-find-face (around erc-track-find-face-promote-query activate)
   (if (erc-query-buffer-p) 
@@ -134,3 +142,5 @@ Assumes message is either of two forms: '* nick does something' or '<nick> says 
 
 ;; (require 'erc-summarize)
 ;; (erc-summarize-add-hooks)
+
+(global-set-key (kbd "C-x c") 'ido-erc-buffer)

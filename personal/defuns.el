@@ -182,46 +182,67 @@ Symbols matching the text at point are put first in the completion list."
 ;;(random-color-theme)(run-with-timer 1 (* 60 60) 'random-color-theme)
 
 
-(defvar *split-windows-list* '())
+;; (defvar *split-windows-list* '())
 
-(defun switch-to-split-window (idx)
-  (let ((win (nth idx *split-windows-list*)))
-    (when win
-      (select-window win))))
+;; (defun switch-to-split-window (idx)
+;;   (let ((win (nth idx *split-windows-list*)))
+;;     (when win
+;;       (select-window win))))
 
-(defun win-split-3 ()
+;; (defun win-split-3 ()
+;;   (interactive)
+;;   (delete-other-windows)
+;;   (setq *split-windows-list*
+;;         (list (selected-window)
+;;               (select-window (split-window-horizontally))
+;;               (split-window-vertically)))
+;;   (select-window (first *split-windows-list*)))
+
+;; (defun win-split-4 ()
+;;   (interactive)
+;;   (delete-other-windows)
+;;   (let* ((top-left-w (selected-window))
+;;          (center-w (split-window-horizontally (/ (frame-width) 3))))
+;;     (setq *split-windows-list*
+;;           (list top-left-w
+;;                 (split-window-vertically)     ; bottom left
+;;                 (select-window center-w)            
+;;                 (split-window-horizontally))) ; right                 
+;;     (select-window center-w)))
+
+;; (defun win-split-5 ()
+;;   (interactive)
+;;   (delete-other-windows)
+;;   (let* ((top-left-w (selected-window))
+;;          (center-w (split-window-horizontally (/ (frame-width) 3))))
+;;     (setq *split-windows-list*
+;;           (list top-left-w
+;;                 (split-window-vertically)                   ; bottom left
+;;                 (select-window center-w)            
+;;                 (select-window (split-window-horizontally)) ; top right
+;;                 (split-window-vertically)))                 ;bottom right
+;;     (select-window center-w)))
+
+
+
+(defun ido-for-mode(prompt the-mode)
+  (switch-to-buffer
+   (ido-completing-read prompt
+                        (save-excursion
+                          (delq
+                           nil
+                           (mapcar (lambda (buf)
+                                     (when (buffer-live-p buf)
+                                       (with-current-buffer buf
+                                         (and (eq major-mode the-mode)
+                                              (buffer-name buf)))))
+                                   (buffer-list)))))))
+
+(defun ido-shell-buffer()
   (interactive)
-  (delete-other-windows)
-  (setq *split-windows-list*
-        (list (selected-window)
-              (select-window (split-window-horizontally))
-              (split-window-vertically)))
-  (select-window (first *split-windows-list*)))
+  (ido-for-mode "Shell:" 'shell-mode))
 
-(defun win-split-4 ()
+
+(defun ido-erc-buffer()
   (interactive)
-  (delete-other-windows)
-  (let* ((top-left-w (selected-window))
-         (center-w (split-window-horizontally (/ (frame-width) 3))))
-    (setq *split-windows-list*
-          (list top-left-w
-                (split-window-vertically)     ; bottom left
-                (select-window center-w)            
-                (split-window-horizontally))) ; right                 
-    (select-window center-w)))
-
-(defun win-split-5 ()
-  (interactive)
-  (delete-other-windows)
-  (let* ((top-left-w (selected-window))
-         (center-w (split-window-horizontally (/ (frame-width) 3))))
-    (setq *split-windows-list*
-          (list top-left-w
-                (split-window-vertically)                   ; bottom left
-                (select-window center-w)            
-                (select-window (split-window-horizontally)) ; top right
-                (split-window-vertically)))                 ;bottom right
-    (select-window center-w)))
-
-
-
+  (ido-for-mode "Channel:" 'erc-mode))
