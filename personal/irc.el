@@ -12,13 +12,28 @@
 (setq erc-hide-list '("MODE" "KICK"))
 (setq erc-current-nick-highlight-type 'all)
 
-(setq erc-keywords '("^\\(<\\| \\).*\\btorquebox\\b" "^\\(<\\| \\).*\\bimmutant\\b"))
+(setq erc-keywords '("\\btorquebox\\b" "\\bimmutant\\b" "\\bleinjacker\\b"))
 (setq erc-keyword-highlight-type 'all)
 
 (setq erc-log-matches-types-alist
       '((keyword . "ERC Matches")
         (current-nick . "ERC Matches")))
 (setq erc-log-matches-flag t)
+
+;; redefined to not match keywords in notices. my defadvice was
+;; ignored, as is most of my advice. I was probably doing it wrong.
+(defun erc-match-keyword-p (nickuserhost msg)
+  "Check whether any keyword of `erc-keywords' matches for MSG.
+NICKUSERHOST will be ignored."
+  (and msg
+       (not (string-match "\\(has quit:\\|has joined channel\\|has left channel\\|is now known as\\)" msg))
+       (erc-list-match
+	(mapcar (lambda (x)
+		  (if (listp x)
+		      (car x)
+		    x))
+		erc-keywords)
+	msg)))
 
 ;; highlight queries in the mode line as if my nick is mentioned
 (defadvice erc-track-find-face (around erc-track-find-face-promote-query activate)

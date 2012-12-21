@@ -1,8 +1,5 @@
 (require 'compile)
 
-(defvar mvn-command-history nil
-  "Maven command history variable")
-
 (defun mvn(&optional args) 
   "Searches up the path for a pom.xml"
   (interactive)
@@ -14,7 +11,7 @@
     (if (not found)
         (message "No pom.xml found")
       (compile (read-from-minibuffer "Command: " 
-                                     (concat "mvn -f " dir "pom.xml install") nil nil 'mvn-command-history)))))
+                                     (concat "mvn -f " dir "pom.xml install") nil nil 'compile-history)))))
 
 
 
