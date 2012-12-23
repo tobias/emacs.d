@@ -87,3 +87,4 @@
 
 (global-set-key (kbd "C-c SPC") 'ace-jump-mode)
 (global-set-key (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
+(global-set-key (kbd "C-x m") 'mu4e)

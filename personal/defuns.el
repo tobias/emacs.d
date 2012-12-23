@@ -246,3 +246,16 @@ Symbols matching the text at point are put first in the completion list."
 (defun ido-erc-buffer()
   (interactive)
   (ido-for-mode "Channel:" 'erc-mode))
+
+;; tools for getting data from authinfo and friends
+
+(defun tc/get-auth-value (host port key)
+  (let ((result (auth-source-search :host host :port port)))
+    (if result
+        (plist-get (nth 0 result) key))))
+
+(defun tc/get-auth-password (host port)
+  (let ((pw (get-auth-value host port :secret)))
+    (if (functionp pw)
+        (funcall pw)
+      pw)))

@@ -23,7 +23,8 @@
    (load "personal/mac")
    (load "personal/nxml")
    (load "personal/lisp")
-   (load "personal/irc"))
+   (load "personal/irc")
+   (load "personal/mail"))
 
 ;; el-get
 (add-to-list 'load-path (concat user-emacs-directory "el-get/el-get"))
