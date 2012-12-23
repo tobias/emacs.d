@@ -1,7 +1,7 @@
 (ido-mode t)
 (setq ido-enable-flex-matching t)
 (setq ido-enable-last-directory-history nil)
-(ido-ubiquitous t)
+(add-hook 'after-init-hook 'ido-ubiquitous)
 
 ;; make ido list files vertically
 (setq ido-decorations
