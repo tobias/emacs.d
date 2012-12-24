@@ -7,7 +7,6 @@
  message-kill-buffer-on-exit t
  message-send-mail-function  'smtpmail-send-it
  mail-user-agent             'mu4e-user-agent
- mu4e-maildir                "~/Maildir"
  mu4e-attachment-dir         "~/Downloads"
  mu4e-user-mail-address-list '("toby@tcrawley.org" "tcrawley@gmail.com" "tcrawley@redhat.com")
  mu4e-html2text-command      "html2text -utf8 -width 72"
@@ -38,6 +37,9 @@
       (mu4e-message-contact-field-matches msg :cc re)
       (mu4e-message-contact-field-matches msg :bcc re)))
 
+(defun tc/sender-matches-p (re msg)
+  (mu4e-message-contact-field-matches msg :from re))
+
 (setq mu4e-trash-folder
       (lambda (msg)
         (cond
@@ -48,6 +50,7 @@
 (setq mu4e-refile-folder
       (lambda (msg)
         (cond
+         ((tc/sender-matches-p "herbalmama" msg) "/tcrawley.org/INBOX.maria")
          ((tc/recip-matches-p "clojure@googlegroups.com" msg) "/tcrawley.org/INBOX.Lists.clojure.clojure")
          ((tc/recip-matches-p "clojure-dev@googlegroups.com" msg) "/tcrawley.org/INBOX.Lists.clojure.clojure-dev")
          ((tc/maildir-match-p "gmail" msg) "/gmail.com/[Gmail].Archive")
