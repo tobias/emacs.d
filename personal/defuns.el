@@ -14,26 +14,6 @@
   (untabify-buffer)
   (delete-trailing-whitespace))
 
-
-;; from http://steve.yegge.googlepages.com/my-dot-emacs-file
-(defun swap-windows ()
-  "If you have 2 windows, it swaps them."
-  (interactive)
-  (cond ((not (= (count-windows) 2))
-         (message "You need exactly 2 windows to do this."))
-        (t
-         (let* ((w1 (first (window-list)))
-                (w2 (second (window-list)))
-                (b1 (window-buffer w1))
-                (b2 (window-buffer w2))
-                (s1 (window-start w1))
-                (s2 (window-start w2)))
-           (set-window-buffer w1 b2)
-           (set-window-buffer w2 b1)
-           (set-window-start w1 s2)
-           (set-window-start w2 s1)))))
-
-
 (defun byte-recompile-home ()
   (interactive)
   (byte-recompile-directory "~/.emacs.d" 0))
@@ -134,14 +114,6 @@ Symbols matching the text at point are put first in the completion list."
            (position (cdr (assoc selected-symbol name-and-pos))))
       (goto-char position))))
 
-(defun open-trace-and-file (tracefile file linenum)
-  "Open visit TRACEFILE in one window (in compilation mode), and visit FILE at LINENUM in another"
-  (find-file-other-window tracefile)
-  (compilation-mode)
-  (goto-line 2)
-  (find-file-other-window file)
-  (goto-line linenum))
-
 (defun yank-to-gist ()
   "yank from the top of the kill ring, create a gist from it, and insert the gist url at the point"
   (interactive)
@@ -163,15 +135,6 @@ Symbols matching the text at point are put first in the completion list."
             (kill-buffer))))
 
 
-(defun fix-tb-stack ()
-  (interactive)
-  (goto-char (point-min))
-  (while (search-forward "at " nil t)
-    (replace-match "\nat " nil t)))
-
-
- 
-
 (defun random-color-theme ()
   (interactive)
   (random t)
@@ -180,50 +143,6 @@ Symbols matching the text at point are put first in the completion list."
     (funcall theme)))
 
 ;;(random-color-theme)(run-with-timer 1 (* 60 60) 'random-color-theme)
-
-
-;; (defvar *split-windows-list* '())
-
-;; (defun switch-to-split-window (idx)
-;;   (let ((win (nth idx *split-windows-list*)))
-;;     (when win
-;;       (select-window win))))
-
-;; (defun win-split-3 ()
-;;   (interactive)
-;;   (delete-other-windows)
-;;   (setq *split-windows-list*
-;;         (list (selected-window)
-;;               (select-window (split-window-horizontally))
-;;               (split-window-vertically)))
-;;   (select-window (first *split-windows-list*)))
-
-;; (defun win-split-4 ()
-;;   (interactive)
-;;   (delete-other-windows)
-;;   (let* ((top-left-w (selected-window))
-;;          (center-w (split-window-horizontally (/ (frame-width) 3))))
-;;     (setq *split-windows-list*
-;;           (list top-left-w
-;;                 (split-window-vertically)     ; bottom left
-;;                 (select-window center-w)            
-;;                 (split-window-horizontally))) ; right                 
-;;     (select-window center-w)))
-
-;; (defun win-split-5 ()
-;;   (interactive)
-;;   (delete-other-windows)
-;;   (let* ((top-left-w (selected-window))
-;;          (center-w (split-window-horizontally (/ (frame-width) 3))))
-;;     (setq *split-windows-list*
-;;           (list top-left-w
-;;                 (split-window-vertically)                   ; bottom left
-;;                 (select-window center-w)            
-;;                 (select-window (split-window-horizontally)) ; top right
-;;                 (split-window-vertically)))                 ;bottom right
-;;     (select-window center-w)))
-
-
 
 (defun ido-for-mode(prompt the-mode)
   (switch-to-buffer
