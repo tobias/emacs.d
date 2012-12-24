@@ -1,4 +1,6 @@
-(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
+;; needed on mac when installed from homebrew
+(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e") 
+
 (require 'mu4e)
 
 (setq
@@ -9,7 +11,7 @@
  mail-user-agent             'mu4e-user-agent
  mu4e-attachment-dir         "~/Downloads"
  mu4e-user-mail-address-list '("toby@tcrawley.org" "tcrawley@gmail.com" "tcrawley@redhat.com")
- mu4e-html2text-command      "html2text -utf8 -width 72"
+ mu4e-html2text-command      "w3m -dump -cols 80 -T text/html"
  mu4e-get-mail-command       "offlineimap"
  tc/default-trash-folder     "/tcrawley.org/INBOX.Trash"
  tc/default-refile-folder    "/tcrawley.org/INBOX.Archive"
