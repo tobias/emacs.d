@@ -49,15 +49,27 @@
          ((tc/maildir-match-p "redhat" msg) "/redhat.com/Trash")
          (t tc/default-trash-folder))))
 
+(setq tc/list-refile-matchers
+      '(("^clojure"     . "/tcrawley.org/INBOX.Lists.clojure.clojure")
+        ("^clojure-dev" . "/tcrawley.org/INBOX.Lists.clojure.clojure-dev")
+        ("^datomic"     . "/tcrawley.org/INBOX.Lists.clojure.datomic")
+        ("^mu-discuss"  . "/tcrawley.org/INBOX.Lists.mu")))
+
+(defun tc/check-for-list-refile (msg)
+  (let ((ml (mu4e-message-field msg :mailing-list)))
+    (if ml
+        (assoc-default msg tc/list-refile-matchers
+                       (lambda (re msg) (string-match re ml))))))
+
 (setq mu4e-refile-folder
       (lambda (msg)
-        (cond
-         ((tc/sender-matches-p "herbalmama" msg) "/tcrawley.org/INBOX.maria")
-         ((tc/recip-matches-p "clojure@googlegroups.com" msg) "/tcrawley.org/INBOX.Lists.clojure.clojure")
-         ((tc/recip-matches-p "clojure-dev@googlegroups.com" msg) "/tcrawley.org/INBOX.Lists.clojure.clojure-dev")
-         ((tc/maildir-match-p "gmail" msg) "/gmail.com/[Gmail].Archive")
-         ((tc/maildir-match-p "redhat" msg) "/redhat.com/Archive.2012")
-         (t tc/default-refile-folder))))
+        (let ((list-refile (tc/check-for-list-refile msg)))
+          (cond
+           (list-refile                            list-refile)
+           ((tc/sender-matches-p "herbalmama" msg) "/tcrawley.org/INBOX.maria")
+           ((tc/maildir-match-p "gmail" msg)       "/gmail.com/[Gmail].Archive")
+           ((tc/maildir-match-p "redhat" msg)      "/redhat.com/Archive.2012")
+           (t                                      tc/default-refile-folder)))))
 
 ;; Set values based on sending account. based on:
 ;; https://groups.google.com/d/msg/mu-discuss/FngEnN8u4NI/30lcyEWTaSgJ
