@@ -1,3 +1,4 @@
+(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
 (require 'mu4e)
 
 (setq
@@ -17,12 +18,25 @@
  mu4e-drafts-folder          "/tcrawley.org/INBOX.Drafts" ;; always overridden, but mu4e needs a default
  mu4e-maildir-shortcuts      '(("/gmail.com/INBOX"    . ?g)
                                ("/tcrawley.org/INBOX" . ?t)
-                               ("/redhat.com/INBOX"   . ?r)))
+                               ("/redhat.com/INBOX"   . ?r))
+ mu4e-bookmarks              '(("maildir:/tcrawley.org/INBOX OR maildir:/gmail.com/INBOX OR maildir:/redhat.com/INBOX"
+                                "Combined inbox"   ?i)
+                               ("flag:unread AND NOT flag:trashed"
+                                "Unread messages"  ?u)
+                               ("date:today..now"
+                                "Today's messages" ?t)
+                               ("date:7d..now"
+                                "Last 7 days"      ?w)))
 
 (defun tc/maildir-match-p (re msg)
   (string-match-p
    re
    (mu4e-message-field msg :maildir)))
+
+(defun tc/recip-matches-p (re msg)
+  (or (mu4e-message-contact-field-matches msg :to re)
+      (mu4e-message-contact-field-matches msg :cc re)
+      (mu4e-message-contact-field-matches msg :bcc re)))
 
 (setq mu4e-trash-folder
       (lambda (msg)
@@ -34,6 +48,8 @@
 (setq mu4e-refile-folder
       (lambda (msg)
         (cond
+         ((tc/recip-matches-p "clojure@googlegroups.com" msg) "/tcrawley.org/INBOX.Lists.clojure.clojure")
+         ((tc/recip-matches-p "clojure-dev@googlegroups.com" msg) "/tcrawley.org/INBOX.Lists.clojure.clojure-dev")
          ((tc/maildir-match-p "gmail" msg) "/gmail.com/[Gmail].Archive")
          ((tc/maildir-match-p "redhat" msg) "/redhat.com/Archive.2012")
          (t tc/default-refile-folder))))
@@ -50,6 +66,7 @@
          (smtpmail-stream-type        ssl)
          (smtpmail-smtp-server        "mail.tcrawley.org")
          (smtpmail-smtp-service       465)
+         (starttls-extra-arguments    nil)
          (message-signature           "Toby Crawley\nhttp://immutant.org | http://torquebox.org"))
 
         ("gmail.com"
@@ -60,6 +77,7 @@
          (smtpmail-stream-type        starttls)
          (smtpmail-smtp-server        "smtp.gmail.com")
          (smtpmail-smtp-service       587)
+         (starttls-extra-arguments    ("--no-ca-verification"))
          (message-signature           nil))
 
         ("redhat.com"
@@ -70,6 +88,7 @@
          (smtpmail-stream-type        starttls)
          (smtpmail-smtp-server        "smtp.corp.redhat.com")
          (smtpmail-smtp-service       25)
+         (starttls-extra-arguments    ("--no-ca-verification"))
          (message-signature           "Toby Crawley\nRed Hat, Inc | http://immutant.org | http://torquebox.org"))))
 
 (add-hook
