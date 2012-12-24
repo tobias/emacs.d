@@ -255,7 +255,7 @@ Symbols matching the text at point are put first in the completion list."
         (plist-get (nth 0 result) key))))
 
 (defun tc/get-auth-password (host port)
-  (let ((pw (get-auth-value host port :secret)))
+  (let ((pw (tc/get-auth-value host port :secret)))
     (if (functionp pw)
         (funcall pw)
       pw)))
