@@ -50,10 +50,11 @@
          (t tc/default-trash-folder))))
 
 (setq tc/list-refile-matchers
-      '(("^clojure"     . "/tcrawley.org/INBOX.Lists.clojure.clojure")
-        ("^clojure-dev" . "/tcrawley.org/INBOX.Lists.clojure.clojure-dev")
-        ("^datomic"     . "/tcrawley.org/INBOX.Lists.clojure.datomic")
-        ("^mu-discuss"  . "/tcrawley.org/INBOX.Lists.mu")))
+      '(("^clojure"       . "/tcrawley.org/INBOX.Lists.clojure.clojure")
+        ("^clojure-dev"   . "/tcrawley.org/INBOX.Lists.clojure.clojure-dev")
+        ("^datomic"       . "/tcrawley.org/INBOX.Lists.clojure.datomic")
+        ("^swank-clojure" . "/tcrawley.org/INBOX.Lists.clojure.swank-clojure")
+        ("^mu-discuss"    . "/tcrawley.org/INBOX.Lists.mu")))
 
 (defun tc/check-for-list-refile (msg)
   (let ((ml (mu4e-message-field msg :mailing-list)))
