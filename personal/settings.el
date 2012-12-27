@@ -85,24 +85,6 @@
   (ansi-color-apply-on-region (point-min) (point-max))
   (toggle-read-only))
 
-;; gpg
-(require 'epa-file)
-;(epa-file-enable)
-
-(autoload
-  'ace-jump-mode
-  "ace-jump-mode"
-  "Emacs quick move minor mode"
-  t)
-
-;; (autoload
-;;   'ace-jump-mode-pop-mark
-;;   "ace-jump-mode"
-;;   "Ace jump back:-)"
-;;   t)
-;; (eval-after-load "ace-jump-mode"
-;;   '(ace-jump-mode-enable-mark-sync))
-
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
 (require 'server)

@@ -1,7 +1,6 @@
 (require 'erc)
 (require 'todochiku)
-(require 'erc-highlight-nicknames)
-(require 'erc-nicklist)
+(require 'erc-hl-nicks)
 
 (setq erc-interpret-mirc-color t)
 (setq erc-nicklist-use-icons nil)
