@@ -1,10 +1,10 @@
-(defun peepopen-goto-file-gui ()
+(defun tc/peepopen-goto-file-gui ()
   "Uses external GUI app to quickly jump to a file in the project."
   (interactive)
   (defun string-join (separator strings)
     "Join all STRINGS using SEPARATOR."
     (mapconcat 'identity strings separator))
-  (let ((root (find-project-root)))
+  (let ((root (tc/find-project-root)))
     (when (null root)
       (error
        (concat
@@ -17,7 +17,7 @@
 
 ;; borrowed from full-ack, and modified
 ;; http://nschum.de/src/emacs/full-ack/
-(defun find-project-root ()
+(defun tc/find-project-root ()
   "A function to find the project root directory."
   (catch 'root
     (let ((dir (expand-file-name (if buffer-file-name
@@ -30,5 +30,5 @@
         (setq prev-dir dir
               dir (file-name-directory (directory-file-name dir)))))))
 
-(global-set-key (kbd "C-x y") 'peepopen-goto-file-gui)
+(global-set-key (kbd "C-x y") 'tc/peepopen-goto-file-gui)
 
