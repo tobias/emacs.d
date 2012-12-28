@@ -1,10 +1,12 @@
-(add-hook 'clojure-mode-hook 'linum-mode)
-(add-hook 'clojure-mode-hook 'enable-paredit-mode)
+(add-hook 'clojure-mode-hook 'tc/run-common-coding-hooks)
+(add-hook 'clojure-mode-hook 'tc/run-lisp-coding-hooks)
 
 (add-to-list 'auto-mode-alist '("\\.dtm$" . clojure-mode))
+(add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
 
 (setq nrepl-popup-stacktraces nil)
 
+;; TODO: this needs cleanup
 (eval-after-load 'clojure-mode
   '(define-clojure-indent
      (contract 'defun)

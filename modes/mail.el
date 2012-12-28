@@ -1,5 +1,6 @@
 ;; needed on mac when installed from homebrew
-(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e") 
+(and tc/macos-p
+    (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")) 
 
 (require 'mu4e)
 
@@ -126,4 +127,6 @@
          (mapc #'(lambda (var)
                    (set (car var) (cadr var)))
                account-vars)))))
+
+(global-set-key (kbd "C-x m") 'mu4e)
 

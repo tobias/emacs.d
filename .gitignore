@@ -1,10 +1,13 @@
-private.el
+private.el.gpg
 *~
 \#*
 backups
 places
 auto-save-list
-el-get
 url
 *.elc
 elpa
+bookmarks
+snippets
+swank
+tramp
