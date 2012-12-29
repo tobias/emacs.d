@@ -130,8 +130,8 @@ Symbols matching the text at point are put first in the completion list."
 (defun tc/cleanup-buffer ()
   "Perform a bunch of operations on the whitespace content of a buffer."
   (interactive)
-  (indent-buffer)
-  (untabify-buffer)
+  (tc/indent-buffer)
+  (tc/untabify-buffer)
   (delete-trailing-whitespace))
 
 (global-set-key (kbd "C-c n") 'tc/cleanup-buffer)
