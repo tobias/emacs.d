@@ -12,6 +12,7 @@
                (package-install pkg)))
       '(clojure-mode
         coffee-mode
+        diminish
         erc-hl-nicks
         find-things-fast
         flymake-cursor

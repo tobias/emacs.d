@@ -1,5 +1,6 @@
 (require 'flymake-cursor)
 (require 'linum)
+(require 'diminish)
 
 ;; replace 'lambda' with a lambda symbol - if it's working, this comment makes
 ;; no sense
@@ -10,22 +11,33 @@
                                     ,(make-char 'greek-iso8859-7 107))
                     nil))))))
 
+;; replace fn with function symbol
+(defun tc/pretty-fn ()
+  (font-lock-add-keywords
+   nil `(("(\\(\\<fn\\>\\)"
+          (0 (progn (compose-region (match-beginning 1)
+                                    (match-end 1)
+                                    "\u0192"
+                                    'decompose-region)))))))
 
 (defun tc/local-comment-auto-fill ()
   (set (make-local-variable 'comment-auto-fill-only-comments) t)
-  (auto-fill-mode t))
+  (auto-fill-mode t)
+  (diminish 'auto-fill-function))
 
 (defun tc/turn-on-whitespace ()
   (whitespace-mode t))
 
 (defun tc/turn-on-paredit ()
-  (paredit-mode t))
+  (paredit-mode t)
+  (diminish 'paredit-mode))
 
 (defun tc/turn-on-show-paren ()
   (show-paren-mode t))
 
 (defun tc/turn-on-idle-highlight ()
-  (idle-highlight t))
+  (idle-highlight t)
+  (diminish 'hi-lock-mode))
 
 (defun tc/add-watchwords ()
   (font-lock-add-keywords
