@@ -23,13 +23,13 @@
 ;; load private data - this doesn't go into git
 (load "private.el.gpg")
 
-(when (display-graphic-p)
-  ;; get rid of ui cruft
-  (menu-bar-mode -1)
-  (tool-bar-mode -1)
-  (scroll-bar-mode -1)
-  (tooltip-mode -1)
+;; get rid of ui cruft
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(tooltip-mode -1)
 
+(when (display-graphic-p)
   ;; configure settings for use under a wm
   (setq frame-title-format '(buffer-file-name "%f" ("%b")))
   (mouse-wheel-mode t)
@@ -151,6 +151,15 @@
 ;; disable upcase-region because I often fat-finger it. I could also
 ;; unbind C-x C-u I supppose. 
 (put 'upcase-region 'disabled nil)
+
+;; Make dired less verbose
+(require 'dired-details)
+(setq-default dired-details-hidden-string "[...] ")
+(setq-default dired-details-hide-link-targets nil)
+(dired-details-install)
+
+;; provide undo for window layouts
+(winner-mode t)
 
 ;; advise zap-to-char to delete *up to* char
 (defadvice zap-to-char (after my-zap-to-char-advice (arg char) activate)

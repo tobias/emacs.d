@@ -13,6 +13,7 @@
       '(clojure-mode
         coffee-mode
         diminish
+        dired-details
         erc-hl-nicks
         find-things-fast
         flymake-cursor
