@@ -11,17 +11,16 @@
  message-send-mail-function  'smtpmail-send-it
  mail-user-agent             'mu4e-user-agent
  mu4e-attachment-dir         "~/Downloads"
- mu4e-user-mail-address-list '("toby@tcrawley.org" "tcrawley@gmail.com" "tcrawley@redhat.com")
+ mu4e-user-mail-address-list '("toby@tcrawley.org" "tcrawley@redhat.com")
  mu4e-html2text-command      "w3m -dump -cols 80 -T text/html"
  mu4e-get-mail-command       "offlineimap"
  tc/default-trash-folder     "/tcrawley.org/INBOX.Trash"
  tc/default-refile-folder    "/tcrawley.org/INBOX.Archive"
  mu4e-sent-folder            "/tcrawley.org/INBOX.Sent" ;; always overridden, but mu4e needs a default
  mu4e-drafts-folder          "/tcrawley.org/INBOX.Drafts" ;; always overridden, but mu4e needs a default
- mu4e-maildir-shortcuts      '(("/gmail.com/INBOX"    . ?g)
-                               ("/tcrawley.org/INBOX" . ?t)
+ mu4e-maildir-shortcuts      '(("/tcrawley.org/INBOX" . ?t)
                                ("/redhat.com/INBOX"   . ?r))
- mu4e-bookmarks              '(("maildir:/tcrawley.org/INBOX OR maildir:/gmail.com/INBOX OR maildir:/redhat.com/INBOX"
+ mu4e-bookmarks              '(("maildir:/tcrawley.org/INBOX OR maildir:/redhat.com/INBOX"
                                 "Combined inbox"   ?i)
                                ("flag:unread AND NOT flag:trashed"
                                 "Unread messages"  ?u)
@@ -46,16 +45,16 @@
 (setq mu4e-trash-folder
       (lambda (msg)
         (cond
-         ((tc/maildir-match-p "gmail" msg) "/gmail.com/[Gmail].Trash")
          ((tc/maildir-match-p "redhat" msg) "/redhat.com/Trash")
          (t tc/default-trash-folder))))
 
 (setq tc/list-refile-matchers
-      '(("^clojure"       . "/tcrawley.org/INBOX.Lists.clojure.clojure")
-        ("^clojure-dev"   . "/tcrawley.org/INBOX.Lists.clojure.clojure-dev")
-        ("^datomic"       . "/tcrawley.org/INBOX.Lists.clojure.datomic")
-        ("^swank-clojure" . "/tcrawley.org/INBOX.Lists.clojure.swank-clojure")
-        ("^mu-discuss"    . "/tcrawley.org/INBOX.Lists.mu")))
+      '(("^clojure"        . "/tcrawley.org/INBOX.Lists.clojure.clojure")
+        ("^clojure-dev"    . "/tcrawley.org/INBOX.Lists.clojure.clojure-dev")
+        ("^leiningen"      . "/tcrawley.org/INBOX.Lists.clojure.leiningen")
+        ("^swank-clojure"  . "/tcrawley.org/INBOX.Lists.clojure.swank-clojure")
+        ("^nrepl-el"       . "/tcrawley.org/INBOX.Lists.clojure.nrepl-el")
+        ("^mu-discuss"     . "/tcrawley.org/INBOX.Lists.mu")))
 
 (defun tc/check-for-list-refile (msg)
   (let ((ml (mu4e-message-field msg :mailing-list)))
@@ -87,17 +86,6 @@
          (smtpmail-smtp-service       465)
          (starttls-extra-arguments    nil)
          (message-signature           "Toby Crawley\nhttp://immutant.org | http://torquebox.org"))
-
-        ("gmail.com"
-         (user-mail-address           "tcrawley@gmail.com")
-         (mu4e-sent-folder            "/gmail.com/[Gmail].Sent Messages")
-         (mu4e-drafts-folder          "/gmail.com/[Gmail].Drafts")
-         (mu4e-sent-messages-behavior delete)
-         (smtpmail-stream-type        starttls)
-         (smtpmail-smtp-server        "smtp.gmail.com")
-         (smtpmail-smtp-service       587)
-         (starttls-extra-arguments    ("--no-ca-verification"))
-         (message-signature           nil))
 
         ("redhat.com"
          (user-mail-address           "tcrawley@redhat.com")
