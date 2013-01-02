@@ -66,11 +66,13 @@
       (lambda (msg)
         (let ((list-refile (tc/check-for-list-refile msg)))
           (cond
-           (list-refile                            list-refile)
-           ((tc/sender-matches-p "herbalmama" msg) "/tcrawley.org/INBOX.maria")
-           ((tc/maildir-match-p "gmail" msg)       "/gmail.com/[Gmail].Archive")
-           ((tc/maildir-match-p "redhat" msg)      "/redhat.com/Archive.2012")
-           (t                                      tc/default-refile-folder)))))
+           (list-refile                                list-refile)
+           ((tc/sender-matches-p "herbalmama" msg)     "/tcrawley.org/INBOX.maria")
+           ((tc/maildir-match-p "redhat" msg)          "/redhat.com/Archive.2012")
+           ;; this should be in list-refile-matchers, but the list
+           ;; doesn't have a list-id header
+           ((tc/recip-matches-p "^torquebox-user" msg) "/tcrawley.org/INBOX.Lists.torquebox.torquebox-user")
+           (t                                          tc/default-refile-folder)))))
 
 ;; Set values based on sending account. based on:
 ;; https://groups.google.com/d/msg/mu-discuss/FngEnN8u4NI/30lcyEWTaSgJ
