@@ -37,7 +37,10 @@
 
 (defun tc/turn-on-idle-highlight ()
   (idle-highlight t)
-  (diminish 'hi-lock-mode))
+  ;; this will complain since hi-lock-mode is only active during an
+  ;; idle highlight, so we ignore any errors
+  (ignore-errors
+    (diminish 'hi-lock-mode)))
 
 (defun tc/add-watchwords ()
   (font-lock-add-keywords
