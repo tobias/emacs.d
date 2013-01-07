@@ -158,9 +158,6 @@
 (setq-default dired-details-hide-link-targets nil)
 (dired-details-install)
 
-;; provide undo for window layouts
-(winner-mode t)
-
 ;; advise zap-to-char to delete *up to* char
 (defadvice zap-to-char (after my-zap-to-char-advice (arg char) activate)
     "Kill up to the ARG'th occurence of CHAR, and leave CHAR. If
