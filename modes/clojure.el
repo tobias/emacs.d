@@ -10,6 +10,7 @@
 ;; TODO: this needs cleanup
 (eval-after-load 'clojure-mode
   '(define-clojure-indent
+     (mapply 'defun)
      (contract 'defun)
      (defconstrainedfn 'defun)
      (defcontract 'defun)

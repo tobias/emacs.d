@@ -54,6 +54,7 @@
         ("^leiningen"      . "/tcrawley.org/INBOX.Lists.clojure.leiningen")
         ("^swank-clojure"  . "/tcrawley.org/INBOX.Lists.clojure.swank-clojure")
         ("^nrepl-el"       . "/tcrawley.org/INBOX.Lists.clojure.nrepl-el")
+        ("^clojars-m"      . "/tcrawley.org/INBOX.Lists.clojure.clojars-maintainers")
         ("^mu-discuss"     . "/tcrawley.org/INBOX.Lists.mu")))
 
 (defun tc/check-for-list-refile (msg)
@@ -72,6 +73,7 @@
            ;; this should be in list-refile-matchers, but the list
            ;; doesn't have a list-id header
            ((tc/recip-matches-p "^torquebox-user" msg) "/tcrawley.org/INBOX.Lists.torquebox.torquebox-user")
+           ((tc/recip-matches-p "^immutant-user" msg)  "/tcrawley.org/INBOX.Lists.Immutant.immutant-user")
            (t                                          tc/default-refile-folder)))))
 
 ;; Set values based on sending account. based on:

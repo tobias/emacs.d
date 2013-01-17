@@ -1,4 +1,5 @@
 (require 'erc)
+(require 'erc-match)
 (require 'todochiku)
 (require 'erc-hl-nicks)
 
@@ -28,23 +29,23 @@
                                    netsplit networks noncommands readonly ring
                                    stamp track hl-nicks))
 
-;; redefined to not match keywords in notices. my defadvice was
-;; ignored, as is most of my advice. I was probably doing it wrong.
-(defun erc-match-keyword-p (nickuserhost msg)
-  "Check whether any keyword of `erc-keywords' matches for MSG.
-NICKUSERHOST will be ignored."
+(setq tc/erc-log-msg nil)
+
+(defadvice erc-match-keyword-p (around tc/erc-match-keyword-p-sometimes activate)
+  (if tc/erc-log-msg
+      (message "%s :: %s" nickuserhost msg))
   (and msg
-       (not (string-match "\\(has quit:\\|has joined channel\\|has left channel\\|is now known as\\)" msg))
-       (erc-list-match
-	(mapcar (lambda (x)
-		  (if (listp x)
-		      (car x)
-		    x))
-		erc-keywords)
-	msg)))
+       (not (string-match "\\(projectodd-ci\\|proddbot\\|jbossbot\\)" (or nickuserhost "")))
+       (not (string-match "\\(^\\(Users on\\|Topic for\\|You have joined\\|#.* modes:\\|#.* was created on\\)\\)\\|\\(has quit:\\|has joined channel\\|has left channel\\|is now known as\\)" msg))
+       ad-do-it))
+
+(defadvice erc-match-current-nick-p (around tc/erc-match-current-nick-p-sometimes activate)
+  (and msg
+       (not (string-match "^Users on #" msg))
+       ad-do-it))
 
 ;; highlight queries in the mode line as if my nick is mentioned
-(defadvice erc-track-find-face (around erc-track-find-face-promote-query activate)
+(defadvice erc-track-find-face (around tc/erc-track-find-face-promote-query activate)
   (if (erc-query-buffer-p) 
       (setq ad-return-value (intern "erc-current-nick-face"))
     ad-do-it))

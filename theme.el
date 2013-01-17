@@ -1,6 +1,19 @@
-;; (add-hook 'after-init-hook 'half-blind)
+(add-to-list 'custom-theme-load-path (concat user-emacs-directory "themes"))
 
-(load-theme 'zenburn)
+(setq tc/presentation-mode-p (getenv "PRESENTATION_MODE"))
+
+(if tc/presentation-mode-p
+    (load-theme 'half-blind)
+  (progn
+    (load-theme 'zenburn)
+    ;; make active windows more obvious
+    (set-face-attribute 'mode-line-inactive nil
+                        :inherit 'mode-line
+                        :background "#383838"
+                        :foreground "#5f7f5f"
+                        :box '(:line-width -1 :style pressed-button)
+                        :weight 'light)))
+
 ;; make the minibuffer prompt stand out
 (set-face-attribute 'minibuffer-prompt nil
                     :foreground "black"
@@ -18,6 +31,10 @@
     (set-frame-parameter
      nil 'fullscreen
      (when (not (frame-parameter nil 'fullscreen)) 'fullboth))))
+
+(when tc/presentation-mode-p
+  (set-face-font `default "-apple-inconsolata-medium-r-normal--18-0-72-72-m-0-iso10646-1")
+  (load "presentation"))
 
 ;; (defun prep-for-preso ()
 ;;   (interactive)
