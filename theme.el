@@ -1,7 +1,5 @@
 (add-to-list 'custom-theme-load-path (concat user-emacs-directory "themes"))
 
-(setq tc/presentation-mode-p (getenv "PRESENTATION_MODE"))
-
 (if tc/presentation-mode-p
     (load-theme 'half-blind)
   (progn
@@ -33,8 +31,7 @@
      (when (not (frame-parameter nil 'fullscreen)) 'fullboth))))
 
 (when tc/presentation-mode-p
-  (set-face-font `default "-apple-inconsolata-medium-r-normal--18-0-72-72-m-0-iso10646-1")
-  (load "presentation"))
+  (set-face-font `default "-apple-inconsolata-medium-r-normal--18-0-72-72-m-0-iso10646-1"))
 
 ;; (defun prep-for-preso ()
 ;;   (interactive)

@@ -2,6 +2,9 @@
   (eq system-type 'darwin)
   "Are we on MacOS?")
 
+(defconst tc/presentation-mode-p
+  (getenv "PRESENTATION_MODE"))
+
 ;; keep customize settings in their own file
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file 'noerror)
@@ -199,3 +202,6 @@
 (load "modes/ruby")
 (load "modes/shell")
 (load "modes/text")
+
+(when tc/presentation-mode-p
+  (load "presentation"))
