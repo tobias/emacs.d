@@ -14,8 +14,6 @@
  erc-current-nick-highlight-type 'all
  erc-keyword-highlight-type      'all
  erc-pal-highlight-type          'all
- erc-log-matches-types-alist     '((keyword . "ERC Matches")
-                                   (current-nick . "ERC Matches"))
  erc-log-matches-flag            t
  erc-auto-set-away               nil
  erc-email-userid                "tcrawley"
@@ -35,13 +33,13 @@
   (if tc/erc-log-msg
       (message "%s :: %s" nickuserhost msg))
   (and msg
-       (not (string-match "\\(projectodd-ci\\|proddbot\\|jbossbot\\)" (or nickuserhost "")))
-       (not (string-match "\\(^\\(Users on\\|Topic for\\|You have joined\\|#.* modes:\\|#.* was created on\\)\\)\\|\\(has quit:\\|has joined channel\\|has left channel\\|is now known as\\)" msg))
+       (not (string-match "\\(projectodd-ci\\|travis-ci\\|proddbot\\|jbossbot\\)" (or nickuserhost "")))
+       (not (string-match "\\(^\*\*\* \\(Users on\\|Topic for\\|You have joined\\|#.* modes:\\|#.* was created on\\|#.* topic set\\)\\)\\|\\(has quit:\\|has joined channel\\|has left channel\\|is now known as\\)" msg))
        ad-do-it))
 
 (defadvice erc-match-current-nick-p (around tc/erc-match-current-nick-p-sometimes activate)
   (and msg
-       (not (string-match "^Users on #" msg))
+       (not (string-match "\*\*\* Users on #" msg))
        ad-do-it))
 
 ;; highlight queries in the mode line as if my nick is mentioned

@@ -49,8 +49,8 @@
          (t tc/default-trash-folder))))
 
 (setq tc/list-refile-matchers
-      '(("^clojure"        . "/tcrawley.org/INBOX.Lists.clojure.clojure")
-        ("^clojure-dev"    . "/tcrawley.org/INBOX.Lists.clojure.clojure-dev")
+      '(("^clojure-dev"    . "/tcrawley.org/INBOX.Lists.clojure.clojure-dev")
+        ("^clojure"        . "/tcrawley.org/INBOX.Lists.clojure.clojure")
         ("^leiningen"      . "/tcrawley.org/INBOX.Lists.clojure.leiningen")
         ("^swank-clojure"  . "/tcrawley.org/INBOX.Lists.clojure.swank-clojure")
         ("^nrepl-el"       . "/tcrawley.org/INBOX.Lists.clojure.nrepl-el")

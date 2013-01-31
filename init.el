@@ -104,9 +104,6 @@
 ;; kill entire line (including \n)
 (setq kill-whole-line t)
 
-;; ask about adding a newline on save if a file lacks it
-(setq require-final-newline 'ask)
-
 ;; always show empty lines at end of buffer
 (set-default 'indicate-empty-lines t)
 
