@@ -6,7 +6,7 @@
 (setq
  erc-interpret-mirc-color        t
  erc-nicklist-use-icons          nil
- erc-fill-column                 98
+ erc-fill-column                 96
  erc-track-exclude-types         '("JOIN" "NICK" "PART" "QUIT" "MODE"
                                    "324" "329" "332" "333" "353" "477")
  erc-track-exclude-server-buffer t
@@ -26,6 +26,8 @@
                                    keep-place list match menu move-to-prompt
                                    netsplit networks noncommands readonly ring
                                    stamp track hl-nicks))
+
+(erc-spelling-mode 1)
 
 (setq tc/erc-log-msg nil)
 
@@ -100,7 +102,7 @@ Notice will be sticky if the message is a query."
          (concat "<" (nth 0 split-message) "> on " channel)
          (tc/escape-html (nth 1 split-message))
          ""
-         (not (string-match "^#" channel)) ;; be sticky if it's a query
+         nil;(not (string-match "^#" channel)) ;; be sticky if it's a query
          ))))
 
 (defun tc/irc-split-nick-and-message (msg)
