@@ -186,6 +186,9 @@
 
 (global-set-key (kbd "C-c s") 'ispell-word) 
 
+;; use the fancy-pants rebase mode in magit
+(require 'rebase-mode)
+
 ;; load everything else
 (load "functions")
 (load "theme")
