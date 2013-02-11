@@ -1,6 +1,4 @@
-;; needed on mac when installed from homebrew
-(and tc/macos-p
-    (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")) 
+(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e") 
 
 (require 'mu4e)
 

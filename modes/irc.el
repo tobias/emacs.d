@@ -3,6 +3,9 @@
 (require 'todochiku)
 (require 'erc-hl-nicks)
 
+;; load private data - this doesn't go into git
+(load "private.el.gpg")
+
 (setq
  erc-interpret-mirc-color        t
  erc-nicklist-use-icons          nil
@@ -27,21 +30,25 @@
                                    netsplit networks noncommands readonly ring
                                    stamp track hl-nicks))
 
+;; flyspell check as I type
 (erc-spelling-mode 1)
 
-(setq tc/erc-log-msg nil)
+;;(setq tc/erc-log-msg nil)
 
-(defadvice erc-match-keyword-p (around tc/erc-match-keyword-p-sometimes activate)
-  (if tc/erc-log-msg
-      (message "%s :: %s" nickuserhost msg))
-  (and msg
-       (not (string-match "\\(projectodd-ci\\|travis-ci\\|proddbot\\|jbossbot\\)" (or nickuserhost "")))
-       (not (string-match "\\(^\*\*\* \\(Users on\\|Topic for\\|You have joined\\|#.* modes:\\|#.* was created on\\|#.* topic set\\)\\)\\|\\(has quit:\\|has joined channel\\|has left channel\\|is now known as\\)" msg))
-       ad-do-it))
+;; (defadvice erc-match-keyword-p (around tc/erc-match-keyword-p-sometimes activate)
+;;   (if tc/erc-log-msg
+;;       (message "%s :: %s" nickuserhost msg))
+;;   (and msg
+;;        (not (string-match "\\(projectodd-ci\\|travis-ci\\|proddbot\\|jbossbot\\)" (or nickuserhost "")))
+;;        (not (string-match "\\(^\*\*\* \\(Users on\\|Topic for\\|You have joined\\|#.* modes:\\|#.* was created on\\|#.* topic set\\)\\)\\|\\(has quit:\\|has joined channel\\|has left channel\\|is now known as\\)" msg))
+;;        ad-do-it))
+
+(add-hook 'erc-join-hook 'tc/irc-channel-keywords)
+(add-hook 'erc-join-hook 'tc/irc-channel-pals)
 
 (defadvice erc-match-current-nick-p (around tc/erc-match-current-nick-p-sometimes activate)
   (and msg
-       (not (string-match "\*\*\* Users on #" msg))
+       (not (string-match "\\*\\*\\* \\(Users on #\\|#.*: topic set\\)" msg))
        ad-do-it))
 
 ;; highlight queries in the mode line as if my nick is mentioned
@@ -75,9 +82,7 @@
                   (setq voices (1+ voices)))
                 (setq members (1+ members)))
               erc-channel-users)
-     ;; (format " %S/%S/%S" ops voices members)
-     (format " %S" members)
-     )))
+     (format " %S" members))))
 
 (add-hook 'erc-mode-hook 'ncm-mode)
 
@@ -88,10 +93,6 @@
 (defun irc-connect-bouncer ()
   (interactive)
   (erc-tls :server "bouncer" :port 6565 :nick "tcrawley" :password my-bouncer-password))
-
-(defvar irc-channels-for-alerting
-  '()
-  "IRC channels to watch for alerting.")
 
 (defun tc/irc-growl (channel message)
   "Displays an irc message to growl/libnotify via todochiku.
@@ -118,8 +119,7 @@ Assumes message is either of two forms: '* nick does something' or '<nick> says 
   "Plays a sound and growl notifies a message."
   (and (string-match "^[*<][^*]" msg)
        (> (length msg) 0)
-       (or (member channel irc-channels-for-alerting)
-           (not (string-match "^#" channel)) ;; query
+       (or (not (string-match "^#" channel)) ;; query
            (and (not (string-match "^*" msg)) ;; /me
                 (string-match (erc-current-nick) msg)))
        (progn

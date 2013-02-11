@@ -23,9 +23,6 @@
 ;; en/decrypt .gpg files automatically
 (require 'epa-file)
 
-;; load private data - this doesn't go into git
-(load "private.el.gpg")
-
 ;; get rid of ui cruft
 (menu-bar-mode -1)
 (tool-bar-mode -1)
@@ -131,7 +128,10 @@
   ;; don't open a new frame when the os tells emacs to open a file
   (setq ns-pop-up-frames nil)
 
-  (load "peepopen"))
+  ;(load "peepopen")
+  )
+
+(global-set-key (kbd "C-x y") 'ftf-find-file)
 
 ;; setup ido
 (ido-mode t)
@@ -165,6 +165,9 @@
   put before CHAR"
     (insert char)
     (if (< 0 arg) (forward-char -1)))
+
+;; use a custom wrapper around zsh
+(setenv "ESHELL" (expand-file-name "~/bin/eshell"))
 
 ;; Never background/iconify
 (global-unset-key (kbd "C-z"))
