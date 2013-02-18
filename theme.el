@@ -2,25 +2,27 @@
 
 (if tc/presentation-mode-p
     (load-theme 'half-blind)
-  (progn
-    (load-theme 'zenburn)
-    ;; make active windows more obvious
-    (set-face-attribute 'mode-line-inactive nil
-                        :inherit 'mode-line
-                        :background "#383838"
-                        :foreground "#5f7f5f"
-                        :box '(:line-width -1 :style pressed-button)
-                        :weight 'light)))
+  (load-theme 'sorta-blind)
+  ;; (progn
+  ;;   (load-theme 'zenburn)
+  ;;   ;; make active windows more obvious
+  ;;   (set-face-attribute 'mode-line-inactive nil
+  ;;                       :inherit 'mode-line
+  ;;                       :background "#383838"
+  ;;                       :foreground "#5f7f5f"
+  ;;                       :box '(:line-width -1 :style pressed-button)
+  ;;                       :weight 'light))
+  )
 
 ;; make the minibuffer prompt stand out
-(set-face-attribute 'minibuffer-prompt nil
-                    :foreground "black"
-                    :background "yellow"
-                    :weight 'bold)
+;; (set-face-attribute 'minibuffer-prompt nil
+;;                     :foreground "black"
+;;                     :background "yellow"
+;;                     :weight 'bold)
 
 (when (display-graphic-p)
   (if tc/macos-p
-      (set-face-font `default "-apple-inconsolata-medium-r-normal--15-0-72-72-m-0-iso10646-1")
+      (set-face-font `default "-apple-inconsolata-medium-r-normal--16-0-72-72-m-0-iso10646-1")
     (set-face-font `default "Inconsolata-11"))
 
   (defun fullscreen ()

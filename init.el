@@ -131,8 +131,6 @@
   ;(load "peepopen")
   )
 
-(global-set-key (kbd "C-x y") 'ftf-find-file)
-
 ;; setup ido
 (ido-mode t)
 (ido-ubiquitous t)
@@ -192,9 +190,12 @@
 ;; use the fancy-pants rebase mode in magit
 (require 'rebase-mode)
 
+(winner-mode 1)
+
 ;; load everything else
 (load "functions")
 (load "theme")
+(load "ftf")
 (load "coding-utils")
 (load "modes/clojure")
 (load "modes/elisp")

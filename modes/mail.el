@@ -68,7 +68,7 @@
           (cond
            (list-refile                                list-refile)
            ((tc/sender-matches-p "herbalmama" msg)     "/tcrawley.org/INBOX.maria")
-           ((tc/maildir-match-p "redhat" msg)          "/redhat.com/Archive.2012")
+           ((tc/maildir-match-p "redhat" msg)          "/redhat.com/Archive.2013")
            ;; this should be in list-refile-matchers, but the list
            ;; doesn't have a list-id header
            ((tc/recip-matches-p "^torquebox-user" msg) "/tcrawley.org/INBOX.Lists.torquebox.torquebox-user")

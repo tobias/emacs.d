@@ -13,6 +13,7 @@
  erc-track-exclude-types         '("JOIN" "NICK" "PART" "QUIT" "MODE"
                                    "324" "329" "332" "333" "353" "477")
  erc-track-exclude-server-buffer t
+ erc-track-showcount             t  
  erc-hide-list                   '("MODE" "KICK")
  erc-current-nick-highlight-type 'all
  erc-keyword-highlight-type      'all
