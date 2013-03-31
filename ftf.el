@@ -37,3 +37,4 @@ the file name."
 ;; end ftf overrides
 
 (global-set-key (kbd "C-x y") 'ftf-find-file)
+(global-set-key (kbd "M-g s") 'ftf-grepsource)
