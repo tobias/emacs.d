@@ -23,7 +23,7 @@
 (when (display-graphic-p)
   (if tc/macos-p
       (set-face-font `default "-apple-inconsolata-medium-r-normal--16-0-72-72-m-0-iso10646-1")
-    (set-face-font `default "Inconsolata-11"))
+    (set-face-font `default "Liberation Mono-10"))
 
   (defun fullscreen ()
     "Toggle full screen"
