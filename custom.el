@@ -22,4 +22,7 @@
  '(fg:erc-color-face10 ((t (:foreground "blue"))))
  '(flyspell-duplicate ((t (:foreground "DarkRed" :underline t :weight bold))))
  '(flyspell-incorrect ((t (:foreground "DarkRed" :underline t :weight bold))))
- '(message-header-name ((t (:foreground "#093")))))
+ '(idle-highlight ((t (:background "green1" :foreground "black"))))
+ '(message-header-name ((t (:foreground "#093"))))
+ '(mu4e-header-highlight-face ((t (:inherit region :foreground "black" :underline t :weight bold))))
+ '(region ((t (:background "pale green" :foreground "black")))))
