@@ -13,7 +13,6 @@
 (require 'ruby-electric)
 (add-hook 'ruby-mode-hook 'tc/run-common-coding-hooks)
 (add-hook 'ruby-mode-hook 'ruby-electric-mode)
-(add-hook 'ruby-mode-hook 'inf-ruby-keys)
 
 (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
 
