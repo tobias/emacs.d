@@ -28,9 +28,14 @@
   (defun fullscreen ()
     "Toggle full screen"
     (interactive)
-    (set-frame-parameter
-     nil 'fullscreen
-     (when (not (frame-parameter nil 'fullscreen)) 'fullboth))))
+    (if (eq waindow-system 'x)
+        (shell-command
+         (concat "wmctrl -i -r "
+                 (frame-parameter nil 'outer-window-id)
+                 " -btoggle,maximized_vert,maximized_horz"))
+      (set-frame-parameter
+       nil 'fullscreen
+       (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))))
 
 (when tc/presentation-mode-p
   (set-face-font `default "-apple-inconsolata-medium-r-normal--20-0-72-72-m-0-iso10646-1"))
