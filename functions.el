@@ -1,5 +1,14 @@
 ;; useful functions that don't belong elsewhere
 
+(defun tc/toggle-current-window-dedication ()
+ (interactive)
+ (let* ((window    (selected-window))
+        (dedicated (window-dedicated-p window)))
+   (set-window-dedicated-p window (not dedicated))
+   (message "Window %sdedicated to %s"
+            (if dedicated "no longer " "")
+            (buffer-name))))
+
 ;; useful for switching between buffers of mode
 (defun tc/ido-for-mode(prompt the-mode)
   (switch-to-buffer

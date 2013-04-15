@@ -1,6 +1,10 @@
 (add-to-list 'custom-theme-load-path (concat user-emacs-directory "themes"))
 
-(if tc/presentation-mode-p
+
+
+
+(when (display-graphic-p)
+  (if tc/presentation-mode-p
     (load-theme 'half-blind)
   (load-theme 'sorta-blind)
   ;; (progn
@@ -14,13 +18,12 @@
   ;;                       :weight 'light))
   )
 
-;; make the minibuffer prompt stand out
-;; (set-face-attribute 'minibuffer-prompt nil
-;;                     :foreground "black"
-;;                     :background "yellow"
-;;                     :weight 'bold)
+  ;; make the minibuffer prompt stand out
+  ;; (set-face-attribute 'minibuffer-prompt nil
+  ;;                     :foreground "black"
+  ;;                     :background "yellow"
+  ;;                     :weight 'bold)
 
-(when (display-graphic-p)
   (if tc/macos-p
       (set-face-font `default "-apple-inconsolata-medium-r-normal--16-0-72-72-m-0-iso10646-1")
     (set-face-font `default "Liberation Mono-10"))
@@ -28,7 +31,7 @@
   (defun fullscreen ()
     "Toggle full screen"
     (interactive)
-    (if (eq waindow-system 'x)
+    (if (eq window-system 'x)
         (shell-command
          (concat "wmctrl -i -r "
                  (frame-parameter nil 'outer-window-id)

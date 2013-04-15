@@ -189,6 +189,18 @@
 ;; use the fancy-pants rebase mode in magit
 (require 'rebase-mode)
 
+;; setup dired-jump
+(autoload 'dired-jump "dired-x"
+  "Jump to Dired buffer corresponding to current buffer." t)
+
+(autoload 'dired-jump-other-window "dired-x"
+  "Like \\[dired-jump] (dired-jump) but in other window." t)
+
+(define-key global-map "\C-x\C-j" 'dired-jump)
+(define-key global-map "\C-x4\C-j" 'dired-jump-other-window)
+
+(global-set-key (kbd "C-x p") 'tc/toggle-current-window-dedication)
+
 (winner-mode 1)
 
 ;; load everything else

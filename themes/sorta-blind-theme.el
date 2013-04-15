@@ -4,7 +4,7 @@
 (custom-theme-set-faces
  'sorta-blind
  '(default ((t (:inherit nil :background "gray90" :foreground "#000000" :width normal :foundry "apple" :family "Monaco"))))
- '(cursor ((t (:background "#000000"))))
+ '(cursor ((t (:background "dark cyan"))))
  '(fixed-pitch ((t (:family "Monospace"))))
  '(variable-pitch ((t (:family "Sans Serif"))))
  '(escape-glyph ((t (:foreground "brown"))))
@@ -45,7 +45,7 @@
  '(lazy-highlight ((t (:background "paleturquoise"))))
  '(idle-highlight ((t (:background "green1"))))
  '(match ((t (:background "yellow1"))))
- '(next-error ((t (:inherit region))))
- '(query-replace ((t (:inherit isearch)))))
+ '(next-error ((t (:inherit region)))))
+'(query-replace ((t (:inherit isearch))))
 
 (provide-theme 'sorta-blind)

@@ -6,35 +6,36 @@
                '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
   (package-initialize)
-  
+
   (mapc (lambda (pkg)
           (and (not (package-installed-p pkg))
                (package-install pkg)))
-      '(clojure-mode
-        coffee-mode
-        diminish
-        dired-details
-        erc-hl-nicks
-        find-things-fast
-        flymake-cursor
-        fold-dwim
-        fold-dwim-org
-        gh
-        gist
-        haml-mode
-        highlight-parentheses
-        htmlize
-        idle-highlight
-        ido-ubiquitous
-        magit
-        markdown-mode
-        maxframe
-        midje-mode
-        nrepl
-        paredit
-        sass-mode
-        textile-mode
-        todochiku
-        yaml-mode
-        zenburn-theme
-        ruby-electric)))
+        '(clojure-mode
+          clojure-test-mode
+          coffee-mode
+          diminish
+          dired-details
+          erc-hl-nicks
+          find-things-fast
+          flymake-cursor
+          fold-dwim
+          fold-dwim-org
+          gh
+          gist
+          haml-mode
+          highlight-parentheses
+          htmlize
+          idle-highlight
+          ido-ubiquitous
+          magit
+          markdown-mode
+          maxframe
+          midje-mode
+          nrepl
+          paredit
+          sass-mode
+          textile-mode
+          todochiku
+          yaml-mode
+          zenburn-theme
+          ruby-electric)))
