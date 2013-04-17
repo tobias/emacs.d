@@ -13,17 +13,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(erc-button ((t nil)))
- '(erc-current-nick-face ((t (:background "yellow" :foreground "black" :weight bold))))
- '(erc-input-face ((t (:background "gray85" :foreground "black"))))
- '(erc-keyword-face ((t (:foreground "Red" :weight bold))))
- '(erc-notice-face ((t (:foreground "SlateGray" :height 0.8))))
- '(erc-pal-face ((t (:background "grey85" :foreground "blue" :weight normal))))
- '(erc-timestamp-face ((t (:foreground "black" :weight bold))))
- '(fg:erc-color-face10 ((t (:foreground "blue"))))
- '(flyspell-duplicate ((t (:foreground "DarkRed" :underline t :weight bold))))
- '(flyspell-incorrect ((t (:foreground "DarkRed" :underline t :weight bold))))
- '(idle-highlight ((t (:background "green1" :foreground "black"))))
- '(message-header-name ((t (:foreground "#093"))))
- '(mu4e-header-highlight-face ((t (:inherit region :foreground "black" :underline t :weight bold))))
- '(region ((t (:background "pale green" :foreground "black")))))
+ '(erc-button ((t nil))))

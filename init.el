@@ -3,7 +3,10 @@
   "Are we on MacOS?")
 
 (defconst tc/presentation-mode-p
-  (getenv "PRESENTATION_MODE"))
+  (getenv "EMACS_PRESENTATION_MODE"))
+
+(defconst tc/light-theme-p
+  (getenv "EMACS_LIGHT_THEME"))
 
 ;; keep customize settings in their own file
 (setq custom-file (concat user-emacs-directory "custom.el"))
