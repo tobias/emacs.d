@@ -18,7 +18,6 @@
           erc-hl-nicks
           find-things-fast
           flymake-cursor
-          fold-dwim
           fold-dwim-org
           gh
           gist
@@ -37,5 +36,5 @@
           textile-mode
           todochiku
           yaml-mode
-          zenburn-theme
-          ruby-electric)))
+          ruby-electric
+          scpaste)))

@@ -35,6 +35,10 @@
 (defun tc/turn-on-show-paren ()
   (show-paren-mode t))
 
+(defun tc/turn-on-folding ()
+  (hs-minor-mode t)
+  (fold-dwim-org/minor-mode t))
+
 (defun tc/turn-on-idle-highlight ()
   (idle-highlight t)
   ;; this will complain since hi-lock-mode is only active during an
@@ -59,6 +63,7 @@
 
 (add-hook 'tc/lisp-coding-hooks 'tc/turn-on-paredit)
 (add-hook 'tc/lisp-coding-hooks 'tc/turn-on-show-paren)
+(add-hook 'tc/lisp-coding-hooks 'tc/turn-on-folding)
 
 (defun tc/run-lisp-coding-hooks ()
   "Enable things that are convenient for lisp code."
