@@ -54,7 +54,8 @@
         ("^swank-clojure"  . "/tcrawley.org/INBOX.Lists.clojure.swank-clojure")
         ("^nrepl-el"       . "/tcrawley.org/INBOX.Lists.clojure.nrepl-el")
         ("^clojars-m"      . "/tcrawley.org/INBOX.Lists.clojure.clojars-maintainers")
-        ("^mu-discuss"     . "/tcrawley.org/INBOX.Lists.mu")))
+        ("^mu-discuss"     . "/tcrawley.org/INBOX.Lists.mu")
+        ("^asheville-coders" . "/tcrawley.org/INBOX.Lists.asheville-coders")))
 
 (defun tc/check-for-list-refile (msg)
   (let ((ml (mu4e-message-field msg :mailing-list)))
