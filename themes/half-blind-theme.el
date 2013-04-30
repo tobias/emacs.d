@@ -45,6 +45,7 @@
  '(lazy-highlight ((t (:background "paleturquoise"))))
  '(match ((t (:background "yellow1"))))
  '(next-error ((t (:inherit region))))
- '(query-replace ((t (:inherit isearch)))))
+ '(query-replace ((t (:inherit isearch))))
+ '(idle-highlight ((t (:inherit region :foreground "black")))))
 
 (provide-theme 'half-blind)

@@ -3,8 +3,7 @@
 (defun tc/light-theme ()
   (load-theme 'sorta-blind))
 
-(defun tc/dark-theme ()
-  (load-theme 'tango-dark)
+(defun tc/dark-customizations ()
   ;; make the minibuffer prompt stand out
   (set-face-attribute 'minibuffer-prompt nil
                       :foreground "black"
@@ -26,29 +25,23 @@
                       :background "goldenrod4"
                       :foreground "gold"
                       :weight 'bold))
+  
+(defun tc/dark-theme ()
+  (load-theme 'tango-dark)
+  (add-hook 'after-init-hook 'tc/dark-customizations))
 
 (when (display-graphic-p)
   (if tc/presentation-mode-p
       (load-theme 'half-blind)
     (if tc/light-theme-p
         (tc/light-theme)
-      (tc/dark-theme))
-    
-  ;; (progn
-  ;;   (load-theme 'zenburn)
-  ;;   ;; make active windows more obvious
-  ;;   (set-face-attribute 'mode-line-inactive nil
-  ;;                       :inherit 'mode-line
-  ;;                       :background "#383838"
-  ;;                       :foreground "#5f7f5f"
-  ;;                       :box '(:line-width -1 :style pressed-button)
-  ;;                       :weight 'light))
-  )
-
+      (tc/dark-theme)))
   
   (if tc/macos-p
       (set-face-font `default "-apple-inconsolata-medium-r-normal--16-0-72-72-m-0-iso10646-1")
-    (set-face-font `default "Liberation Mono-10"))
+    (if tc/presentation-mode-p
+        (set-face-font `default "Liberation Mono-18")
+      (set-face-font `default "Liberation Mono-10")))
 
   (defun fullscreen ()
     "Toggle full screen"
@@ -61,19 +54,3 @@
       (set-frame-parameter
        nil 'fullscreen
        (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))))
-
-(when tc/presentation-mode-p
-  (set-face-font `default "-apple-inconsolata-medium-r-normal--20-0-72-72-m-0-iso10646-1"))
-
-
-
-
-
-
-
-
-     
- 
-
-
-       
