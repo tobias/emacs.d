@@ -7,17 +7,17 @@
 ;; much of the rest borrowed from
 ;; http://snarfed.org/why_i_run_shells_inside_emacs
 
-(custom-set-variables
- '(comint-scroll-to-bottom-on-input t)  ; always insert at the bottom
- '(comint-scroll-to-bottom-on-output nil) ; always add output at the bottom
- '(comint-scroll-show-maximum-output t) ; scroll to show max possible output
- '(comint-input-ignoredups t)           ; no duplicates in command history
- '(comint-completion-addsuffix t)       ; insert space/slash after file completion
- '(comint-buffer-maximum-size 20000)    ; max length of the buffer in lines
- '(comint-prompt-read-only nil)         ; if this is t, it breaks shell-command
- '(comint-get-old-input (lambda () "")) ; what to run when i press enter on a
-                                        ; line above the current prompt
- '(comint-input-ring-size 5000)         ; max shell history size
+(setq
+ comint-scroll-to-bottom-on-input  t         ; always insert at the bottom
+ comint-scroll-to-bottom-on-output nil       ; always add output at the bottom
+ comint-scroll-show-maximum-output t         ; scroll to show max possible output
+ comint-input-ignoredups           t         ; no duplicates in command history
+ comint-completion-addsuffix       t         ; insert space/slash after file completion
+ comint-buffer-maximum-size        20000     ; max length of the buffer in lines
+ comint-prompt-read-only           nil       ; if this is t, it breaks shell-command
+ comint-get-old-input              (lambda () "") ; what to run when i press enter on a
+                                             ; line above the current prompt
+ comint-input-ring-size            5000      ; max shell history size
  )
 
 (setq-default dirtrack-list '("^<< \\(.*\\) >>" 1 t))
