@@ -1,6 +1,6 @@
 (require 'ansi-color)
 
-(defun tc/ido-shell-buffer()
+(defun tc/ido-shell-buffer ()
   (interactive)
   (tc/ido-for-mode "Shell:" 'shell-mode))
 
@@ -36,11 +36,12 @@
         (put-text-property comint-last-output-start output-end 'read-only t))))
 (add-hook 'comint-output-filter-functions 'make-my-shell-output-read-only)
 
+(setq-default dirtrack-list '("^<< \\(.*\\) >>" 1 t))
+
 (defun my-dirtrack-mode ()
   "Add to shell-mode-hook to use dirtrack mode in my shell buffers."
   (when (member (buffer-name) my-shells)
     (shell-dirtrack-mode 0)
-    (set-variable 'dirtrack-list '("^.*[^ ]+:\\(.*\\)>" 1 nil))
     (dirtrack-mode 1)))
 (add-hook 'shell-mode-hook 'my-dirtrack-mode)
 
@@ -80,8 +81,5 @@ the line, to capture multiline input. (This only has effect if
   (flet ((end-of-line () (end-of-buffer)))
     ad-do-it))
 
-;; not sure why, but comint needs to be reloaded from the source (*not*
-;; compiled) elisp to make the above advise stick.
-;(load "comint.el.gz")
 
 
