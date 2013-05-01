@@ -4,6 +4,9 @@
   (load-theme 'sorta-blind))
 
 (defun tc/dark-customizations ()
+  ;; make the cursor whiteish
+  (set-face-attribute 'cursor nil
+                      :background "ghost white")
   ;; make the minibuffer prompt stand out
   (set-face-attribute 'minibuffer-prompt nil
                       :foreground "black"
