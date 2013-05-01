@@ -7,9 +7,6 @@
 ;; much of the rest borrowed from
 ;; http://snarfed.org/why_i_run_shells_inside_emacs
 
-(defvar my-shells
-  '("*shell*" "*shell0*" "*shell1*" "*shell2*" "*shell3*" "*as*"))
-
 (custom-set-variables
  '(comint-scroll-to-bottom-on-input t)  ; always insert at the bottom
  '(comint-scroll-to-bottom-on-output nil) ; always add output at the bottom
@@ -23,48 +20,51 @@
  '(comint-input-ring-size 5000)         ; max shell history size
  )
 
-(setenv "PAGER" "cat")
+(setq-default dirtrack-list '("^<< \\(.*\\) >>" 1 t))
 
 ;; truncate buffers continuously
 (add-hook 'comint-output-filter-functions 'comint-truncate-buffer)
 
-(defun make-my-shell-output-read-only (text)
+(defun tc/buf-is-shell-p ()
+  (eq major-mode 'shell-mode))
+
+(defun tc/make-shell-output-read-only (text)
   "Add to comint-output-filter-functions to make stdout read only in my shells."
-  (if (member (buffer-name) my-shells)
+  (if (tc/buf-is-shell-p) 
       (let ((inhibit-read-only t)
             (output-end (process-mark (get-buffer-process (current-buffer)))))
         (put-text-property comint-last-output-start output-end 'read-only t))))
-(add-hook 'comint-output-filter-functions 'make-my-shell-output-read-only)
 
-(setq-default dirtrack-list '("^<< \\(.*\\) >>" 1 t))
+(add-hook 'comint-output-filter-functions 'tc/make-shell-output-read-only)
 
-(defun my-dirtrack-mode ()
+(defun tc/turn-on-dirtrack-mode ()
   "Add to shell-mode-hook to use dirtrack mode in my shell buffers."
-  (when (member (buffer-name) my-shells)
+  (when (tc/buf-is-shell-p)
     (shell-dirtrack-mode 0)
     (dirtrack-mode 1)))
-(add-hook 'shell-mode-hook 'my-dirtrack-mode)
+
+(add-hook 'shell-mode-hook 'tc/turn-on-dirtrack-mode)
 
 ; interpret and use ansi color codes in shell output windows
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
-(defun set-scroll-conservatively ()
+(defun tc/set-scroll-conservatively ()
   "Add to shell-mode-hook to prevent jump-scrolling on newlines in shell buffers."
   (set (make-local-variable 'scroll-conservatively) 10))
 
-(add-hook 'shell-mode-hook 'set-scroll-conservatively)
+(add-hook 'shell-mode-hook 'tc/set-scroll-conservatively)
 
-(defun enter-again-if-enter ()
+(defun tc/enter-again-if-enter ()
   "Make the return key select the current item in minibuf and shell history isearch.
 An alternate approach would be after-advice on isearch-other-meta-char."
   (when (and (not isearch-mode-end-hook-quit)
              (equal (this-command-keys-vector) [13])) ; == return
     (cond ((active-minibuffer-window) (minibuffer-complete-and-exit))
-          ((member (buffer-name) my-shells) (comint-send-input)))))
+          ((tc/buf-is-shell-p) (comint-send-input)))))
 
-(add-hook 'isearch-mode-end-hook 'enter-again-if-enter)
+(add-hook 'isearch-mode-end-hook 'tc/enter-again-if-enter)
 
-(defadvice comint-previous-matching-input
+(defadvice tc/comint-previous-matching-input
     (around suppress-history-item-messages activate)
   "Suppress the annoying 'History item : NNN' messages from shell history isearch.
 If this isn't enough, try the same thing with
@@ -74,7 +74,7 @@ comint-replace-by-expanded-history-before-point."
       (progn (fset 'message 'ignore) ad-do-it)
     (fset 'message old-message))))
 
-(defadvice comint-send-input (around go-to-end-of-multiline activate)
+(defadvice tc/comint-send-input (around go-to-end-of-multiline activate)
   "When I press enter, jump to the end of the *buffer*, instead of the end of
 the line, to capture multiline input. (This only has effect if
 `comint-eol-on-send' is non-nil."
