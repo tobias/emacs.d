@@ -220,6 +220,7 @@
 (load "modes/ruby")
 (load "modes/shell")
 (load "modes/text")
+(load "modes/markdown")
 
 (when tc/presentation-mode-p
   (load "presentation"))
