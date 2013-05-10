@@ -7,6 +7,21 @@
 
 (setq nrepl-popup-stacktraces nil)
 
+(require 'nrepl)
+
+(defun nrepl-port-from-file ()
+  (interactive)
+  (let* ((dir (nrepl-project-directory-for (nrepl-current-dir)))
+         (f (expand-file-name "target/repl-port" dir))
+         (port (when (file-exists-p f)
+                 (string-to-number
+                  (with-temp-buffer
+                    (insert-file-contents f)
+                    (buffer-string))))))
+    (if port
+        (nrepl-connect "localhost" port)
+      (message "No port file found"))))
+
 ;; TODO: this needs cleanup
 (eval-after-load 'clojure-mode
   '(define-clojure-indent
