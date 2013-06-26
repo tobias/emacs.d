@@ -173,6 +173,9 @@
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-x C-z"))
 
+;; I often get the buffer list by accident
+(global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
+
 ;; revert - this shadows ido-find-file-read-only, but why would I want
 ;; to edit a file as read-only?
 (global-set-key (kbd "C-x C-r") 'revert-buffer)
