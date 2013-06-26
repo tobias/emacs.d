@@ -210,6 +210,11 @@
 
 (winner-mode 1)
 
+;; scpaste - paste over scp
+(autoload 'scpaste "scpaste" "Paste the current buffer." t nil)
+(setq scpaste-http-destination "http://p.tcrawley.org"
+      scpaste-scp-destination "p.tcrawley.org:p.tcrawley.org")
+
 ;; load everything else
 (load "functions")
 (load "theme")
