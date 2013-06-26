@@ -63,7 +63,7 @@
 
 (add-hook 'tc/lisp-coding-hooks 'tc/turn-on-paredit)
 (add-hook 'tc/lisp-coding-hooks 'tc/turn-on-show-paren)
-(add-hook 'tc/lisp-coding-hooks 'tc/turn-on-folding)
+;;(add-hook 'tc/lisp-coding-hooks 'tc/turn-on-folding)
 
 (defun tc/run-lisp-coding-hooks ()
   "Enable things that are convenient for lisp code."
