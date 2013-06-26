@@ -6,6 +6,7 @@
 (add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
 
 (setq nrepl-popup-stacktraces nil)
+(setq nrepl-popup-stacktraces-in-repl t)
 
 (require 'nrepl)
 
