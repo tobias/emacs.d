@@ -115,7 +115,14 @@
         try-complete-file-name
         try-complete-lisp-symbol))
 
-(global-set-key (kbd "<C-tab>") 'hippie-expand)
+;; company completion
+(require 'company)
+;; enable it everywhere
+(global-company-mode t)
+;; but only activate manually
+(setq company-idle-delay nil)
+
+(global-set-key (kbd "<C-tab>") 'company-complete)
 
 ;; mac specific options
 (when tc/macos-p
