@@ -95,6 +95,11 @@
   (interactive)
   (erc-tls :server "bouncer" :port 6565 :nick "tcrawley" :password my-bouncer-password))
 
+(defun irc-connect-all ()
+  (interactive)
+  (irc-connect-bouncer)
+  (irc-connect-internal))
+
 (defun tc/irc-growl (channel message)
   "Displays an irc message to growl/libnotify via todochiku.
 Notice will be sticky if the message is a query."
