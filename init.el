@@ -203,6 +203,7 @@
 (define-key global-map "\C-x4\C-j" 'dired-jump-other-window)
 
 (global-set-key (kbd "C-x p") 'tc/toggle-current-window-dedication)
+(global-set-key (kbd "C-a") 'tc/smarter-move-beginning-of-line)
 
 (winner-mode 1)
 
