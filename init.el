@@ -202,6 +202,9 @@
 ;; use the fancy-pants rebase mode in magit
 (require 'rebase-mode)
 
+;; make renaming buffers easier
+(global-set-key (kbd "C-c r") 'rename-buffer)
+
 ;; setup dired-jump
 (autoload 'dired-jump "dired-x"
   "Jump to Dired buffer corresponding to current buffer." t)
