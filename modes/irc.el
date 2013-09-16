@@ -29,7 +29,11 @@
  erc-modules                     '(autojoin button completion fill irccontrols
                                    keep-place list match menu move-to-prompt
                                    netsplit networks noncommands readonly ring
-                                   stamp track hl-nicks))
+                                   stamp track hl-nicks)
+ erc-track-faces-priority-list   '(erc-error-face
+                                   erc-current-nick-face
+                                   erc-keyword-face
+                                   erc-pal-face))
 
 ;; flyspell check as I type
 (erc-spelling-mode 1)
@@ -85,15 +89,33 @@
               erc-channel-users)
      (format " %S" members))))
 
+(defun tc/mostly-ignore-channels-except (watched-chans)
+  "Minimal modeline notifications for all channels except WATCHED-CHANS"
+  (setq erc-track-priority-faces-only
+        (cl-set-difference
+         (delq nil (mapcar (lambda (name)
+                             (when (string-match "^#" name)
+                               name))
+                           (tc/buffers-for-mode 'erc-mode)))
+            watched-chans
+            :test 'equal)))
+
+(defun tc/mostly-ignore-channels ()
+  "Minimal modeline notifications for all channels except tc/private-watched-channels"
+  (interactive)
+  (tc/mostly-ignore-channels-except tc/private-watched-channels))
+
 (add-hook 'erc-mode-hook 'ncm-mode)
 
 (defun irc-connect-internal ()
   (interactive)
-  (erc :server my-internal-irc-server :port 6667 :nick "tcrawley" ))
+  (erc :server my-internal-irc-server :port 6667 :nick "tcrawley" )
+  (tc/mostly-ignore-channels))
 
 (defun irc-connect-bouncer ()
   (interactive)
-  (erc-tls :server "bouncer" :port 6565 :nick "tcrawley" :password my-bouncer-password))
+  (erc-tls :server "bouncer" :port 6565 :nick "tcrawley" :password my-bouncer-password)
+  (tc/mostly-ignore-channels))
 
 (defun irc-connect-all ()
   (interactive)
@@ -142,7 +164,7 @@ Assumes message is either of two forms: '* nick does something' or '<nick> says 
   (start-process-shell-command "alert-sound" nil
                                (if (eq system-type 'darwin)
                                    "say -v Zarvox -r 500 heyy"
-                                 "mplayer /usr/share/sounds/purple/alert.wav")))
+                                 "mplayer /usr/share/sounds/freedesktop/stereo/bell.oga")))
 
 (defun tc/escape-html (str)
   "Escapes [<>&\n] from a string with html escape codes."

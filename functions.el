@@ -9,19 +9,23 @@
             (if dedicated "no longer " "")
             (buffer-name))))
 
+(defun tc/buffers-for-mode (the-mode)
+  "Returns a list of all buffers with the given major mode."
+  (delq
+   nil
+   (mapcar (lambda (buf)
+             (when (buffer-live-p buf)
+               (with-current-buffer buf
+                 (and (eq major-mode the-mode)
+                      (buffer-name buf)))))
+           (buffer-list))))
+
 ;; useful for switching between buffers of mode
 (defun tc/ido-for-mode(prompt the-mode)
   (switch-to-buffer
    (ido-completing-read prompt
                         (save-excursion
-                          (delq
-                           nil
-                           (mapcar (lambda (buf)
-                                     (when (buffer-live-p buf)
-                                       (with-current-buffer buf
-                                         (and (eq major-mode the-mode)
-                                              (buffer-name buf)))))
-                                   (buffer-list)))))))
+                          (tc/buffers-for-mode the-mode)))))
 
 ;; tools for getting data from authinfo and friends
 
