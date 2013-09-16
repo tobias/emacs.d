@@ -4,11 +4,14 @@
 
 (add-to-list 'auto-mode-alist '("\\.dtm$" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
+(add-to-list 'auto-mode-alist '("\\.cljs$" . clojure-mode))
 
 (setq nrepl-popup-stacktraces nil)
 (setq nrepl-popup-stacktraces-in-repl t)
 
 (require 'nrepl)
+
+(add-hook 'nrepl-mode-hook 'tc/run-lisp-coding-hooks)
 
 (defun nrepl-port-from-file ()
   (interactive)
@@ -45,6 +48,9 @@
      (should-not= 'defun)
      (should-fail 'defun)
      (should-throw 'defun)
-     (should-not-throw 'defun)))
+     (should-not-throw 'defun)
+
+     (cond-> 'defun)
+     (cond->> 'defun)))
 
 
