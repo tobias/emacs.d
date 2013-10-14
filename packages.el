@@ -10,7 +10,8 @@
   (mapc (lambda (pkg)
           (and (not (package-installed-p pkg))
                (package-install pkg)))
-        '(clojure-mode
+        '(adoc-mode
+          auto-complete
           clojure-test-mode
           coffee-mode
           diminish
@@ -19,22 +20,37 @@
           find-things-fast
           flymake-cursor
           fold-dwim-org
+          fold-dwim
+          fuzzy
           gh
           gist
-          haml-mode
+          helm
           highlight-parentheses
           htmlize
           idle-highlight
           ido-ubiquitous
+          logito
           magit
           markdown-mode
+          markup-faces
           maxframe
           midje-mode
           nrepl
+          cl-lib
+          clojure-mode
+          ox-reveal
+          org
           paredit
+          pcache
+          pkg-info
+          dash
+          popup
+          ruby-electric
+          s
           sass-mode
+          haml-mode
+          scpaste
           textile-mode
           todochiku
           yaml-mode
-          ruby-electric
-          scpaste)))
+          yasnippet)))
