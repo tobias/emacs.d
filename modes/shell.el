@@ -37,6 +37,15 @@
 
 (add-hook 'comint-output-filter-functions 'tc/make-shell-output-read-only)
 
+(defun tc/turn-off-shell-read-only ()
+  "Enables editing of full shell buffer"
+  (interactive)
+  (if (tc/buf-is-shell-p)
+      (let ((inhibit-read-only t))
+        (alter-text-property (point-max) (point-min) 'read-only '(lambda (ignored) nil)))))
+
+(define-key shell-mode-map (kbd "C-x C-q") `tc/turn-off-shell-read-only)
+
 (defun tc/turn-on-dirtrack-mode ()
   "Add to shell-mode-hook to use dirtrack mode in my shell buffers."
   (when (tc/buf-is-shell-p)
