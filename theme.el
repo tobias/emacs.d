@@ -43,8 +43,8 @@
   (if tc/macos-p
       (set-face-font `default "-apple-inconsolata-medium-r-normal--16-0-72-72-m-0-iso10646-1")
     (if tc/presentation-mode-p
-        (set-face-font `default "Liberation Mono-18")
-      (set-face-font `default "Liberation Mono-10")))
+        (set-face-font `default "Liberation Mono-16")
+      (set-face-font `default "Liberation Mono-9")))
 
   (defun fullscreen ()
     "Toggle full screen"
@@ -53,6 +53,7 @@
         (shell-command
          (concat "wmctrl -i -r "
                  (frame-parameter nil 'outer-window-id)
+                 ;" -btoggle,fullscreen"
                  " -btoggle,maximized_vert,maximized_horz"))
       (set-frame-parameter
        nil 'fullscreen

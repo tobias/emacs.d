@@ -11,7 +11,7 @@
  '(minibuffer-prompt ((t (:background "yellow" :foreground "#020697" :weight bold))))
  '(highlight ((t (:background "gray95"))))
  '(shadow ((t (:foreground "grey50"))))
- '(secondary-selection ((t (:background "yellow1"))))
+ '(secondary-selection ((t (:background "red1"))))
  '(trailing-whitespace ((t (:background "red1"))))
  '(font-lock-builtin-face ((t (:foreground "#170ce4"))))
  '(font-lock-comment-delimiter-face ((t (:inherit font-lock-comment-face))))
