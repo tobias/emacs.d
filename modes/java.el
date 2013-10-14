@@ -33,15 +33,3 @@
 (eval-after-load 'rng-loc
   '(add-to-list 'rng-schema-locating-files
                 (concat user-emacs-directory "schemas/schemas.xml")))
-
-;; eclim
-;; (require 'eclim)
-;; (global-eclim-mode)
-;; (setq eclim-executable "/opt/eclipse/eclim")
-
-;; company completion
-;; (require 'company-emacs-eclim)
-;; (company-emacs-eclim-setup)
-
-;; we need yas for eclim method implementation support (C-c C-e z)
-;; (require 'yasnippet)

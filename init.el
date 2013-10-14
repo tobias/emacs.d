@@ -115,15 +115,6 @@
         try-complete-file-name
         try-complete-lisp-symbol))
 
-;; company completion
-(require 'company)
-;; enable it everywhere
-(global-company-mode t)
-;; but only activate manually
-(setq company-idle-delay nil)
-
-(global-set-key (kbd "<C-tab>") 'company-complete)
-
 ;; mac specific options
 (when tc/macos-p
   ;; emacs 23 breaks the command -> meta mapping. This fixes it.
@@ -229,6 +220,7 @@
 (load "functions")
 (load "theme")
 (load "ftf")
+(load "auto-complete-init")
 (load "coding-utils")
 (load "modes/clojure")
 (load "modes/elisp")
