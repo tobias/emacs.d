@@ -1,6 +1,5 @@
 (add-hook 'clojure-mode-hook 'tc/run-common-coding-hooks)
 (add-hook 'clojure-mode-hook 'tc/run-lisp-coding-hooks)
-(add-hook 'clojure-mode-hook 'tc/pretty-fn)
 
 (add-to-list 'auto-mode-alist '("\\.dtm$" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
@@ -8,6 +7,11 @@
 
 (setq nrepl-popup-stacktraces nil)
 (setq nrepl-popup-stacktraces-in-repl t)
+
+(add-to-list 'pretty-symbol-patterns
+             '(?λ lambda "(\\(fn\\)\\>" (clojure-mode) 1))
+(add-to-list 'pretty-symbol-patterns
+             '(?λ lambda "\\(#\\)(" (clojure-mode) 1))
 
 (require 'nrepl)
 

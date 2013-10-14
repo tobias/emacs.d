@@ -1,24 +1,7 @@
 (require 'flymake-cursor)
 (require 'linum)
 (require 'diminish)
-
-;; replace 'lambda' with a lambda symbol - if it's working, this comment makes
-;; no sense
-(defun tc/pretty-lambdas ()
-  (font-lock-add-keywords
-   nil `(("(?\\(lambda\\>\\)"
-          (0 (progn (compose-region (match-beginning 1) (match-end 1)
-                                    ,(make-char 'greek-iso8859-7 107))
-                    nil))))))
-
-;; replace fn with function symbol
-(defun tc/pretty-fn ()
-  (font-lock-add-keywords
-   nil `(("(\\(\\<fn\\>\\)"
-          (0 (progn (compose-region (match-beginning 1)
-                                    (match-end 1)
-                                    "\u0192"
-                                    'decompose-region)))))))
+(require 'pretty-symbols)
 
 (defun tc/local-comment-auto-fill ()
   (set (make-local-variable 'comment-auto-fill-only-comments) t)
@@ -54,9 +37,9 @@
 (add-hook 'tc/common-coding-hooks 'tc/turn-on-idle-highlight)
 (add-hook 'tc/common-coding-hooks 'linum-on)
 (add-hook 'tc/common-coding-hooks 'tc/local-comment-auto-fill)
-(add-hook 'tc/common-coding-hooks 'tc/pretty-lambdas)
 (add-hook 'tc/common-coding-hooks 'tc/add-watchwords)
-  
+(add-hook 'tc/common-coding-hooks 'pretty-symbols-mode)
+
 (defun tc/run-common-coding-hooks ()
   "Enable things that are convenient across all coding buffers."
   (run-hooks 'tc/common-coding-hooks))
@@ -141,6 +124,8 @@ Symbols matching the text at point are put first in the completion list."
   (tc/indent-buffer)
   (tc/untabify-buffer)
   (delete-trailing-whitespace))
+
+(setq pretty-symbol-categories `(lambda))
 
 (global-set-key (kbd "C-c n") 'tc/cleanup-buffer)
 
