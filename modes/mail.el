@@ -26,7 +26,8 @@
                                ("date:today..now"
                                 "Today's messages" ?t)
                                ("date:7d..now"
-                                "Last 7 days"      ?w)))
+                                "Last 7 days"      ?w))
+ gnutls-min-prime-bits       1024)
 
 (defun tc/maildir-match-p (re msg)
   (string-match-p
@@ -55,7 +56,7 @@
         ("^nrepl-el"       . "/tcrawley.org/INBOX.Lists.clojure.nrepl-el")
         ("^clojars-m"      . "/tcrawley.org/INBOX.Lists.clojure.clojars-maintainers")
         ("^mu-discuss"     . "/tcrawley.org/INBOX.Lists.mu")
-        ("^asheville-coders" . "/tcrawley.org/INBOX.Lists.asheville-coders")))
+        ("^mbaas"          . "/redhat.com/Lists.mbaas")))
 
 (defun tc/check-for-list-refile (msg)
   (let ((ml (mu4e-message-field msg :mailing-list)))
