@@ -12,6 +12,8 @@
                       :foreground "black"
                       :background "yellow"
                       :weight 'bold)
+  (set-face-attribute 'ido-subdir nil
+                      :foreground "yellow")
   ;; make highlight easier on the eyes
   (set-face-attribute 'highlight nil
                       :background "gray40"
@@ -35,7 +37,12 @@
 
 (when (display-graphic-p)
   (if tc/presentation-mode-p
-      (load-theme 'half-blind)
+      (progn
+        (load-theme 'half-blind)
+        ;; if we don't force the foreground to nil, it will be
+        ;; the gtk selection color. This lets font-lock decoration
+        ;; remain active
+        (set-face-foreground 'region nil))
     (if tc/light-theme-p
         (tc/light-theme)
       (tc/dark-theme)))

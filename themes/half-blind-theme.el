@@ -10,7 +10,7 @@
  '(escape-glyph ((t (:foreground "brown"))))
  '(minibuffer-prompt ((t (:background "yellow" :foreground "#020697" :weight bold))))
  '(highlight ((t (:background "gray90"))))
- '(region ((t (:background "#b6b1f1"))))
+ '(region ((t (:background "gray90" :weight bold))))
  '(shadow ((t (:foreground "grey50"))))
  '(secondary-selection ((t (:background "yellow1"))))
  '(trailing-whitespace ((t (:background "red1"))))
@@ -46,6 +46,7 @@
  '(match ((t (:background "yellow1"))))
  '(next-error ((t (:inherit region))))
  '(query-replace ((t (:inherit isearch))))
- '(idle-highlight ((t (:inherit region :foreground "black")))))
+ '(idle-highlight ((t (:inherit region :foreground "black"))))
+ '(ido-subdir ((t (:foreground "dark red")))))
 
 (provide-theme 'half-blind)

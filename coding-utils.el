@@ -1,7 +1,6 @@
 (require 'flymake-cursor)
 (require 'linum)
 (require 'diminish)
-(require 'pretty-symbols)
 
 (defun tc/local-comment-auto-fill ()
   (set (make-local-variable 'comment-auto-fill-only-comments) t)
@@ -34,11 +33,21 @@
    nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"
           1 font-lock-warning-face t))))
 
-(add-hook 'tc/common-coding-hooks 'tc/turn-on-idle-highlight)
+(defun tc/enable-dwim-fold ()
+  (interactive)
+  (hs-minor-mode)
+  (local-set-key (kbd "C-c TAB") 'fold-dwim-org/minor-mode))
+
 (add-hook 'tc/common-coding-hooks 'linum-on)
 (add-hook 'tc/common-coding-hooks 'tc/local-comment-auto-fill)
 (add-hook 'tc/common-coding-hooks 'tc/add-watchwords)
-(add-hook 'tc/common-coding-hooks 'pretty-symbols-mode)
+(add-hook 'tc/common-coding-hooks 'tc/enable-dwim-fold)
+
+(when (not tc/presentation-mode-p)
+  (add-hook 'tc/common-coding-hooks 'tc/turn-on-idle-highlight)
+  (require 'pretty-symbols)
+  (setq pretty-symbol-categories `(lambda))
+  (add-hook 'tc/common-coding-hooks 'pretty-symbols-mode))
 
 (defun tc/run-common-coding-hooks ()
   "Enable things that are convenient across all coding buffers."
@@ -124,8 +133,6 @@ Symbols matching the text at point are put first in the completion list."
   (tc/indent-buffer)
   (tc/untabify-buffer)
   (delete-trailing-whitespace))
-
-(setq pretty-symbol-categories `(lambda))
 
 (global-set-key (kbd "C-c n") 'tc/cleanup-buffer)
 

@@ -12,6 +12,7 @@
                (package-install pkg)))
         '(adoc-mode
           auto-complete
+          ;cider
           clojure-test-mode
           coffee-mode
           diminish
@@ -38,7 +39,8 @@
           nrepl
           cl-lib
           clojure-mode
-          ox-reveal
+          ;; Running from a checkout currently
+          ;;ox-reveal
           org
           paredit
           pcache
