@@ -30,8 +30,7 @@
   (dolist (mode '(haml-mode
                   sass-mode yaml-mode csv-mode espresso-mode haskell-mode
                   html-mode nxml-mode sh-mode smarty-mode clojure-mode
-                  nrepl-repl-mode cider-mode
-                  lisp-mode tuareg-mode))
+                  cider-repl-mode cider-mode lisp-mode tuareg-mode))
     (add-to-list 'ac-modes mode))
 
 ;;;;Key triggers

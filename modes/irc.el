@@ -185,6 +185,10 @@ Assumes message is either of two forms: '* nick does something' or '<nick> says 
             (erc-propertize (concat (erc-default-target) ">") 'read-only t 'rear-nonsticky t 'front-nonsticky t)
           (erc-propertize (concat "ERC>") 'read-only t 'rear-nonsticky t 'front-nonsticky t))))
 
+(define-key erc-mode-map (kbd "C-c m")
+  (lambda (nick)
+    (interactive (list (completing-read "Say 'morning!' to nick: " erc-channel-users)))
+    (erc-send-message (format "%s: morning!" nick))))
 
 (defun tc/yank-to-gist ()
   "yank from the top of the kill ring, create a gist from it, and insert the gist url at the point"

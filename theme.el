@@ -35,6 +35,12 @@
   (load-theme 'tango-dark)
   (add-hook 'after-init-hook 'tc/dark-customizations))
 
+(setq tc/default-font "Liberation Mono")
+
+(defun embiggen (size)
+  (interactive "sFont size: ")
+  (set-face-font 'default (format "%s-%s" tc/default-font size)))
+
 (when (display-graphic-p)
   (if tc/presentation-mode-p
       (progn
@@ -50,8 +56,8 @@
   (if tc/macos-p
       (set-face-font `default "-apple-inconsolata-medium-r-normal--16-0-72-72-m-0-iso10646-1")
     (if tc/presentation-mode-p
-        (set-face-font `default "Liberation Mono-16")
-      (set-face-font `default "Liberation Mono-9")))
+        (embiggen 18)
+      (embiggen 9)))
 
   (defun fullscreen ()
     "Toggle full screen"

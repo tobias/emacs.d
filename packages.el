@@ -12,7 +12,7 @@
                (package-install pkg)))
         '(adoc-mode
           auto-complete
-          ;cider
+          cider
           clojure-test-mode
           coffee-mode
           diminish
@@ -35,8 +35,7 @@
           markdown-mode
           markup-faces
           maxframe
-          midje-mode
-          nrepl
+          ;;midje-mode
           cl-lib
           clojure-mode
           ;; Running from a checkout currently

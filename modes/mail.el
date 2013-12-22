@@ -1,7 +1,5 @@
 (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e") 
 
-(require 'mu4e)
-
 (setq
  user-mail-address           "toby@tcrawley.org"
  user-full-name              "Toby Crawley"

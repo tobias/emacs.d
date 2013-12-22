@@ -46,8 +46,9 @@
 
 ;; use the modeline to indicate the bell instead of sound or a big
 ;; black block in the middle of the screen (wtf wants that?)
-(setq visible-bell t)
-(load "echo-area-bell")
+(when (not tc/presentation-mode-p)
+  (setq visible-bell t)
+  (load "echo-area-bell"))
 
 ;; always show the column number in the mode line
 (column-number-mode t)
@@ -224,14 +225,18 @@
 (load "coding-utils")
 (load "modes/clojure")
 (load "modes/elisp")
-(load "modes/irc")
 (load "modes/java")
-(load "modes/mail")
+(when (require 'mu4e nil :noerror)
+  (load "modes/mail"))
 (load "modes/org")
 (load "modes/ruby")
 (load "modes/shell")
+(load "modes/term")
 (load "modes/text")
 (load "modes/markdown")
+
+(when (not tc/presentation-mode-p)
+  (load "modes/irc"))
 
 (when tc/presentation-mode-p
   (load "presentation"))

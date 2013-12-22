@@ -38,12 +38,12 @@
   (hs-minor-mode)
   (local-set-key (kbd "C-c TAB") 'fold-dwim-org/minor-mode))
 
-(add-hook 'tc/common-coding-hooks 'linum-on)
 (add-hook 'tc/common-coding-hooks 'tc/local-comment-auto-fill)
 (add-hook 'tc/common-coding-hooks 'tc/add-watchwords)
 (add-hook 'tc/common-coding-hooks 'tc/enable-dwim-fold)
 
 (when (not tc/presentation-mode-p)
+  (add-hook 'tc/common-coding-hooks 'linum-on)
   (add-hook 'tc/common-coding-hooks 'tc/turn-on-idle-highlight)
   (require 'pretty-symbols)
   (setq pretty-symbol-categories `(lambda))
