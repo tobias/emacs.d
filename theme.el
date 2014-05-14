@@ -56,7 +56,7 @@
   (if tc/macos-p
       (set-face-font `default "-apple-inconsolata-medium-r-normal--16-0-72-72-m-0-iso10646-1")
     (if tc/presentation-mode-p
-        (embiggen 18)
+        (embiggen 17)
       (embiggen 9)))
 
   (defun fullscreen ()

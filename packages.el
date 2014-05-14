@@ -10,7 +10,8 @@
   (mapc (lambda (pkg)
           (and (not (package-installed-p pkg))
                (package-install pkg)))
-        '(adoc-mode
+        '(ace-window
+          adoc-mode
           auto-complete
           cider
           clojure-test-mode

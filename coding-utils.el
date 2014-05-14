@@ -12,7 +12,10 @@
 
 (defun tc/turn-on-paredit ()
   (paredit-mode t)
-  (diminish 'paredit-mode))
+  (diminish 'paredit-mode)
+  (when (not (display-graphic-p))
+    (define-key paredit-mode-map (kbd "M-[ c") 'paredit-forward-slurp-sexp)
+    (define-key paredit-mode-map (kbd "M-[ d") 'paredit-forward-barf-sexp)))
 
 (defun tc/turn-on-show-paren ()
   (show-paren-mode t))
@@ -78,15 +81,15 @@ Symbols matching the text at point are put first in the completion list."
                              (cond
                               ((and (listp symbol) (imenu--subalist-p symbol))
                                (addsymbols symbol))
-                              
+
                               ((listp symbol)
                                (setq name (car symbol))
                                (setq position (cdr symbol)))
-                              
+
                               ((stringp symbol)
                                (setq name symbol)
                                (setq position (get-text-property 1 'org-imenu-marker symbol))))
-                             
+
                              (unless (or (null position) (null name))
                                (add-to-list 'symbol-names name)
                                (add-to-list 'name-and-pos (cons name position))))))))
@@ -138,4 +141,3 @@ Symbols matching the text at point are put first in the completion list."
 
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-c c") 'compile)
-

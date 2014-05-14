@@ -10,17 +10,13 @@
 
 (require 'compile)
 
-(defun mvn(&optional args) 
+(defun mvn(&optional args)
   "Searches up the path for a pom.xml"
   (interactive)
-  (let* ((dir (file-name-as-directory (expand-file-name default-directory)))
-		 (found (file-exists-p (concat dir "pom.xml"))))
-    (while (and (not found) (not (equal dir "/")))
-      (setq dir (file-name-as-directory (expand-file-name (concat dir "..")))
-            found (file-exists-p (concat dir "pom.xml"))))
-    (if (not found)
+  (let ((dir (locate-dominating-file default-directory "pom.xml")))
+    (if (not dir)
         (message "No pom.xml found")
-      (compile (read-from-minibuffer "Command: " 
+      (compile (read-from-minibuffer "Command: "
                                      (concat "mvn -f " dir "pom.xml install") nil nil 'compile-history)))))
 
 ;;; For maven 2/3 output

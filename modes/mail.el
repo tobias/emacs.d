@@ -1,4 +1,4 @@
-(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e") 
+(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
 
 (setq
  user-mail-address           "toby@tcrawley.org"
@@ -9,7 +9,7 @@
  mu4e-attachment-dir         "~/Downloads"
  mu4e-user-mail-address-list '("toby@tcrawley.org" "tcrawley@redhat.com")
  mu4e-html2text-command      "w3m -dump -cols 80 -T text/html"
- mu4e-get-mail-command       "offlineimap"
+ mu4e-get-mail-command       "/home/tcrawley/bin/checkmail" ;;"offlineimap"
  mu4e-update-interval        300
  tc/default-trash-folder     "/tcrawley.org/INBOX.Trash"
  tc/default-refile-folder    "/tcrawley.org/INBOX.Archive"
@@ -25,6 +25,7 @@
                                 "Today's messages" ?t)
                                ("date:7d..now"
                                 "Last 7 days"      ?w))
+ mu4e-compose-signature-auto-include nil
  gnutls-min-prime-bits       1024)
 
 (defun tc/maildir-match-p (re msg)
@@ -68,7 +69,7 @@
           (cond
            (list-refile                                list-refile)
            ((tc/sender-matches-p "herbalmama" msg)     "/tcrawley.org/INBOX.maria")
-           ((tc/maildir-match-p "redhat" msg)          "/redhat.com/Archive.2013")
+           ((tc/maildir-match-p "redhat" msg)          "/redhat.com/Archive.2014")
            ;; this should be in list-refile-matchers, but the list
            ;; doesn't have a list-id header
            ((tc/recip-matches-p "^torquebox-user" msg) "/tcrawley.org/INBOX.Lists.torquebox.torquebox-user")
@@ -87,8 +88,7 @@
          (smtpmail-stream-type        ssl)
          (smtpmail-smtp-server        "mail.tcrawley.org")
          (smtpmail-smtp-service       465)
-         (starttls-extra-arguments    nil)
-         (message-signature           "Toby Crawley\nhttp://immutant.org | http://torquebox.org"))
+         (starttls-extra-arguments    nil))
 
         ("redhat.com"
          (user-mail-address           "tcrawley@redhat.com")
@@ -98,8 +98,7 @@
          (smtpmail-stream-type        starttls)
          (smtpmail-smtp-server        "smtp.corp.redhat.com")
          (smtpmail-smtp-service       25)
-         (starttls-extra-arguments    ("--no-ca-verification"))
-         (message-signature           "Toby Crawley\nRed Hat, Inc | http://immutant.org | http://torquebox.org"))))
+         (starttls-extra-arguments    ("--no-ca-verification")))))
 
 (add-hook
  'mu4e-compose-pre-hook
@@ -138,4 +137,3 @@
              '("View in browser" . tc/mu4e-msgv-action-view-in-browser) t)
 
 (global-set-key (kbd "C-x m") 'mu4e)
-

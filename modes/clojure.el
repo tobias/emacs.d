@@ -5,10 +5,11 @@
 (add-to-list 'auto-mode-alist '("\\.dtm$" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.cljs$" . clojure-mode))
+(add-to-list 'auto-mode-alist '("\\.cljx$" . clojure-mode))
 
 (require 'cider)
 
-(setq 
+(setq
  clojure-defun-style-default-indent t
  cider-popup-stacktraces            nil
  cider-auto-select-error-buffer     t
@@ -42,3 +43,26 @@
   (run-cider-command (cider-last-sexp)))
 
 (define-key cider-mode-map (kbd "C-c C-c") 'send-expr-to-repl)
+
+(require 'compile)
+
+(defvar lein-history nil)
+
+(defun lein ()
+  "Searches up the path for all project.clj's, asks at what level
+to run the command (if more than one are found), then asks for a
+lein command."
+  (interactive)
+  (let* ((dirs (tc/locate-all-dominating-files default-directory "project.clj"))
+         (dir (case (length dirs)
+                (0 nil)
+                (1 (first dirs))
+                (t (ido-completing-read "Project? " dirs)))))
+    (if dir
+        (compile (concat (format "cd %s;lein " dir)
+                         (read-from-minibuffer "Lein task: " "install"
+                                               nil nil 'lein-history)))
+      (message "No project.clj found"))))
+
+(define-key clojure-mode-map (kbd "C-c l") 'lein)
+(define-key clojure-mode-map (kbd "C-:") nil)

@@ -64,3 +64,11 @@ point reaches the beginning or end of the buffer, stop there."
     (when (= orig-point (point))
       (move-beginning-of-line 1))))
 
+(defun tc/locate-all-dominating-files (dir filename)
+  "Searches for FILENAME in DIR and its parents, returning a list
+ of all dirs containing the file."
+  (let ((found-dir (locate-dominating-file (expand-file-name dir) filename)))
+    (if found-dir
+        (cons found-dir (tc/locate-all-dominating-files
+                         (concat found-dir "..")
+                         filename)))))

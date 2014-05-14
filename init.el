@@ -5,6 +5,9 @@
 (defconst tc/presentation-mode-p
   (getenv "EMACS_PRESENTATION_MODE"))
 
+(defconst tc/presentation-name
+  (getenv "EMACS_PRESENTATION_NAME"))
+
 (defconst tc/light-theme-p
   (getenv "EMACS_LIGHT_THEME"))
 
@@ -43,6 +46,10 @@
 ;; Split windows in Emacs 22 compatible way
 (setq split-height-threshold nil
       split-width-threshold  most-positive-fixnum)
+
+;; reduce the frequency of garbage collection by making it happen on
+;; each 50MB of allocated data (the default is on every 0.76MB)
+(setq gc-cons-threshold 50000000)
 
 ;; use the modeline to indicate the bell instead of sound or a big
 ;; black block in the middle of the screen (wtf wants that?)
@@ -86,6 +93,9 @@
 
 ;; please don't insert tabs
 (set-default 'indent-tabs-mode nil)
+
+;; clean up whitespace before saving
+(add-hook 'before-save-hook 'whitespace-cleanup)
 
 ;; auto-revert any open buffers if they change on disk, and do the
 ;; same for dired. In both cases, don't tell me every time
@@ -139,8 +149,8 @@
       ido-enable-last-directory-history nil)
 
 ;; make ido list files vertically
-(setq ido-decorations
-      '("\n-> " "" "\n   " "\n   ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]"))
+(require 'ido-vertical-mode)
+(ido-vertical-mode)
 
 ;; start an emacs server
 (require 'server)
@@ -148,7 +158,7 @@
   (add-hook 'after-init-hook 'server-start))
 
 ;; disable upcase-region because I often fat-finger it. I could also
-;; unbind C-x C-u I supppose. 
+;; unbind C-x C-u I supppose.
 (put 'upcase-region 'disabled nil)
 
 ;; Make dired less verbose
@@ -180,7 +190,11 @@
 (global-set-key (kbd "C-x C-r") 'revert-buffer)
 
 ;; allow shift-arrow to move between windows
-(windmove-default-keybindings)
+;;(windmove-default-keybindings)
+
+;; use ace-window to jump between windows
+(global-set-key (kbd "C-:") 'ace-window)
+(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
 
 (global-set-key (kbd "C-x C-d") 'ido-dired)
 
@@ -189,10 +203,7 @@
 (define-key global-map (kbd "C-+") 'text-scale-increase)
 (define-key global-map (kbd "C--") 'text-scale-decrease)
 
-(global-set-key (kbd "C-c s") 'ispell-word) 
-
-;; use the fancy-pants rebase mode in magit
-(require 'rebase-mode)
+(global-set-key (kbd "C-c s") 'ispell-word)
 
 ;; make renaming buffers easier
 (global-set-key (kbd "C-c r") 'rename-buffer)
@@ -210,12 +221,26 @@
 (global-set-key (kbd "C-x p") 'tc/toggle-current-window-dedication)
 (global-set-key (kbd "C-a") 'tc/smarter-move-beginning-of-line)
 
+;; open the current file in its repo on github in a browser
+(require 'find-on-github)
+
 (winner-mode 1)
 
 ;; scpaste - paste over scp
 (autoload 'scpaste "scpaste" "Paste the current buffer." t nil)
 (setq scpaste-http-destination "http://p.tcrawley.org"
       scpaste-scp-destination "p.tcrawley.org:p.tcrawley.org")
+
+
+;;(require 'immutant-server)
+;;(setq immutant-server-executable
+;;      "~/work/clojure/immutant/build/assembly/target/stage/immutant/jboss/bin/standalone.sh")
+
+(require 'swoop)
+(global-set-key (kbd "C-o") 'swoop)
+(global-set-key (kbd "C-M-o") 'swoop-multi)
+(global-set-key (kbd "M-o") 'swoop-pcre-regexp)
+(setq swoop-font-size-change: nil)
 
 ;; load everything else
 (load "functions")
@@ -239,4 +264,9 @@
   (load "modes/irc"))
 
 (when tc/presentation-mode-p
-  (load "presentation"))
+  (load "presentation")
+  (when tc/presentation-name
+    (load (concat "presentations/" tc/presentation-name))))
+
+(when (display-graphic-p)
+  (fullscreen))

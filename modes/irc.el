@@ -2,6 +2,9 @@
 (require 'erc-match)
 (require 'todochiku)
 (require 'erc-hl-nicks)
+(require 'erc-tweet)
+(require 'erc-image)
+(require 'erc-youtube)
 
 ;; load private data - this doesn't go into git
 (load "private.el.gpg")
@@ -13,7 +16,7 @@
  erc-track-exclude-types         '("JOIN" "NICK" "PART" "QUIT" "MODE"
                                    "324" "329" "332" "333" "353" "477")
  erc-track-exclude-server-buffer t
- erc-track-showcount             t  
+ erc-track-showcount             t
  erc-hide-list                   '("MODE" "KICK")
  erc-current-nick-highlight-type 'all
  erc-keyword-highlight-type      'all
@@ -29,11 +32,12 @@
  erc-modules                     '(autojoin button completion fill irccontrols
                                    keep-place list match menu move-to-prompt
                                    netsplit networks noncommands readonly ring
-                                   stamp track hl-nicks)
+                                   stamp track hl-nicks tweet image youtube)
  erc-track-faces-priority-list   '(erc-error-face
                                    erc-current-nick-face
                                    erc-keyword-face
-                                   erc-pal-face))
+                                   erc-pal-face)
+ erc-image-inline-rescale        300)
 
 ;; flyspell check as I type
 (erc-spelling-mode 1)
@@ -58,7 +62,7 @@
 
 ;; highlight queries in the mode line as if my nick is mentioned
 (defadvice erc-track-find-face (around tc/erc-track-find-face-promote-query activate)
-  (if (erc-query-buffer-p) 
+  (if (erc-query-buffer-p)
       (setq ad-return-value (intern "erc-current-nick-face"))
     ad-do-it))
 
@@ -164,7 +168,7 @@ Assumes message is either of two forms: '* nick does something' or '<nick> says 
   (start-process-shell-command "alert-sound" nil
                                (if (eq system-type 'darwin)
                                    "say -v Zarvox -r 500 heyy"
-                                 "mplayer /usr/share/sounds/freedesktop/stereo/bell.oga")))
+                                 "ogg123 /usr/share/sounds/freedesktop/stereo/bell.oga")))
 
 (defun tc/escape-html (str)
   "Escapes [<>&\n] from a string with html escape codes."

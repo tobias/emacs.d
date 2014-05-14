@@ -1,4 +1,3 @@
-
 ;; Rake files are ruby, too, as are gemspecs, rackup files, and gemfiles.
 (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
@@ -9,7 +8,7 @@
 (add-to-list 'auto-mode-alist '("\\.scss$" . css-mode))
 
 (setq ruby-use-encoding-map nil)
-     
+
 (require 'ruby-electric)
 (add-hook 'ruby-mode-hook 'tc/run-common-coding-hooks)
 (add-hook 'ruby-mode-hook 'ruby-electric-mode)
@@ -50,3 +49,24 @@
                                   'flymake-display-err-menu-for-current-line)
                    (flymake-mode t))))))
 
+(require 'compile)
+
+(defvar rake-history nil)
+
+(defun rake ()
+  "Searches up the path for all Rakefile's, asks at what level
+to run the command (if more than one are found), then asks for a
+lein command."
+  (interactive)
+  (let* ((dirs (tc/locate-all-dominating-files default-directory "Rakefile"))
+         (dir (case (length dirs)
+                (0 nil)
+                (1 (first dirs))
+                (t (ido-completing-read "Project? " dirs)))))
+    (if dir
+        (compile (concat (format "cd %s;rake " dir)
+                         (read-from-minibuffer "Rake task: " ""
+                                               nil nil 'rake-history)))
+      (message "No Rakefile found"))))
+
+(define-key ruby-mode-map (kbd "C-c r") 'rake)
