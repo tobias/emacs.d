@@ -19,6 +19,9 @@
           diminish
           dired-details
           erc-hl-nicks
+          erc-image
+          erc-tweet
+          erc-youtube
           find-things-fast
           flymake-cursor
           fold-dwim-org
@@ -31,6 +34,7 @@
           htmlize
           idle-highlight
           ido-ubiquitous
+          ido-vertical-mode
           logito
           magit
           markdown-mode
@@ -52,6 +56,7 @@
           sass-mode
           haml-mode
           scpaste
+          swoop
           textile-mode
           todochiku
           yaml-mode
