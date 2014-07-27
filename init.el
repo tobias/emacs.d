@@ -222,7 +222,7 @@
 (global-set-key (kbd "C-a") 'tc/smarter-move-beginning-of-line)
 
 ;; open the current file in its repo on github in a browser
-(require 'find-on-github)
+;; (require 'find-on-github)
 
 (winner-mode 1)
 
