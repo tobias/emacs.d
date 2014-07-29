@@ -70,3 +70,20 @@ lein command."
       (message "No Rakefile found"))))
 
 (define-key ruby-mode-map (kbd "C-c r") 'rake)
+
+(require 'inf-ruby)
+
+(defun tc/inf-ruby-send-line ()
+  "Sends the current line to the inferior Ruby process."
+  (interactive)
+  (save-excursion
+    (end-of-line)
+    (let ((end (point)))
+      (beginning-of-line)
+      (ruby-send-region (point) end))))
+
+;; overrides ruby-load-file
+(define-key inf-ruby-minor-mode-map (kbd "C-c C-l") 'tc/inf-ruby-send-line)
+
+;; overrides inf-ruby
+(define-key inf-ruby-minor-mode-map (kbd "C-c C-s") 'ruby-switch-to-inf)

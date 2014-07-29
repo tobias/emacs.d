@@ -192,9 +192,23 @@
 ;; allow shift-arrow to move between windows
 ;;(windmove-default-keybindings)
 
-;; use ace-window to jump between windows
-(global-set-key (kbd "C-:") 'ace-window)
-(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+(when (not tc/presentation-mode-p)
+  ;; let's give this a try
+  ;; (require 'god-mode)
+  ;; (global-set-key (kbd "<escape>") 'god-mode-all)
+
+  ;; (defun update-cursor ()
+  ;;   (setq cursor-type (if (or god-local-mode buffer-read-only)
+  ;;                         'bar
+  ;;                       'box)))
+
+  ;; (add-hook 'god-mode-enabled-hook 'update-cursor)
+  ;; (add-hook 'god-mode-disabled-hook 'update-cursor)
+
+
+  ;; use ace-window to jump between windows
+  (global-set-key (kbd "C-:") 'ace-window)
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
 
 (global-set-key (kbd "C-x C-d") 'ido-dired)
 

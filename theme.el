@@ -30,16 +30,22 @@
                       :background "goldenrod4"
                       :foreground "gold"
                       :weight 'bold))
-  
+
 (defun tc/dark-theme ()
   (load-theme 'tango-dark)
   (add-hook 'after-init-hook 'tc/dark-customizations))
 
 (setq tc/default-font "Liberation Mono")
 
+(defvar embiggened-size)
+
 (defun embiggen (size)
-  (interactive "sFont size: ")
+  (interactive (list (read-string (format "Font size (%s): " embiggened-size))))
+  (setq embiggened-size size)
   (set-face-font 'default (format "%s-%s" tc/default-font size)))
+
+(require 'powerline)
+(powerline-default-theme)
 
 (when (display-graphic-p)
   (if tc/presentation-mode-p
@@ -52,11 +58,11 @@
     (if tc/light-theme-p
         (tc/light-theme)
       (tc/dark-theme)))
-  
+
   (if tc/macos-p
       (set-face-font `default "-apple-inconsolata-medium-r-normal--16-0-72-72-m-0-iso10646-1")
     (if tc/presentation-mode-p
-        (embiggen 17)
+        (embiggen 14)
       (embiggen 9)))
 
   (defun fullscreen ()

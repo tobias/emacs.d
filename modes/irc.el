@@ -42,16 +42,6 @@
 ;; flyspell check as I type
 (erc-spelling-mode 1)
 
-;;(setq tc/erc-log-msg nil)
-
-;; (defadvice erc-match-keyword-p (around tc/erc-match-keyword-p-sometimes activate)
-;;   (if tc/erc-log-msg
-;;       (message "%s :: %s" nickuserhost msg))
-;;   (and msg
-;;        (not (string-match "\\(projectodd-ci\\|travis-ci\\|proddbot\\|jbossbot\\)" (or nickuserhost "")))
-;;        (not (string-match "\\(^\*\*\* \\(Users on\\|Topic for\\|You have joined\\|#.* modes:\\|#.* was created on\\|#.* topic set\\)\\)\\|\\(has quit:\\|has joined channel\\|has left channel\\|is now known as\\)" msg))
-;;        ad-do-it))
-
 (add-hook 'erc-join-hook 'tc/irc-channel-keywords)
 (add-hook 'erc-join-hook 'tc/irc-channel-pals)
 
@@ -118,7 +108,10 @@
 
 (defun irc-connect-bouncer ()
   (interactive)
-  (erc-tls :server "bouncer" :port 6565 :nick "tcrawley" :password my-bouncer-password)
+  (erc-tls :server "bouncer"
+           :port 6565
+           :nick "tcrawley"
+           :password my-bouncer-password)
   (tc/mostly-ignore-channels))
 
 (defun irc-connect-all ()

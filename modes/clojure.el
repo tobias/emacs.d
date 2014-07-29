@@ -42,7 +42,7 @@
   (interactive)
   (run-cider-command (cider-last-sexp)))
 
-(define-key cider-mode-map (kbd "C-c C-c") 'send-expr-to-repl)
+(define-key cider-mode-map (kbd "C-c C-c") 'send-previous-expr-to-repl)
 
 (require 'compile)
 
