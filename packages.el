@@ -14,8 +14,11 @@
           adoc-mode
           auto-complete
           cider
+          cl-lib
+          clojure-mode
           clojure-test-mode
           coffee-mode
+          dash
           diminish
           dired-details
           erc-hl-nicks
@@ -24,37 +27,33 @@
           erc-youtube
           find-things-fast
           flymake-cursor
-          fold-dwim-org
           fold-dwim
+          fold-dwim-org
           fuzzy
           gh
           gist
+          haml-mode
           helm
           highlight-parentheses
           htmlize
           idle-highlight
           ido-ubiquitous
           ido-vertical-mode
+          inf-ruby
           logito
           magit
           markdown-mode
           markup-faces
           maxframe
-          ;;midje-mode
-          cl-lib
-          clojure-mode
-          ;; Running from a checkout currently
-          ;;ox-reveal
           org
           paredit
           pcache
           pkg-info
-          dash
           popup
+          powerline
           ruby-electric
           s
           sass-mode
-          haml-mode
           scpaste
           swoop
           textile-mode
