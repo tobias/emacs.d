@@ -15,10 +15,16 @@
  tc/default-refile-folder    "/tcrawley.org/INBOX.Archive"
  mu4e-sent-folder            "/tcrawley.org/INBOX.Sent" ;; always overridden, but mu4e needs a default
  mu4e-drafts-folder          "/tcrawley.org/INBOX.Drafts" ;; always overridden, but mu4e needs a default
- mu4e-maildir-shortcuts      '(("/tcrawley.org/INBOX" . ?t)
-                               ("/redhat.com/INBOX"   . ?r))
+ mu4e-maildir-shortcuts      '(("/tcrawley.org/INBOX.important" . ?t)
+                               ("/redhat.com/INBOX.important"   . ?r)
+                               ("/tcrawley.org/INBOX.hold"      . ?T)
+                               ("/redhat.com/INBOX.hold"        . ?R))
  mu4e-bookmarks              '(("maildir:/tcrawley.org/INBOX OR maildir:/redhat.com/INBOX"
                                 "Combined inbox"   ?i)
+                               ("maildir:/tcrawley.org/INBOX.important OR maildir:/redhat.com/INBOX.important"
+                                "Important"          ?x)
+                               ("maildir:/tcrawley.org/INBOX.hold OR maildir:/redhat.com/INBOX.hold"
+                                "On hold"          ?h)
                                ("flag:unread AND NOT flag:trashed"
                                 "Unread messages"  ?u)
                                ("date:today..now"
