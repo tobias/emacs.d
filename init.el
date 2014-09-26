@@ -265,8 +265,6 @@
 (load "modes/clojure")
 (load "modes/elisp")
 (load "modes/java")
-(when (require 'mu4e nil :noerror)
-  (load "modes/mail"))
 (load "modes/org")
 (load "modes/ruby")
 (load "modes/shell")
@@ -275,7 +273,9 @@
 (load "modes/markdown")
 
 (when (not tc/presentation-mode-p)
-  (load "modes/irc"))
+  (load "modes/irc")
+  (when (require 'mu4e nil :noerror)
+    (load "modes/mail")))
 
 (when tc/presentation-mode-p
   (load "presentation")
