@@ -84,7 +84,7 @@
 (setq save-place-file (concat user-emacs-directory "places"))
 (set-default 'save-place t)
 
-;; do a better job about making buffer names unique
+;; do a better job of making buffer names unique
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward)
 
@@ -137,10 +137,7 @@
   (setq-default ispell-program-name "aspell")
 
   ;; don't open a new frame when the os tells emacs to open a file
-  (setq ns-pop-up-frames nil)
-
-  ;(load "peepopen")
-  )
+  (setq ns-pop-up-frames nil))
 
 ;; setup ido
 (ido-mode t)
@@ -189,72 +186,44 @@
 ;; to edit a file as read-only?
 (global-set-key (kbd "C-x C-r") 'revert-buffer)
 
-;; allow shift-arrow to move between windows
-;;(windmove-default-keybindings)
-
 (when (not tc/presentation-mode-p)
-  ;; let's give this a try
-  ;; (require 'god-mode)
-  ;; (global-set-key (kbd "<escape>") 'god-mode-all)
-
-  ;; (defun update-cursor ()
-  ;;   (setq cursor-type (if (or god-local-mode buffer-read-only)
-  ;;                         'bar
-  ;;                       'box)))
-
-  ;; (add-hook 'god-mode-enabled-hook 'update-cursor)
-  ;; (add-hook 'god-mode-disabled-hook 'update-cursor)
-
-
   ;; use ace-window to jump between windows
   (global-set-key (kbd "C-:") 'ace-window)
-  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
+  (setq aw-keys
+        '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
 
 (global-set-key (kbd "C-x C-d") 'ido-dired)
 
 ;; alter the font size for the current buffer
-;; Font size
 (define-key global-map (kbd "C-+") 'text-scale-increase)
 (define-key global-map (kbd "C--") 'text-scale-decrease)
 
+;; lookup the word at point in the dict
 (global-set-key (kbd "C-c s") 'ispell-word)
 
 ;; make renaming buffers easier
 (global-set-key (kbd "C-c r") 'rename-buffer)
 
-;; setup dired-jump
-(autoload 'dired-jump "dired-x"
-  "Jump to Dired buffer corresponding to current buffer." t)
-
-(autoload 'dired-jump-other-window "dired-x"
-  "Like \\[dired-jump] (dired-jump) but in other window." t)
-
-(define-key global-map "\C-x\C-j" 'dired-jump)
-(define-key global-map "\C-x4\C-j" 'dired-jump-other-window)
-
+;; don't let the current window be used for a different buffer
 (global-set-key (kbd "C-x p") 'tc/toggle-current-window-dedication)
+
+;; jump to the begining of the text on the line. a second C-a jumps to
+;; the beginning
 (global-set-key (kbd "C-a") 'tc/smarter-move-beginning-of-line)
 
-;; open the current file in its repo on github in a browser
-;; (require 'find-on-github)
-
+;; remember window configurations - walk through them with C-c left,
+;; C-c right
 (winner-mode 1)
 
-;; scpaste - paste over scp
-(autoload 'scpaste "scpaste" "Paste the current buffer." t nil)
-(setq scpaste-http-destination "http://p.tcrawley.org"
-      scpaste-scp-destination "p.tcrawley.org:p.tcrawley.org")
-
-
-;;(require 'immutant-server)
-;;(setq immutant-server-executable
-;;      "~/work/clojure/immutant/build/assembly/target/stage/immutant/jboss/bin/standalone.sh")
-
+;; quick search
 (require 'swoop)
 (global-set-key (kbd "C-o") 'swoop)
 (global-set-key (kbd "C-M-o") 'swoop-multi)
 (global-set-key (kbd "M-o") 'swoop-pcre-regexp)
 (setq swoop-font-size-change: nil)
+
+;; extra help fns - brought in for describe-keymap, mainly
+(require 'help-fns+)
 
 ;; load everything else
 (load "functions")

@@ -11,19 +11,20 @@
  mu4e-html2text-command      "w3m -dump -cols 80 -T text/html"
  mu4e-get-mail-command       "/home/tcrawley/bin/checkmail" ;;"offlineimap"
  mu4e-update-interval        300
- tc/default-trash-folder     "/tcrawley.org/INBOX.Trash"
- tc/default-refile-folder    "/tcrawley.org/INBOX.Archive"
- mu4e-sent-folder            "/tcrawley.org/INBOX.Sent" ;; always overridden, but mu4e needs a default
- mu4e-drafts-folder          "/tcrawley.org/INBOX.Drafts" ;; always overridden, but mu4e needs a default
- mu4e-maildir-shortcuts      '(("/tcrawley.org/INBOX.important" . ?t)
+ tc/default-trash-folder     "/gmail.com/[Gmail].Trash" ;;"/tcrawley.org/INBOX.Trash"
+ tc/default-refile-folder    "/gmail.com/[Imap]/Archive" ;; "/tcrawley.org/INBOX.Archive"
+ mu4e-sent-folder            "/gmail.com/[Gmail].Sent Mail" ;;"/tcrawley.org/INBOX.Sent" ;; always overridden, but mu4e needs a default
+ mu4e-drafts-folder          "/gmail.com/[Gmail].Drafts" ;;"/tcrawley.org/INBOX.Drafts" ;; always overridden, but mu4e needs a default
+ mu4e-maildir-shortcuts      '(("/gmail.com/deal-with" ;; "/tcrawley.org/INBOX.important"
+                                 . ?t)
                                ("/redhat.com/INBOX.important"   . ?r)
-                               ("/tcrawley.org/INBOX.hold"      . ?T)
+                               ("/gmail.com/Hold"      . ?T)
                                ("/redhat.com/INBOX.hold"        . ?R))
- mu4e-bookmarks              '(("maildir:/tcrawley.org/INBOX OR maildir:/redhat.com/INBOX"
+ mu4e-bookmarks              '(("maildir:/tcrawley.org/INBOX OR maildir:/redhat.com/INBOX OR maildir:/gmail.com/INBOX"
                                 "Combined inbox"   ?i)
-                               ("maildir:/tcrawley.org/INBOX.important OR maildir:/redhat.com/INBOX.important"
+                               ("maildir:/redhat.com/INBOX.important OR maildir:/gmail.com/deal-with"
                                 "Important"          ?x)
-                               ("maildir:/tcrawley.org/INBOX.hold OR maildir:/redhat.com/INBOX.hold"
+                               ("maildir:/redhat.com/INBOX.hold OR maildir:/gmail.com/Hold"
                                 "On hold"          ?h)
                                ("flag:unread AND NOT flag:trashed"
                                 "Unread messages"  ?u)
@@ -54,14 +55,8 @@
          (t tc/default-trash-folder))))
 
 (setq tc/list-refile-matchers
-      '(("^clojure-dev"    . "/tcrawley.org/INBOX.Lists.clojure.clojure-dev")
-        ("^clojure"        . "/tcrawley.org/INBOX.Lists.clojure.clojure")
-        ("^leiningen"      . "/tcrawley.org/INBOX.Lists.clojure.leiningen")
-        ("^swank-clojure"  . "/tcrawley.org/INBOX.Lists.clojure.swank-clojure")
-        ("^nrepl-el"       . "/tcrawley.org/INBOX.Lists.clojure.nrepl-el")
-        ("^clojars-m"      . "/tcrawley.org/INBOX.Lists.clojure.clojars-maintainers")
-        ("^mu-discuss"     . "/tcrawley.org/INBOX.Lists.mu")
-        ("^mbaas"          . "/redhat.com/Lists.mbaas")))
+      '(("^clojure"        . "/gmail.com/clojure")
+        ("^leiningen"      . "/gmail.com/leiningen")))
 
 (defun tc/check-for-list-refile (msg)
   (let ((ml (mu4e-message-field msg :mailing-list)))
@@ -74,12 +69,12 @@
         (let ((list-refile (tc/check-for-list-refile msg)))
           (cond
            (list-refile                                list-refile)
-           ((tc/sender-matches-p "herbalmama" msg)     "/tcrawley.org/INBOX.maria")
+           ((tc/sender-matches-p "herbalmama" msg)     "/gmail.com/Maria")
            ((tc/maildir-match-p "redhat" msg)          "/redhat.com/Archive.2014")
            ;; this should be in list-refile-matchers, but the list
            ;; doesn't have a list-id header
-           ((tc/recip-matches-p "^torquebox-user" msg) "/tcrawley.org/INBOX.Lists.torquebox.torquebox-user")
-           ((tc/recip-matches-p "^immutant-user" msg)  "/tcrawley.org/INBOX.Lists.Immutant.immutant-user")
+           ((tc/recip-matches-p "^torquebox-user" msg) "/gmail.com/torquebox-user")
+           ((tc/recip-matches-p "^immutant-user" msg)  "/gmail.com/immutant-user")
            (t                                          tc/default-refile-folder)))))
 
 ;; Set values based on sending account. based on:
@@ -87,14 +82,36 @@
 (setq tc/mu4e-account-alist
 
       '(("tcrawley.org"
-         (user-mail-address           "toby@tcrawley.org")
-         (mu4e-sent-folder            "/tcrawley.org/INBOX.Sent")
-         (mu4e-drafts-folder          "/tcrawley.org/INBOX.Drafts")
-         (mu4e-sent-messages-behavior sent)
-         (smtpmail-stream-type        ssl)
-         (smtpmail-smtp-server        "mail.tcrawley.org")
-         (smtpmail-smtp-service       465)
-         (starttls-extra-arguments    nil))
+         (user-mail-address "toby@tcrawley.org")
+         (mu4e-sent-folder "/gmail.com/[Gmail].Sent Mail")
+         (mu4e-drafts-folder "/gmail.com/[Gmail].Drafts")
+         (mu4e-sent-messages-behavior delete)
+         (smtpmail-stream-type starttls)
+         (smtpmail-smtp-server "smtp.gmail.com")
+         (smtpmail-smtp-service 587)
+         (starttls-extra-arguments ("--no-ca-verification"))
+         (message-signature nil)
+
+         ;; (user-mail-address           "toby@tcrawley.org")
+         ;; (mu4e-sent-folder            "/tcrawley.org/INBOX.Sent")
+         ;; (mu4e-drafts-folder          "/tcrawley.org/INBOX.Drafts")
+         ;; (mu4e-sent-messages-behavior sent)
+         ;; (smtpmail-stream-type        ssl)
+         ;; (smtpmail-smtp-server        "mail.tcrawley.org")
+         ;; (smtpmail-smtp-service       465)
+         ;; (starttls-extra-arguments    nil)
+         )
+
+        ("gmail.com"
+         (user-mail-address "tcrawley@gmail.com")
+         (mu4e-sent-folder "/gmail.com/[Gmail].Sent Mail")
+         (mu4e-drafts-folder "/gmail.com/[Gmail].Drafts")
+         (mu4e-sent-messages-behavior delete)
+         (smtpmail-stream-type starttls)
+         (smtpmail-smtp-server "smtp.gmail.com")
+         (smtpmail-smtp-service 587)
+         (starttls-extra-arguments ("--no-ca-verification"))
+         (message-signature nil))
 
         ("redhat.com"
          (user-mail-address           "tcrawley@redhat.com")
@@ -135,7 +152,7 @@
       (insert
        "<html>"
        "<head><meta http-equiv=\"content-type\""
-       "content=\"text/html;charset=UTF-8\">"
+       "content=\"text/html;charset=UTF-8\">" ;
        html))
     (browse-url (concat "file://" tmpfile))))
 

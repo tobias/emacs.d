@@ -13,6 +13,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ace-jump-face-foreground ((t (:foreground "yellow"))))
+ '(ace-jump-face-foreground ((t (:background "black" :foreground "yellow" :slant italic :weight bold :height 1.9))))
  '(erc-button ((t nil)))
  '(powerline-active1 ((t (:background "grey22" :foreground "white")))))

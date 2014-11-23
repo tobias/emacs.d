@@ -16,8 +16,9 @@
                       :foreground "yellow")
   ;; make highlight easier on the eyes
   (set-face-attribute 'highlight nil
-                      :background "gray40"
-                      :foreground "gray90")
+                      :background "gray30"
+                      :foreground nil;;"gray90"
+                      )
   ;; ditto for what I say in erc
   (set-face-attribute 'erc-input-face nil
                       :foreground "gold")
@@ -29,7 +30,12 @@
   (set-face-attribute 'erc-current-nick-face nil
                       :background "goldenrod4"
                       :foreground "gold"
-                      :weight 'bold))
+                      :weight 'bold)
+
+  ;; if we don't force the foreground to nil, it will be
+  ;; the gtk selection color. This lets font-lock decoration
+  ;; remain active
+  (set-face-foreground 'region nil))
 
 (defun tc/dark-theme ()
   (load-theme 'tango-dark)

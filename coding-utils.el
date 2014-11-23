@@ -121,21 +121,18 @@ Symbols matching the text at point are put first in the completion list."
 
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
-(defun tc/untabify-buffer ()
-  (interactive)
-  (untabify (point-min) (point-max)))
-
-(defun tc/indent-buffer ()
-  (interactive)
-  (indent-region (point-min) (point-max)))
-
-;;TODO: make a cleanup region using indent-region & untabify
 (defun tc/cleanup-buffer ()
   "Perform a bunch of operations on the whitespace content of a buffer."
   (interactive)
-  (tc/indent-buffer)
-  (tc/untabify-buffer)
-  (delete-trailing-whitespace))
+  (let (start end)
+    (if (region-active-p)
+        (setq start (region-beginning)
+              end (region-end))
+      (setq start (point-min)
+            end (point-max)))
+    (untabify start end)
+    (indent-region start end)
+    (delete-trailing-whitespace start end)))
 
 (global-set-key (kbd "C-c n") 'tc/cleanup-buffer)
 

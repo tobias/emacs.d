@@ -1,5 +1,5 @@
 (when (not tc/presentation-mode-p)
-  
+
   ;; borrowed from emacs-live
   (require 'popup)
   (require 'fuzzy)
@@ -15,10 +15,10 @@
   (setq ac-use-menu-map t)
   (setq ac-quick-help-delay 1)
   (setq ac-quick-help-height 60)
-  (setq ac-disable-inline t)
+  (setq ac-disable-inline nil)
   (setq ac-show-menu-immediately-on-auto-complete t)
   (setq ac-auto-start 2)
-  (setq ac-candidate-menu-min 0)
+  (setq ac-candidate-menu-min 1)
 
   (set-default 'ac-sources
                '(ac-source-dictionary
@@ -39,4 +39,3 @@
   (define-key ac-completing-map "\t" 'ac-complete)
   (define-key ac-completing-map (kbd "M-RET") 'ac-help)
   (define-key ac-completing-map "\r" 'nil))
-

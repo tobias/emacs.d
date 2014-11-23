@@ -15,6 +15,7 @@
           auto-complete
           cider
           cl-lib
+          clj-refactor
           clojure-mode
           clojure-test-mode
           coffee-mode
@@ -54,7 +55,6 @@
           ruby-electric
           s
           sass-mode
-          scpaste
           swoop
           textile-mode
           todochiku

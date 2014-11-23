@@ -21,7 +21,7 @@
            (buffer-list))))
 
 ;; useful for switching between buffers of mode
-(defun tc/ido-for-mode(prompt the-mode)
+(defun tc/ido-for-mode (prompt the-mode)
   (switch-to-buffer
    (ido-completing-read prompt
                         (save-excursion
