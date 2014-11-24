@@ -1,3 +1,7 @@
+(require 'cider)
+(require 'clj-refactor)
+(require 'align-cljlet)
+
 (add-hook 'clojure-mode-hook 'tc/run-common-coding-hooks)
 (add-hook 'clojure-mode-hook 'tc/run-lisp-coding-hooks)
 (add-hook 'clojure-mode-hook 'subword-mode)
@@ -8,8 +12,6 @@
 (add-to-list 'auto-mode-alist '("\\.cljx$" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.boot$" . clojure-mode))
 
-(require 'cider)
-
 (setq
  clojure-defun-style-default-indent t
  cider-popup-stacktraces            t
@@ -18,12 +20,12 @@
  cider-repl-wrap-history            t
  cider-repl-history-file           (concat user-emacs-directory "cider-repl-history"))
 
-(require 'clj-refactor)
+(defun tc/turn-on-clj-refactor ()
+  (clj-refactor-mode 1)
+  (cljr-add-keybindings-with-prefix "C-c C-m")
+  (define-key clj-refactor-map (kbd "C-c C-m al") 'align-cljlet))
 
-(add-hook 'clojure-mode-hook
-          (lambda ()
-            (clj-refactor-mode 1)
-            (cljr-add-keybindings-with-prefix "C-c C-m")))
+(add-hook 'clojure-mode-hook 'tc/turn-on-clj-refactor)
 
 (when (not tc/presentation-mode-p)
   (add-to-list 'pretty-symbol-patterns

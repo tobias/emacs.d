@@ -1,6 +1,7 @@
 (require 'flymake-cursor)
 (require 'linum)
 (require 'diminish)
+(require 'rainbow-delimiters)
 
 (defun tc/local-comment-auto-fill ()
   (set (make-local-variable 'comment-auto-fill-only-comments) t)
@@ -59,6 +60,8 @@
 (add-hook 'tc/lisp-coding-hooks 'tc/turn-on-paredit)
 (add-hook 'tc/lisp-coding-hooks 'tc/turn-on-show-paren)
 ;;(add-hook 'tc/lisp-coding-hooks 'tc/turn-on-folding)
+(add-hook 'tc/lisp-coding-hooks 'rainbow-delimiters-mode)
+
 
 (defun tc/run-lisp-coding-hooks ()
   "Enable things that are convenient for lisp code."

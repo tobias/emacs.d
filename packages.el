@@ -12,6 +12,7 @@
                (package-install pkg)))
         '(ace-window
           adoc-mode
+          align-cljlet
           auto-complete
           cider
           cl-lib
@@ -52,6 +53,7 @@
           pkg-info
           popup
           powerline
+          rainbow-delimiters
           ruby-electric
           s
           sass-mode
