@@ -56,17 +56,27 @@
 
 (require 'compile)
 
-(defun tc/run-command (command prompt default-task filename history-var)
-    (let* ((dirs (tc/locate-all-dominating-files default-directory filename))
+(defun tc/run-command (command prompt default-task filename history-var custom-buffer-name-p)
+  (let* ((dirs (tc/locate-all-dominating-files default-directory filename))
          (dir (case (length dirs)
                 (0 nil)
                 (1 (first dirs))
                 (t (ido-completing-read "Dir? " dirs)))))
-    (if dir
-        (compile (concat (format "cd %s;%s " dir command)
-                         (read-from-minibuffer prompt default-task
-                                               nil nil history-var)))
-      (message "No %s found" filename))))
+      (if dir
+          (let* ((task (read-from-minibuffer prompt default-task
+                                             nil nil history-var))
+                 (orig-comp-buf-name compilation-buffer-name-function)
+                 (comp-buffer-name (format "*%s-%s-%s*"
+                                           (file-name-nondirectory (directory-file-name dir))
+                                           command
+                                           task)))
+            (when custom-buffer-name-p
+              (message "%s" comp-buffer-name)
+              (setq compilation-buffer-name-function
+                    (lambda (_) comp-buffer-name)))
+            (compile (format "cd %s;%s %s" dir command task))
+            (setq compilation-buffer-name-function orig-comp-buf-name))
+        (message "No %s found" filename))))
 
 (defvar lein-history nil)
 
@@ -75,7 +85,7 @@
 to run the command (if more than one are found), then asks for a
 lein command."
   (interactive)
-  (tc/run-command "lein" "Lein task: " "install" "project.clj" 'lein-history))
+  (tc/run-command "lein" "Lein task: " "install" "project.clj" 'lein-history current-prefix-arg))
 
 (defvar boot-history nil)
 
@@ -84,7 +94,7 @@ lein command."
 to run the command (if more than one are found), then asks for a
 boot command."
   (interactive)
-  (tc/run-command "boot" "Boot task: " "build" "build.boot" 'boot-history))
+  (tc/run-command "boot" "Boot task: " "build" "build.boot" 'boot-history current-prefix-arg))
 
 (define-key clojure-mode-map (kbd "C-c l") 'tc/run-lein)
 (define-key clojure-mode-map (kbd "C-c b") 'tc/run-boot)

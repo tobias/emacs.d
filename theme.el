@@ -16,7 +16,7 @@
                       :foreground "yellow")
   ;; make highlight easier on the eyes
   (set-face-attribute 'highlight nil
-                      :background "gray30"
+                      :background "gray25"
                       :foreground nil;;"gray90"
                       )
   ;; ditto for what I say in erc
