@@ -72,3 +72,9 @@ point reaches the beginning or end of the buffer, stop there."
         (cons found-dir (tc/locate-all-dominating-files
                          (concat found-dir "..")
                          filename)))))
+
+;; from http://ergoemacs.org/emacs/elisp_hash_table.html
+(defun tc/extract-hash-keys (hashtable)
+  (let (allkeys)
+    (maphash (lambda (kk vv) (setq allkeys (cons kk allkeys))) hashtable)
+    allkeys))

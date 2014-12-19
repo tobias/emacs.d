@@ -185,7 +185,16 @@ Assumes message is either of two forms: '* nick does something' or '<nick> says 
 (define-key erc-mode-map (kbd "C-c m")
   (lambda (nick)
     (interactive (list (completing-read "Say 'morning!' to nick: " erc-channel-users)))
-    (erc-send-message (format "%s: morning!" nick))))
+    (tc/say-morning nick)))
+
+(defun tc/say-morning (nick)
+  (erc-send-message (format "%s: morning!" nick)))
+
+(defun tc/morning-all ()
+  (interactive)
+  (dolist (nick (tc/extract-hash-keys erc-channel-users))
+    (when (not (string-match "ChanServ\\|projectodd\\|tcrawley" nick))
+      (tc/say-morning nick))))
 
 (defun tc/yank-to-gist ()
   "yank from the top of the kill ring, create a gist from it, and insert the gist url at the point"
