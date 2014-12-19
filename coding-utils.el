@@ -124,6 +124,9 @@ Symbols matching the text at point are put first in the completion list."
 
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
+;; scroll compilation buffer until an error occurs
+(setq compilation-scroll-output 'first-error)
+
 (defun tc/cleanup-buffer ()
   "Perform a bunch of operations on the whitespace content of a buffer."
   (interactive)
