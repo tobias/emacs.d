@@ -38,7 +38,7 @@
 (add-hook 'cider-repl-mode-hook 'subword-mode)
 
 (defun run-cider-command (command)
-  (with-current-buffer (cider-find-or-create-repl-buffer)
+  (with-current-buffer (cider-current-repl-buffer)
     (goto-char (point-max))
     (insert-char ?\n)
     (insert command)
