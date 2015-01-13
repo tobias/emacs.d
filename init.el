@@ -79,6 +79,9 @@
 (setq backup-directory-alist
       (list (cons "." (expand-file-name "backups" user-emacs-directory))))
 
+;; don't create lock files (emacs 24.3 and up)
+(setq create-lockfiles nil)
+
 ;; save my place in visited files
 (require 'saveplace)
 (setq save-place-file (concat user-emacs-directory "places"))
