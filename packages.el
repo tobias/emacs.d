@@ -27,6 +27,7 @@
           erc-image
           erc-tweet
           erc-youtube
+          expand-region
           find-things-fast
           flymake-cursor
           fold-dwim

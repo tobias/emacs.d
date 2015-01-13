@@ -225,6 +225,10 @@
 ;; extra help fns - brought in for describe-keymap, mainly
 (require 'help-fns+)
 
+;; semantic region expansion
+(require 'expand-region)
+(global-set-key (kbd "M-2") 'er/expand-region)
+
 ;; load everything else
 (load "functions")
 (load "theme")
