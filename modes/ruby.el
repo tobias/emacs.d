@@ -1,3 +1,5 @@
+(require 'ruby-mode)
+
 ;; Rake files are ruby, too, as are gemspecs, rackup files, and gemfiles.
 (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
@@ -9,9 +11,9 @@
 
 (setq ruby-use-encoding-map nil)
 
-(require 'ruby-electric)
+;;(require 'ruby-electric)
 (add-hook 'ruby-mode-hook 'tc/run-common-coding-hooks)
-(add-hook 'ruby-mode-hook 'ruby-electric-mode)
+;;x(add-hook 'ruby-mode-hook 'ruby-electric-mode)
 
 (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
 

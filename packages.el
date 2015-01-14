@@ -3,7 +3,7 @@
   (add-to-list 'package-archives
                '("marmalade" . "http://marmalade-repo.org/packages/") t)
   (add-to-list 'package-archives
-               '("melpa" . "http://melpa.milkbox.net/packages/") t)
+               '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/") t)
 
   (package-initialize)
 
@@ -18,15 +18,15 @@
           cl-lib
           clj-refactor
           clojure-mode
-          clojure-test-mode
           coffee-mode
           dash
           diminish
           dired-details
+          ;; downplay-mode
           erc-hl-nicks
-          erc-image
-          erc-tweet
-          erc-youtube
+          ;;erc-image
+          ;;erc-tweet
+          ;;erc-youtube
           expand-region
           find-things-fast
           flymake-cursor
@@ -55,11 +55,9 @@
           popup
           powerline
           rainbow-delimiters
-          ruby-electric
           s
           sass-mode
-          swoop
-          textile-mode
-          todochiku
+          smex
+          ;; swoop
           yaml-mode
           yasnippet)))

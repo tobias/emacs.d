@@ -219,11 +219,15 @@
 (winner-mode 1)
 
 ;; quick search
-(require 'swoop)
-(global-set-key (kbd "C-o") 'swoop)
-(global-set-key (kbd "C-M-o") 'swoop-multi)
-(global-set-key (kbd "M-o") 'swoop-pcre-regexp)
-(setq swoop-font-size-change: nil)
+(require 'helm-swoop)
+(global-set-key (kbd "C-o") 'helm-swoop)
+(global-set-key (kbd "M-o") 'helm-multi-swoop)
+;;(setq swoop-font-size-change: nil)
+
+;; smex - a better M-x
+(require 'smex)
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
 
 ;; extra help fns - brought in for describe-keymap, mainly
 (require 'help-fns+)
@@ -244,7 +248,7 @@
 (load "modes/org")
 (load "modes/ruby")
 (load "modes/shell")
-(load "modes/term")
+;;(load "modes/term")
 (load "modes/text")
 (load "modes/markdown")
 

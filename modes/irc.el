@@ -1,6 +1,6 @@
 (require 'erc)
 (require 'erc-match)
-(require 'todochiku)
+(require 'notifications)
 (require 'erc-hl-nicks)
 (require 'erc-tweet)
 (require 'erc-image)
@@ -119,17 +119,13 @@
   (irc-connect-bouncer)
   (irc-connect-internal))
 
-(defun tc/irc-growl (channel message)
-  "Displays an irc message to growl/libnotify via todochiku.
-Notice will be sticky if the message is a query."
+(defun tc/irc-notify (channel message)
+  "Displays a message via libnotify."
   (let ((split-message (tc/irc-split-nick-and-message message)))
-    (if split-message
-        (todochiku-message
-         (concat "<" (nth 0 split-message) "> on " channel)
-         (tc/escape-html (nth 1 split-message))
-         ""
-         nil;(not (string-match "^#" channel)) ;; be sticky if it's a query
-         ))))
+    (when split-message
+      (notifications-notify
+       :title (concat "<" (nth 0 split-message) "> on " channel)
+       :body (tc/escape-html (nth 1 split-message))))))
 
 (defun tc/irc-split-nick-and-message (msg)
   "Splits an irc message into nick and the rest of the message.
@@ -149,7 +145,7 @@ Assumes message is either of two forms: '* nick does something' or '<nick> says 
                 (string-match (erc-current-nick) msg)))
        (progn
          (tc/play-irc-alert-sound)
-         (tc/irc-growl channel msg))))
+         (tc/irc-notify channel msg))))
 
 (defun tc/irc-alert ()
   (save-excursion
