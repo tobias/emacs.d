@@ -236,6 +236,9 @@
 (require 'expand-region)
 (global-set-key (kbd "M-2") 'er/expand-region)
 
+;; indent after return
+(define-key global-map (kbd "RET") 'newline-and-indent)
+
 ;; load everything else
 (load "functions")
 (load "theme")

@@ -189,7 +189,7 @@ Assumes message is either of two forms: '* nick does something' or '<nick> says 
 (defun tc/morning-all ()
   (interactive)
   (dolist (nick (tc/extract-hash-keys erc-channel-users))
-    (when (not (string-match "ChanServ\\|projectodd\\|tcrawley" nick))
+    (when (not (string-match "ChanServ\\|projectodd\\|tcrawley\\|afk\\|away" nick))
       (tc/say-morning nick))))
 
 (defun tc/yank-to-gist ()

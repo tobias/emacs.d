@@ -33,7 +33,7 @@
                   cider-repl-mode cider-mode lisp-mode tuareg-mode))
     (add-to-list 'ac-modes mode))
 
-;;;;Key triggers
+  ;; Key triggers
   (define-key ac-completing-map (kbd "C-M-n") 'ac-next)
   (define-key ac-completing-map (kbd "C-M-p") 'ac-previous)
   (define-key ac-completing-map "\t" 'ac-complete)

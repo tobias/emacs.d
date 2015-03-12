@@ -131,10 +131,8 @@ Symbols matching the text at point are put first in the completion list."
                (lambda (buf result)
                  (notifications-notify
                   :title "Compilation Finished" :body result))))
-(add-hook
- 'compilation-mode-hook
- (lambda ()
-   ))
+
+(add-hook 'compilation-mode-hook 'add-compile-notify-hook)
 
 ;; scroll compilation buffer until an error occurs
 (setq compilation-scroll-output 'first-error)
