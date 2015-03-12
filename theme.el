@@ -28,7 +28,7 @@
                       :height 0.8)
   ;; make mentions stand out
   (set-face-attribute 'erc-current-nick-face nil
-                      :background "goldenrod4"
+                      :background "black"
                       :foreground "gold"
                       :weight 'bold)
 
