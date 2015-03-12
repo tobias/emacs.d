@@ -47,8 +47,9 @@
 
 (defun embiggen (size)
   (interactive (list (read-string (format "Font size (%s): " embiggened-size))))
-  (setq embiggened-size size)
-  (set-face-font 'default (format "%s-%s" tc/default-font size)))
+  (when (>= (string-to-number size) 7)
+    (setq embiggened-size size)
+    (set-face-font 'default (format "%s-%s" tc/default-font size))))
 
 (require 'powerline)
 (powerline-default-theme)
