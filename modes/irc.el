@@ -68,6 +68,15 @@
           (cond ((erc-server-process-alive) 'erc-header-line)
                 (t 'erc-header-line-disconnected)))))
 
+;; replace original version to not use word boundaries around
+;; nick. This allows "nick's" and parens, etc to match
+(defun erc-match-current-nick-p (nickuserhost msg)
+  "Check whether the current nickname is in MSG.
+NICKUSERHOST will be ignored."
+  (with-syntax-table erc-match-syntax-table
+    (and msg
+         (string-match (regexp-quote (erc-current-nick)) msg))))
+
 ;; display # of members in mode line
 (define-minor-mode ncm-mode "" nil
   (:eval
@@ -91,8 +100,8 @@
                              (when (string-match "^#" name)
                                name))
                            (tc/buffers-for-mode 'erc-mode)))
-            watched-chans
-            :test 'equal)))
+         watched-chans
+         :test 'equal)))
 
 (defun tc/mostly-ignore-channels ()
   "Minimal modeline notifications for all channels except tc/private-watched-channels"
