@@ -117,10 +117,11 @@ NICKUSERHOST will be ignored."
 
 (defun irc-connect-bouncer ()
   (interactive)
-  (erc-tls :server "bouncer"
-           :port 6565
-           :nick "tcrawley"
-           :password my-bouncer-password)
+  (if (not (erc-server-process-alive))
+      (erc-tls :server "bouncer"
+               :port 6565
+               :nick "tcrawley"
+               :password my-bouncer-password))
   (tc/mostly-ignore-channels))
 
 (defun irc-connect-all ()
