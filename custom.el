@@ -15,8 +15,5 @@
  ;; If there is more than one, they won't work right.
  '(ace-jump-face-foreground ((t (:background "black" :foreground "yellow" :slant italic :weight bold :height 1.0))))
  '(erc-button ((t nil)))
- '(font-lock-comment-face ((t (:foreground "#73d216" :slant italic))))
- '(font-lock-string-face ((t (:foreground "khaki"))))
  '(idle-highlight ((t (:inherit region :slant italic))))
- '(powerline-active1 ((t (:background "grey22" :foreground "white"))))
  '(rainbow-delimiters-unmatched-face ((t (:background "red" :foreground "black")))))

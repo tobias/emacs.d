@@ -31,6 +31,16 @@
                       :background "black"
                       :foreground "gold"
                       :weight 'bold)
+  ;; code improvements
+  (set-face-attribute 'font-lock-comment-face
+                      :foreground "#73d216"
+                      :slant 'italic)
+  (set-face-attribute 'font-lock-string-face
+                      :foreground "khaki")
+  ;; powerline readability
+  (set-face-attribute 'powerline-active1
+                      :background "grey22"
+                      :foreground "white")
 
   ;; if we don't force the foreground to nil, it will be
   ;; the gtk selection color. This lets font-lock decoration
