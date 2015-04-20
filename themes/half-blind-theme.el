@@ -49,4 +49,7 @@
  '(idle-highlight ((t (:inherit region :foreground "black"))))
  '(ido-subdir ((t (:foreground "dark red")))))
 
+(custom-theme-set-variables 'half-blind
+ '(ansi-color-names-vector ["black" "red" "green" "yellow4" "blue" "magenta" "cyan" "white"]))
+
 (provide-theme 'half-blind)

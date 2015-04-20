@@ -24,7 +24,7 @@
  '(font-lock-preprocessor-face ((t (:inherit font-lock-builtin-face))))
  '(font-lock-regexp-grouping-backslash ((t (:inherit bold))))
  '(font-lock-regexp-grouping-construct ((t (:inherit bold))))
- '(font-lock-string-face ((t (:foreground "gray20" :slant italic))))
+ '(font-lock-string-face ((t (:foreground "gray15" :slant italic))))
  '(font-lock-type-face ((t (:foreground "#0b7d07"))))
  '(font-lock-variable-name-face ((t (:foreground "#4f4047"))))
  '(font-lock-warning-face ((t (:inherit error :foreground "Red" :weight bold))))
@@ -56,7 +56,10 @@
  '(idle-highlight ((t (:background "green1" :foreground "black"))))
  '(message-header-name ((t (:foreground "#093"))))
  '(mu4e-header-highlight-face ((t (:inherit region :foreground "black" :underline t :weight bold))))
- '(region ((t (:background "pale green" :foreground "black")))))
-'(query-replace ((t (:inherit isearch))))
+ '(region ((t (:background "pale green" :foreground "black"))))
+ '(query-replace ((t (:inherit isearch)))))
+
+(custom-theme-set-variables 'sorta-blind
+ '(ansi-color-names-vector ["black" "red" "green" "yellow4" "blue" "magenta" "cyan" "white"]))
 
 (provide-theme 'sorta-blind)
