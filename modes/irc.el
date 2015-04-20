@@ -115,14 +115,21 @@ NICKUSERHOST will be ignored."
   (erc :server my-internal-irc-server :port 6667 :nick "tcrawley" )
   (tc/mostly-ignore-channels))
 
-(defun irc-connect-bouncer ()
-  (interactive)
+(defun irc-connect (server port)
   (if (not (erc-server-process-alive))
-      (erc-tls :server "bouncer"
-               :port 6565
+      (erc-tls :server server
+               :port port
                :nick "tcrawley"
                :password my-bouncer-password))
   (tc/mostly-ignore-channels))
+
+(defun irc-connect-bouncer ()
+  (interactive)
+  (irc-connect "bouncer" 6565))
+
+(defun irc-connect-local ()
+  (interactive)
+  (irc-connect "localhost" 2020))
 
 (defun irc-connect-all ()
   (interactive)
