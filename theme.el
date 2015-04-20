@@ -32,20 +32,26 @@
                       :foreground "gold"
                       :weight 'bold)
   ;; code improvements
-  (set-face-attribute 'font-lock-comment-face
+  (set-face-attribute 'font-lock-comment-face nil
                       :foreground "#73d216"
                       :slant 'italic)
-  (set-face-attribute 'font-lock-string-face
+  (set-face-attribute 'font-lock-string-face nil
                       :foreground "khaki")
   ;; powerline readability
-  (set-face-attribute 'powerline-active1
+  (set-face-attribute 'powerline-active1 nil
                       :background "grey22"
                       :foreground "white")
 
   ;; if we don't force the foreground to nil, it will be
   ;; the gtk selection color. This lets font-lock decoration
   ;; remain active
-  (set-face-foreground 'region nil))
+  (set-face-foreground 'region nil)
+
+  ;; adjust the colors used in the shell
+  (setq ansi-color-names-vector ["#3f3f3f" "#cc9393" "#7f9f7f" "#f0dfaf" "SteelBlue1" "#dc8cc3" "#93e0e3" "#dcdccc"])
+  ;; (setq ansi-color-map (ansi-color-make-color-map))
+
+  )
 
 (defun tc/dark-theme ()
   (load-theme 'tango-dark)
