@@ -19,11 +19,13 @@
 (setenv "PATH" (shell-command-to-string "source ~/.path; echo -n $PATH"))
 (setq exec-path (append exec-path (split-string (getenv "PATH") ":")))
 
+(setq lisp-dir (concat user-emacs-directory "lisp/"))
+
 ;; install any needed packages
-(load (concat user-emacs-directory "packages"))
+(load (concat lisp-dir "packages"))
 
 ;; once packages are loaded and on the load-path, prepend .emacs.d/ and lib/
-(add-to-list 'load-path user-emacs-directory)
+(add-to-list 'load-path lisp-dir)
 (add-to-list 'load-path (concat user-emacs-directory "lib"))
 
 ;; en/decrypt .gpg files automatically

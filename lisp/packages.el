@@ -6,8 +6,8 @@
                '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/") t)
 
   (package-initialize)
-  (package-refresh-contents)
-  
+  ;;(package-refresh-contents)
+
   (mapc (lambda (pkg)
           (and (not (package-installed-p pkg))
                (package-install pkg)))
