@@ -76,6 +76,7 @@
 (when (display-graphic-p)
   (if tc/presentation-mode-p
       (progn
+        ;;(tc/dark-theme)
         (load-theme 'half-blind)
         ;; if we don't force the foreground to nil, it will be
         ;; the gtk selection color. This lets font-lock decoration
