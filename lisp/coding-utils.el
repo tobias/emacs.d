@@ -18,6 +18,16 @@
     (define-key paredit-mode-map (kbd "M-[ c") 'paredit-forward-slurp-sexp)
     (define-key paredit-mode-map (kbd "M-[ d") 'paredit-forward-barf-sexp)))
 
+(defun tc/turn-on-paredit-nonlisp ()
+  "Turn on paredit mode for non-lisps."
+  (set (make-local-variable 'paredit-space-for-delimiter-predicates)
+       '((lambda (endp delimiter) nil)))
+  (tc/turn-on-paredit))
+
+(defun tc/turn-on-flycheck ()
+  (require 'flycheck)
+  (flycheck-mode t))
+
 (defun tc/turn-on-show-paren ()
   (show-paren-mode t))
 

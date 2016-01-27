@@ -6,8 +6,13 @@
 (require 'erc-image)
 (require 'erc-youtube)
 
-;; load private data - this doesn't go into git
-(load "private.el.gpg")
+(setq tc/irc-private-loaded nil)
+
+(defun load-private-data ()
+  "load private data - this doesn't go into git"
+  (when (not tc/irc-private-loaded)
+    (load "private.el.gpg")
+    (setq tc/irc-private-loaded t)))
 
 (setq
  erc-interpret-mirc-color        t
@@ -55,6 +60,18 @@
   (if (erc-query-buffer-p)
       (setq ad-return-value (intern "erc-current-nick-face"))
     ad-do-it))
+
+;; for slack connections, name the buffer #channel/site to
+;; differentiate from freenonde channels
+(defun tc/erc-get-buffer-create-with-server-name
+    (f server port target)
+  (funcall f server port
+           (if (and target
+                    (string-match "\\(.*\\).irc.slack.com" server))
+               (concat target "/" (match-string 1 server))
+             target)))
+
+(advice-add 'erc-get-buffer-create :around #'tc/erc-get-buffer-create-with-server-name)
 
 ;;; change header line face if disconnected
 (defface erc-header-line-disconnected
@@ -112,16 +129,28 @@ NICKUSERHOST will be ignored."
 
 (defun irc-connect-internal ()
   (interactive)
+  (load-private-data)
   (erc :server my-internal-irc-server :port 6667 :nick "tcrawley" )
   (tc/mostly-ignore-channels))
 
-(defun irc-connect (server port)
-  (if (not (erc-server-process-alive))
-      (erc-tls :server server
-               :port port
-               :nick "tcrawley"
-               :password my-bouncer-password))
+(defun irc-connect (server port &optional password)
+  (load-private-data)
+  (let ((server-port (format "%s:%s" server port)))
+    (if (and (get-buffer server-port) (erc-server-process-alive server-port))
+        (message "** Already connected to %s **" server-port)
+        (erc-tls :server server
+                 :port port
+                 :nick "tcrawley"
+                 :password (or password my-bouncer-password))))
   (tc/mostly-ignore-channels))
+
+(defun irc-connect-clojurians ()
+  (interactive)
+  (irc-connect "clojurians.irc.slack.com" 8000 my-clojurians-password))
+
+(defun irc-connect-avlcoders ()
+  (interactive)
+  (irc-connect "avlcoders.irc.slack.com" 8000 my-avlcoders-password))
 
 (defun irc-connect-bouncer ()
   (interactive)
@@ -129,12 +158,14 @@ NICKUSERHOST will be ignored."
 
 (defun irc-connect-local ()
   (interactive)
-  (irc-connect "localhost" 2020))
+  (irc-connect "localhost" 6565))
 
 (defun irc-connect-all ()
   (interactive)
   (irc-connect-bouncer)
-  (irc-connect-internal))
+  ;;(irc-connect-internal)
+  (irc-connect-avlcoders)
+  (irc-connect-clojurians))
 
 (defun tc/irc-notify (channel message)
   "Displays a message via libnotify."
@@ -236,3 +267,7 @@ Assumes message is either of two forms: '* nick does something' or '<nick> says 
   (tc/ido-for-mode "Channel:" 'erc-mode))
 
 (global-set-key (kbd "C-x c") 'tc/ido-erc-buffer)
+
+;; I never want to turn off color code interp, but this is mighty
+;; close to compile (C-c c), so I often fat-finger it.
+(define-key erc-mode-map (kbd "C-c C-c") nil)

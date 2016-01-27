@@ -68,12 +68,27 @@
               (string-to-number size))
             7)
     (setq embiggened-size size)
-    (set-face-font 'default (format "%s-%s" tc/default-font size))))
+    (set-frame-font (format "%s-%s" tc/default-font size))
+    (when (display-graphic-p)
+      (fullscreen))))
 
 (require 'powerline)
 (powerline-default-theme)
 
 (when (display-graphic-p)
+	(defun fullscreen ()
+    "Toggle full screen"
+    (interactive)
+    (if (eq window-system 'x)
+        (shell-command
+         (concat "wmctrl -i -r "
+                 (frame-parameter nil 'outer-window-id)
+                 ;" -btoggle,fullscreen"
+                 " -btoggle,maximized_vert,maximized_horz"))
+      (set-frame-parameter
+       nil 'fullscreen
+       (when (not (frame-parameter nil 'fullscreen)) 'fullboth))))
+
   (if tc/presentation-mode-p
       (progn
         ;;(tc/dark-theme)
@@ -92,15 +107,4 @@
         (embiggen 14)
       (embiggen 9)))
 
-  (defun fullscreen ()
-    "Toggle full screen"
-    (interactive)
-    (if (eq window-system 'x)
-        (shell-command
-         (concat "wmctrl -i -r "
-                 (frame-parameter nil 'outer-window-id)
-                 ;" -btoggle,fullscreen"
-                 " -btoggle,maximized_vert,maximized_horz"))
-      (set-frame-parameter
-       nil 'fullscreen
-       (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))))
+  )

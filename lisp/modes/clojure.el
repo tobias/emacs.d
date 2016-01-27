@@ -18,7 +18,8 @@
  cider-auto-select-error-buffer     t
  cider-repl-print-length            100
  cider-repl-wrap-history            t
- cider-repl-history-file           (concat user-emacs-directory "cider-repl-history"))
+ cider-repl-history-file           (concat user-emacs-directory "cider-repl-history")
+ cljr-suppress-middleware-warnings  t)
 
 (defun tc/turn-on-clj-refactor ()
   (clj-refactor-mode 1)

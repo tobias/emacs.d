@@ -11,6 +11,10 @@
 (defconst tc/light-theme-p
   (getenv "EMACS_LIGHT_THEME"))
 
+;; we need to load erc before custom.el and theme.el since they refer to
+;; erc faces
+(require 'erc)
+
 ;; keep customize settings in their own file
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file 'noerror)
@@ -100,7 +104,8 @@
 (set-default 'indent-tabs-mode nil)
 
 ;; clean up whitespace before saving
-(add-hook 'before-save-hook 'whitespace-cleanup)
+;;(add-hook 'before-save-hook 'whitespace-cleanup)
+;;(setq before-save-hook nil)
 
 ;; auto-revert any open buffers if they change on disk, and do the
 ;; same for dired. In both cases, don't tell me every time
@@ -220,6 +225,10 @@
 ;; C-c right
 (winner-mode 1)
 
+;; browse-kill-ring
+(require 'browse-kill-ring)
+(browse-kill-ring-default-keybindings)
+
 ;; quick search
 (require 'helm-swoop)
 (global-set-key (kbd "C-o") 'helm-swoop)
@@ -241,6 +250,10 @@
 ;; indent after return
 (define-key global-map (kbd "RET") 'newline-and-indent)
 
+;; disable magit's taking over of M-w
+(require 'magit)
+(define-key magit-mode-map (kbd "M-w") nil)
+
 ;; load everything else
 (load "functions")
 (load "theme")
@@ -252,6 +265,7 @@
 (load "modes/java")
 (load "modes/org")
 (load "modes/ruby")
+(load "modes/javascript")
 (load "modes/shell")
 ;;(load "modes/term")
 (load "modes/text")
@@ -265,7 +279,7 @@
 (when tc/presentation-mode-p
   (load "presentation")
   (when tc/presentation-name
-    (load (concat "presentations/" tc/presentation-name))))
+    (load (concat user-emacs-directory "presentations/" tc/presentation-name))))
 
 (when (display-graphic-p)
   (fullscreen))

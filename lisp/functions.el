@@ -78,3 +78,12 @@ point reaches the beginning or end of the buffer, stop there."
   (let (allkeys)
     (maphash (lambda (kk vv) (setq allkeys (cons kk allkeys))) hashtable)
     allkeys))
+
+(defun tc/tmp-buffer (suffix)
+  "Creates a tmp buffer with the given suffix"
+  (find-file (concat "/tmp/" (number-to-string (random)) "." suffix)))
+
+(defun tc/tmp-md ()
+  "Creates a tmp markdown buffer"
+  (interactive)
+  (tc/tmp-buffer ".md"))
