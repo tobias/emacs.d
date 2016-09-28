@@ -1,6 +1,5 @@
 (require 'erc)
 (require 'erc-match)
-(require 'notifications)
 (require 'erc-hl-nicks)
 (require 'erc-tweet)
 (require 'erc-image)
@@ -167,13 +166,14 @@ NICKUSERHOST will be ignored."
   (irc-connect-avlcoders)
   (irc-connect-clojurians))
 
+(load "notify")
+
 (defun tc/irc-notify (channel message)
   "Displays a message via libnotify."
   (let ((split-message (tc/irc-split-nick-and-message message)))
     (when split-message
-      (notifications-notify
-       :title (concat "<" (nth 0 split-message) "> on " channel)
-       :body (tc/escape-html (nth 1 split-message))))))
+      (tc/notify (concat "<" (nth 0 split-message) "> on " channel)
+                 (tc/escape-html (nth 1 split-message))))))
 
 (defun tc/irc-split-nick-and-message (msg)
   "Splits an irc message into nick and the rest of the message.
@@ -191,21 +191,13 @@ Assumes message is either of two forms: '* nick does something' or '<nick> says 
        (or (not (string-match "^#" channel)) ;; query
            (and (not (string-match "^*" msg)) ;; /me
                 (string-match (erc-current-nick) msg)))
-       (progn
-         (tc/play-irc-alert-sound)
-         (tc/irc-notify channel msg))))
+       (tc/irc-notify channel msg)))
 
 (defun tc/irc-alert ()
   (save-excursion
     (tc/irc-alert-on-message (buffer-name) (buffer-substring (point-min) (point-max)))))
 
 (add-hook 'erc-insert-post-hook 'tc/irc-alert)
-
-(defun tc/play-irc-alert-sound ()
-  (start-process-shell-command "alert-sound" nil
-                               (if (eq system-type 'darwin)
-                                   "say -v Zarvox -r 500 heyy"
-                                 "ogg123 /usr/share/sounds/freedesktop/stereo/bell.oga")))
 
 (defun tc/escape-html (str)
   "Escapes [<>&\n] from a string with html escape codes."
@@ -261,6 +253,12 @@ Assumes message is either of two forms: '* nick does something' or '<nick> says 
             (kill-buffer))))
 
 (define-key erc-mode-map (kbd "C-c y") `tc/yank-to-gist)
+
+(defun tc/fabric8 ()
+  (interactive)
+  (erc-send-message "fabric8 already does that"))
+
+(define-key erc-mode-map (kbd "C-c <f8>") `tc/fabric8)
 
 (defun tc/ido-erc-buffer()
   (interactive)

@@ -57,9 +57,11 @@
   (load-theme 'tango-dark)
   (add-hook 'after-init-hook 'tc/dark-customizations))
 
-(setq tc/default-font "Liberation Mono")
+(if tc/macos-p
+    (setq tc/default-font "-apple-inconsolata-medium-r-normal--%s-0-72-72-m-0-iso10646-1")
+  (setq tc/default-font "Liberation Mono-%s"))
 
-(defvar embiggened-size)
+(defvar embiggened-size 14)
 
 (defun embiggen (size)
   (interactive (list (read-string (format "Font size (%s): " embiggened-size))))
@@ -68,9 +70,7 @@
               (string-to-number size))
             7)
     (setq embiggened-size size)
-    (set-frame-font (format "%s-%s" tc/default-font size))
-    (when (display-graphic-p)
-      (fullscreen))))
+    (set-frame-font (format tc/default-font size))))
 
 (require 'powerline)
 (powerline-default-theme)
@@ -101,10 +101,6 @@
         (tc/light-theme)
       (tc/dark-theme)))
 
-  (if tc/macos-p
-      (set-face-font `default "-apple-inconsolata-medium-r-normal--16-0-72-72-m-0-iso10646-1")
-    (if tc/presentation-mode-p
-        (embiggen 14)
-      (embiggen 9)))
-
-  )
+  (if tc/presentation-mode-p
+      (embiggen 16)
+    (embiggen 14)))

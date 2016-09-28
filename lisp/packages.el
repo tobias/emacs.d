@@ -3,8 +3,14 @@
   (add-to-list 'package-archives
                '("marmalade" . "http://marmalade-repo.org/packages/") t)
   (add-to-list 'package-archives
-               '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/") t)
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+  ;; (add-to-list 'package-archives
+  ;;              '("melpa" . "https://melpa.org/packages/") t)
 
+  (mapc (lambda (pkg)
+          (add-to-list 'package-pinned-packages `(,pkg . "melpa-stable") t))
+        '(cider clojure-mode))
+  
   (package-initialize)
   ;;(package-refresh-contents)
 

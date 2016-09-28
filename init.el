@@ -19,9 +19,10 @@
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file 'noerror)
 
-;; setup and use the same path as zsh
-(setenv "PATH" (shell-command-to-string "source ~/.path; echo -n $PATH"))
-(setq exec-path (append exec-path (split-string (getenv "PATH") ":")))
+;; setup and use the same path as fish
+(let ((path (split-string (shell-command-to-string "/usr/local/bin/fish -c 'echo -n $PATH'") " ")))
+  (setenv "PATH" (mapconcat 'identity path ":"))
+  (setq exec-path (append exec-path path)))
 
 (setq lisp-dir (concat user-emacs-directory "lisp/"))
 
@@ -38,12 +39,12 @@
 ;; get rid of ui cruft
 (menu-bar-mode -1)
 (tool-bar-mode -1)
-(scroll-bar-mode -1)
 (tooltip-mode -1)
 
 (when (display-graphic-p)
   ;; configure settings for use under a wm
   (setq frame-title-format '(buffer-file-name "%f" ("%b")))
+  (scroll-bar-mode -1)
   (mouse-wheel-mode t)
   (blink-cursor-mode -1)
   (global-hl-line-mode t)
@@ -71,7 +72,7 @@
 
 ;; prefer utf8
 (set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
+;;(set-keyboard-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 
 ;; start with an empty scratch buffer
@@ -82,8 +83,13 @@
 (setq confirm-kill-emacs 'y-or-n-p)
 
 ;; store backup files in one dir instead of littering the fs
-(setq backup-directory-alist
-      (list (cons "." (expand-file-name "backups" user-emacs-directory))))
+;; (setq backup-directory-alist
+;;       (list (cons "." (expand-file-name "backups" user-emacs-directory))))
+
+;; Put autosave files (ie #foo#) and backup files (ie foo~) in ~/.emacs.d/.
+(custom-set-variables
+  '(auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/\\1" t)))
+  '(backup-directory-alist '((".*" . "~/.emacs.d/backups/"))))
 
 ;; don't create lock files (emacs 24.3 and up)
 (setq create-lockfiles nil)
@@ -138,16 +144,18 @@
 
 ;; mac specific options
 (when tc/macos-p
-  ;; emacs 23 breaks the command -> meta mapping. This fixes it.
-  (setq mac-option-key-is-meta nil
+  (setq mac-option-key-is-meta t
         mac-command-key-is-meta t
         mac-command-modifier 'meta
-        mac-option-modifier nil)
-
+        mac-option-modifier 'meta)
+        
   (setq-default ispell-program-name "aspell")
 
   ;; don't open a new frame when the os tells emacs to open a file
   (setq ns-pop-up-frames nil))
+
+;; speed up tramp
+(setq tramp-default-method "ssh")
 
 ;; setup ido
 (ido-mode t)
@@ -173,6 +181,12 @@
 (setq-default dired-details-hidden-string "[...] ")
 (setq-default dired-details-hide-link-targets nil)
 (dired-details-install)
+
+;; Fixes "ls does not support --dired; see `dired-use-ls-dired' for
+;; more details." on MacOS w/Homebrew
+(let ((gls "/usr/local/bin/gls"))
+  (when (file-exists-p gls)
+    (setq insert-directory-program gls)))
 
 ;; advise zap-to-char to delete *up to* char
 (defadvice zap-to-char (after my-zap-to-char-advice (arg char) activate)
@@ -260,8 +274,10 @@
 (load "ftf")
 (load "auto-complete-init")
 (load "coding-utils")
+(load "modes/adoc")
 (load "modes/clojure")
 (load "modes/elisp")
+(load "modes/go")
 (load "modes/java")
 (load "modes/org")
 (load "modes/ruby")
@@ -281,5 +297,6 @@
   (when tc/presentation-name
     (load (concat user-emacs-directory "presentations/" tc/presentation-name))))
 
-(when (display-graphic-p)
-  (fullscreen))
+
+;; (when (display-graphic-p)
+;;   (fullscreen))

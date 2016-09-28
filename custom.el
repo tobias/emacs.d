@@ -3,6 +3,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(auto-save-file-name-transforms (quote ((".*" "~/.emacs.d/autosaves/\\1" t))))
+ '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
  '(cua-mode nil nil (cua-base))
  '(custom-safe-themes
    (quote
@@ -15,4 +17,5 @@
  ;; If there is more than one, they won't work right.
  '(ace-jump-face-foreground ((t (:background "black" :foreground "yellow" :slant italic :weight bold :height 1.0))) t)
  '(erc-button ((t nil)))
+ '(fg:erc-color-face12 ((t (:foreground "deep sky blue"))))
  '(rainbow-delimiters-unmatched-face ((t (:background "red" :foreground "black")))))
