@@ -24,6 +24,10 @@
   (setenv "PATH" (mapconcat 'identity path ":"))
   (setq exec-path (append exec-path path)))
 
+;; but use bash for executing commands, since fish doesn't like the
+;; syntax emacs gives `find`
+(setq shell-file-name "/bin/bash")
+
 (setq lisp-dir (concat user-emacs-directory "lisp/"))
 
 ;; install any needed packages
