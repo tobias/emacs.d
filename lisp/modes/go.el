@@ -1,7 +1,7 @@
 (require 'go-mode)
 
 (defun tc/local-tab-width ()
-  (setq tab-width 2))
+  (setq tab-width 4))
 
 (setenv "GOPATH" "/home/tcrawley/w/go/current-workspace")
 
