@@ -50,7 +50,8 @@
   (setq frame-title-format '(buffer-file-name "%f" ("%b")))
   (scroll-bar-mode -1)
   (mouse-wheel-mode t)
-  (blink-cursor-mode -1)
+  (blink-cursor-mode t)
+  (setq-default cursor-type 'bar)
   (global-hl-line-mode t)
   (mouse-avoidance-mode 'exile))
 
