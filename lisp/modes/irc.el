@@ -125,12 +125,12 @@ NICKUSERHOST will be ignored."
   (tc/mostly-ignore-channels-except tc/private-watched-channels))
 
 (add-hook 'erc-mode-hook 'ncm-mode)
+(add-hook 'erc-mode-hook 'tc/mostly-ignore-channels)
 
 (defun irc-connect-internal ()
   (interactive)
   (load-private-data)
-  (erc :server my-internal-irc-server :port 6667 :nick "tcrawley" )
-  (tc/mostly-ignore-channels))
+  (erc :server my-internal-irc-server :port 6667 :nick "tcrawley"))
 
 (defun irc-connect (server port &optional password)
   (load-private-data)
@@ -140,8 +140,7 @@ NICKUSERHOST will be ignored."
         (erc-tls :server server
                  :port port
                  :nick "tcrawley"
-                 :password (or password my-bouncer-password))))
-  (tc/mostly-ignore-channels))
+                 :password (or password my-bouncer-password)))))
 
 (defun irc-connect-clojurians ()
   (interactive)
