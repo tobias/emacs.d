@@ -87,3 +87,10 @@ point reaches the beginning or end of the buffer, stop there."
   "Creates a tmp markdown buffer"
   (interactive)
   (tc/tmp-buffer ".md"))
+
+(defun tc/standup ()
+  "Creates a new buffer with a standup template inserted"
+  (interactive)
+  (find-file (concat user-emacs-directory "/../.standup-template.md"))
+  (set-visited-file-name (concat "/tmp/" "standup" (number-to-string (random)) ".md"))
+  (goto-char (point-min)))

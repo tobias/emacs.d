@@ -8,12 +8,13 @@
 
 (add-to-list 'auto-mode-alist '("\\.dtm$" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
-(add-to-list 'auto-mode-alist '("\\.cljs$" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.cljx$" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.boot$" . clojure-mode))
 
+(add-to-list 'auto-mode-alist '("\\.cljs$" . clojurescript-mode))
+
 (setq
- clojure-defun-style-default-indent t
+ clojure-indent-style               :align-arguments 
  cider-popup-stacktraces            t
  cider-auto-select-error-buffer     t
  cider-repl-print-length            100
@@ -101,5 +102,5 @@ boot command."
 (define-key clojure-mode-map (kbd "C-c b") 'tc/run-boot)
 
 ;; disable clojure-toggle-keyword-string, since the binding shadows
-;; ace-window and I never use the binding
+;; ace-window and I never use the feature
 (define-key clojure-mode-map (kbd "C-:") nil)

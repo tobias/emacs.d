@@ -11,8 +11,9 @@
 ;; it's a crime to indent 4 spaces
 (add-hook 'js2-mode-hook 'tc/js2-adjust-offset)
 
-;; it's a crime to not use paredit
-(add-hook 'js2-mode-hook 'tc/turn-on-paredit-nonlisp)
+;; it's a crime to not use paredit (except that it doesn't work well
+;; with js, dangit)
+;;(add-hook 'js2-mode-hook 'tc/turn-on-paredit-nonlisp)
 
 ;; get some jshint action going
 (add-hook 'js2-mode-hook 'tc/turn-on-flycheck)

@@ -244,9 +244,15 @@
 ;; C-c right
 (winner-mode 1)
 
+;; always pair, electrically
+(electric-pair-mode)
+
 ;; browse-kill-ring
 (require 'browse-kill-ring)
 (browse-kill-ring-default-keybindings)
+
+;; add the system clipboard to the kill ring
+(setq save-interprogram-paste-before-kill t)
 
 ;; quick search
 (require 'helm-swoop)
@@ -272,6 +278,9 @@
 ;; disable magit's taking over of M-w
 (require 'magit)
 (define-key magit-mode-map (kbd "M-w") nil)
+
+;; use C-. for pop-tag-mark, it's easier than M-*
+(global-set-key (kbd "C-.") 'pop-tag-mark)
 
 ;; load everything else
 (load "functions")
