@@ -1,11 +1,12 @@
-(when (string-prefix-p "24" emacs-version)
+(when (or (string-prefix-p "24" emacs-version)
+          (string-prefix-p "25" emacs-version))
   (require 'package)
   (add-to-list 'package-archives
                '("marmalade" . "http://marmalade-repo.org/packages/") t)
   (add-to-list 'package-archives
-             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-  ;; (add-to-list 'package-archives
-  ;;              '("melpa" . "https://melpa.org/packages/") t)
+               '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+  (add-to-list 'package-archives
+               '("melpa" . "https://melpa.org/packages/") t)
 
   (mapc (lambda (pkg)
           (add-to-list 'package-pinned-packages `(,pkg . "melpa-stable") t))
