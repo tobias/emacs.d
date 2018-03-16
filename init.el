@@ -24,7 +24,7 @@
 ;; setup and use the same path as fish
 (let ((path (split-string (shell-command-to-string "/usr/local/bin/fish -c 'echo -n $PATH'") " ")))
   (setenv "PATH" (mapconcat 'identity path ":"))
-  (setq exec-path (append exec-path path)))
+  (setq exec-path (append path exec-path)))
 
 ;; but use bash for executing commands, since fish doesn't like the
 ;; syntax emacs gives `find`
