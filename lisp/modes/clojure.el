@@ -14,7 +14,8 @@
 (add-to-list 'auto-mode-alist '("\\.cljs$" . clojurescript-mode))
 
 (setq
- clojure-indent-style               :align-arguments 
+ clojure-indent-style               :align-arguments
+ cider-font-lock-dynamically        nil
  cider-popup-stacktraces            t
  cider-auto-select-error-buffer     t
  cider-repl-print-length            100
