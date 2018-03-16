@@ -2,6 +2,7 @@
 (require 'linum)
 (require 'diminish)
 (require 'rainbow-delimiters)
+(require 'whitespace-cleanup-mode)
 
 (defun tc/local-comment-auto-fill ()
   (set (make-local-variable 'comment-auto-fill-only-comments) t)
@@ -9,7 +10,7 @@
   (diminish 'auto-fill-function))
 
 (defun tc/turn-on-whitespace ()
-  (whitespace-mode t))
+  (whitespace-cleanup-mode t))
 
 (defun tc/turn-on-paredit ()
   (paredit-mode t)
@@ -55,6 +56,7 @@
 (add-hook 'tc/common-coding-hooks 'tc/local-comment-auto-fill)
 (add-hook 'tc/common-coding-hooks 'tc/add-watchwords)
 (add-hook 'tc/common-coding-hooks 'tc/enable-dwim-fold)
+(add-hook 'tc/common-coding-hooks 'tc/turn-on-whitespace)
 
 (when (not tc/presentation-mode-p)
   (add-hook 'tc/common-coding-hooks 'linum-on)
