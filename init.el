@@ -169,6 +169,8 @@
 (ido-ubiquitous t)
 (setq ido-enable-flex-matching          t
       ido-enable-last-directory-history nil)
+;; (require 'ido-completing-read+)
+;; (ido-ubiquitous-mode t)
 
 ;; make ido list files vertically
 (require 'ido-vertical-mode)
@@ -284,29 +286,35 @@
 ;; use C-. for pop-tag-mark, it's easier than M-*
 (global-set-key (kbd "C-.") 'pop-tag-mark)
 
+;; display git status for the line in the gutter in all git-controlled files
+(global-git-gutter-mode +1)
+
 ;; load everything else
 (load "functions")
 (load "theme")
 (load "ftf")
-(load "auto-complete-init")
+;;(load "auto-complete-init")
 (load "coding-utils")
-(load "modes/adoc")
+;;(load "modes/adoc")
 (load "modes/clojure")
 (load "modes/elisp")
-(load "modes/go")
-(load "modes/java")
+;;(load "modes/go")
+;;(load "modes/java")
 (load "modes/org")
-(load "modes/ruby")
+;;(load "modes/python")
+;;(load "modes/ruby")
 (load "modes/javascript")
-(load "modes/shell")
+(load "modes/sh")
+;;(load "modes/shell")
 ;;(load "modes/term")
 (load "modes/text")
 (load "modes/markdown")
 
 (when (not tc/presentation-mode-p)
   (load "modes/irc")
-  (when (require 'mu4e nil :noerror)
-    (load "modes/mail")))
+  ;; (when (require 'mu4e nil :noerror)
+  ;;   (load "modes/mail"))
+  )
 
 (when tc/presentation-mode-p
   (load "presentation")
