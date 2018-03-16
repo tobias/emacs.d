@@ -1,12 +1,12 @@
 (require 'notifications)
 
-(defvar terminal-notifier-command (executable-find "terminal-notifier") "The path to terminal-notifier.")
+(defvar *terminal-notifier-command* (executable-find "terminal-notifier") "The path to terminal-notifier.")
 
 (defun tc/notify (title message)
   (if tc/macos-p
       (start-process "terminal-notifier"
                      "*terminal-notifier*"
-                     terminal-notifier-command
+                     *terminal-notifier-command*
                      "-message" message
                      "-sound" "Purr"
                      "-title" (concat "\"" title "\"")
