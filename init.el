@@ -1,3 +1,5 @@
+(package-initialize)
+
 (defconst tc/macos-p
   (eq system-type 'darwin)
   "Are we on MacOS?")
