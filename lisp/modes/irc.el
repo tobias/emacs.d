@@ -1,9 +1,6 @@
 (require 'erc)
 (require 'erc-match)
 (require 'erc-hl-nicks)
-(require 'erc-tweet)
-(require 'erc-image)
-(require 'erc-youtube)
 
 (setq tc/irc-private-loaded nil)
 
