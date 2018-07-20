@@ -1,18 +1,16 @@
-(when (or (string-prefix-p "24" emacs-version)
-          (string-prefix-p "25" emacs-version))
-  (require 'package)
-  (add-to-list 'package-archives
-               '("marmalade" . "http://marmalade-repo.org/packages/") t)
-  (add-to-list 'package-archives
-               '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-  (add-to-list 'package-archives
-               '("melpa" . "https://melpa.org/packages/") t)
+(require 'package)
+(add-to-list 'package-archives
+             '("marmalade" . "http://marmalade-repo.org/packages/") t)
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/") t)
 
-  (mapc (lambda (pkg)
-          (add-to-list 'package-pinned-packages `(,pkg . "melpa-stable") t))
-        '(cider clojure-mode))
+(mapc (lambda (pkg)
+        (add-to-list 'package-pinned-packages `(,pkg . "melpa-stable") t))
+      '(cider clojure-mode))
   
-  (package-initialize)
+(package-initialize)
   ;;(package-refresh-contents)
 
   ;; (mapc (lambda (pkg)
@@ -76,4 +74,4 @@
   ;;         ;; swoop
   ;;         yaml-mode
   ;;         yasnippet))
-  )
+  
