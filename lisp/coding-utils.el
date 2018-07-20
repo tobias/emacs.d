@@ -1,5 +1,4 @@
 (require 'flymake-cursor)
-(require 'linum)
 (require 'diminish)
 (require 'rainbow-delimiters)
 (require 'whitespace-cleanup-mode)
@@ -53,13 +52,18 @@
   (hs-minor-mode)
   (local-set-key (kbd "C-c TAB") 'fold-dwim-org/minor-mode))
 
+(defun tc/enable-autocomplete ()
+  (company-mode)
+  (auto-complete-mode))
+
 (add-hook 'tc/common-coding-hooks 'tc/local-comment-auto-fill)
 (add-hook 'tc/common-coding-hooks 'tc/add-watchwords)
 (add-hook 'tc/common-coding-hooks 'tc/enable-dwim-fold)
 (add-hook 'tc/common-coding-hooks 'tc/turn-on-whitespace)
+(add-hook 'tc/common-coding-hooks 'tc/enable-autocomplete)
 
 (when (not tc/presentation-mode-p)
-  (add-hook 'tc/common-coding-hooks 'linum-on)
+  (add-hook 'tc/common-coding-hooks 'display-line-numbers-mode)
   (add-hook 'tc/common-coding-hooks 'tc/turn-on-idle-highlight)
   (require 'pretty-symbols)
   (setq pretty-symbol-categories `(lambda))
@@ -82,8 +86,8 @@
 (require 'imenu)
 
 ;; from emacs-starter-kit
-(defun tc/ido-imenu ()
-  "Update the imenu index and then use ido to select a symbol to navigate to.
+(defun tc/defs-imenu ()
+  "Update the imenu index and then select a symbol to navigate to.
 Symbols matching the text at point are put first in the completion list."
   (interactive)
   (imenu--make-index-alist)
@@ -120,12 +124,12 @@ Symbols matching the text at point are put first in the completion list."
             (sort matching-symbols (lambda (a b) (> (length a) (length b))))
             (mapc (lambda (symbol) (setq symbol-names (cons symbol (delete symbol symbol-names))))
                   matching-symbols)))))
-    (let* ((selected-symbol (ido-completing-read "Symbol? " symbol-names))
+    (let* ((selected-symbol (completing-read "Symbol? " symbol-names))
            (position (cdr (assoc selected-symbol name-and-pos))))
       (goto-char position))))
 
 ;; C-x TAB
-(global-set-key (kbd "C-x C-i") 'tc/ido-imenu)
+(global-set-key (kbd "C-x C-i") 'tc/defs-imenu)
 (set-default 'imenu-auto-rescan t)
 
 (require 'ansi-color)
