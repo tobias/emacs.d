@@ -1,7 +1,16 @@
 (add-to-list 'custom-theme-load-path (concat user-emacs-directory "themes"))
 
 (defun tc/light-theme ()
+  (interactive)
   (load-theme 'sorta-blind))
+
+(defun tc/preso-theme ()
+  (interactive)
+  (load-theme 'half-blind)
+  ;; if we don't force the foreground to nil, it will be
+  ;; the gtk selection color. This lets font-lock decoration
+  ;; remain active
+  (set-face-foreground 'region nil))
 
 (defun tc/dark-customizations ()
   ;; make the cursor whiteish
@@ -12,8 +21,8 @@
                       :foreground "black"
                       :background "yellow"
                       :weight 'bold)
-  (set-face-attribute 'ido-subdir nil
-                      :foreground "yellow")
+  ;; (set-face-attribute 'ido-subdir nil
+  ;;                     :foreground "yellow")
   ;; make highlight easier on the eyes
   (set-face-attribute 'highlight nil
                       :background "gray25"
@@ -38,9 +47,9 @@
   (set-face-attribute 'font-lock-string-face nil
                       :foreground "khaki")
   ;; powerline readability
-  (set-face-attribute 'powerline-active1 nil
-                      :background "grey22"
-                      :foreground "white")
+  ;; (set-face-attribute 'powerline-active1 nil
+  ;;                     :background "grey22"
+  ;;                     :foreground "white")
 
   ;; if we don't force the foreground to nil, it will be
   ;; the gtk selection color. This lets font-lock decoration
@@ -54,6 +63,7 @@
   )
 
 (defun tc/dark-theme ()
+  (interactive)
   (load-theme 'tango-dark)
   (add-hook 'after-init-hook 'tc/dark-customizations))
 
@@ -72,11 +82,8 @@
     (setq embiggened-size size)
     (set-frame-font (format tc/default-font size))))
 
-(require 'powerline)
-(powerline-default-theme)
-
 (when (display-graphic-p)
-	(defun fullscreen ()
+  (defun fullscreen ()
     "Toggle full screen"
     (interactive)
     (if (eq window-system 'x)
@@ -88,15 +95,9 @@
       (set-frame-parameter
        nil 'fullscreen
        (when (not (frame-parameter nil 'fullscreen)) 'fullboth))))
-
+        
   (if tc/presentation-mode-p
-      (progn
-        ;;(tc/dark-theme)
-        (load-theme 'half-blind)
-        ;; if we don't force the foreground to nil, it will be
-        ;; the gtk selection color. This lets font-lock decoration
-        ;; remain active
-        (set-face-foreground 'region nil))
+      (tc/preso-theme)
     (if tc/light-theme-p
         (tc/light-theme)
       (tc/dark-theme)))
