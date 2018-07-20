@@ -33,7 +33,7 @@
  erc-modules                     '(autojoin button completion fill irccontrols
                                    keep-place list match menu move-to-prompt
                                    netsplit networks noncommands readonly ring
-                                   stamp track hl-nicks tweet image youtube)
+                                   stamp track hl-nicks)
  erc-track-faces-priority-list   '(erc-error-face
                                    erc-current-nick-face
                                    erc-keyword-face
