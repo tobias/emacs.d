@@ -165,16 +165,15 @@
 (setq tramp-default-method "ssh")
 
 ;; setup ido
-(ido-mode t)
-(ido-ubiquitous t)
-(setq ido-enable-flex-matching          t
-      ido-enable-last-directory-history nil)
+;; (ido-mode t)
+;; (setq ido-enable-flex-matching          t
+;;       ido-enable-last-directory-history nil)
 ;; (require 'ido-completing-read+)
 ;; (ido-ubiquitous-mode t)
 
 ;; make ido list files vertically
-(require 'ido-vertical-mode)
-(ido-vertical-mode)
+;; (require 'ido-vertical-mode)
+;; (ido-vertical-mode)
 
 ;; start an emacs server
 (require 'server)
@@ -213,7 +212,7 @@
 (global-unset-key (kbd "C-x C-z"))
 
 ;; I often get the buffer list by accident
-(global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
+(global-set-key (kbd "C-x C-b") 'ivy-switch-buffer)
 
 ;; revert - this shadows ido-find-file-read-only, but why would I want
 ;; to edit a file as read-only?
@@ -225,7 +224,7 @@
   (setq aw-keys
         '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
 
-(global-set-key (kbd "C-x C-d") 'ido-dired)
+;;(global-set-key (kbd "C-x C-d") 'ido-dired)
 
 ;; alter the font size for the current buffer
 (define-key global-map (kbd "C-+") 'text-scale-increase)
@@ -264,10 +263,15 @@
 (global-set-key (kbd "M-o") 'helm-multi-swoop)
 ;;(setq swoop-font-size-change: nil)
 
-;; smex - a better M-x
-(require 'smex)
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+(require 'ivy)
+(ivy-mode 1)
+(global-set-key (kbd "C-s") 'swiper)
+;; (global-set-key (kbd "M-x") 'counsel-M-x)
+
+;; amx - a better M-x
+(require 'amx)
+(global-set-key (kbd "M-x") 'amx)
+(global-set-key (kbd "M-X") 'amx-major-mode-commands)
 
 ;; extra help fns - brought in for describe-keymap, mainly
 (require 'help-fns+)
