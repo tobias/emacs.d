@@ -81,12 +81,17 @@ point reaches the beginning or end of the buffer, stop there."
 
 (defun tc/tmp-buffer (suffix)
   "Creates a tmp buffer with the given suffix"
-  (find-file (concat "/tmp/" (number-to-string (random)) "." suffix)))
+  (find-file (concat "/tmp/tmp_" (number-to-string (random most-positive-fixnum)) suffix)))
 
 (defun tc/tmp-md ()
   "Creates a tmp markdown buffer"
   (interactive)
   (tc/tmp-buffer ".md"))
+
+(defun tc/tmp-clj ()
+  "Creates a tmp clojure buffer"
+  (interactive)
+  (tc/tmp-buffer ".clj"))
 
 (defun tc/standup ()
   "Creates a new buffer with a standup template inserted"
