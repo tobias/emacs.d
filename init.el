@@ -53,7 +53,7 @@
   (scroll-bar-mode -1)
   (mouse-wheel-mode t)
   (blink-cursor-mode t)
-  (setq-default cursor-type 'bar)
+  (setq-default cursor-type '(hbar . 5))
   (global-hl-line-mode t)
   (mouse-avoidance-mode 'exile))
 
@@ -184,14 +184,9 @@
 ;; unbind C-x C-u I supppose.
 (put 'upcase-region 'disabled nil)
 
-;; Make dired less verbose
-(require 'dired-details)
-(setq-default dired-details-hidden-string "[...] ")
-(setq-default dired-details-hide-link-targets nil)
-(dired-details-install)
-
 ;; Fixes "ls does not support --dired; see `dired-use-ls-dired' for
 ;; more details." on MacOS w/Homebrew
+;; install with: brew install coreutils
 (let ((gls "/usr/local/bin/gls"))
   (when (file-exists-p gls)
     (setq insert-directory-program gls)))
@@ -296,11 +291,13 @@
 ;; load everything else
 (load "functions")
 (load "theme")
-(load "ftf")
+;;(load "ftf")
+(load "projectile")
 ;;(load "auto-complete-init")
 (load "coding-utils")
 ;;(load "modes/adoc")
 (load "modes/clojure")
+(load "modes/dired")
 (load "modes/elisp")
 ;;(load "modes/go")
 ;;(load "modes/java")
