@@ -1,9 +1,11 @@
 (require 'cider)
 (require 'clj-refactor)
-(require 'align-cljlet)
+;;(require 'align-cljlet)
+(require 'flycheck-joker)
 
 (add-hook 'clojure-mode-hook 'tc/run-common-coding-hooks)
 (add-hook 'clojure-mode-hook 'tc/run-lisp-coding-hooks)
+(add-hook 'clojure-mode-hook 'tc/turn-on-flycheck)
 (add-hook 'clojure-mode-hook 'subword-mode)
 (add-hook 'clojure-mode-hook 'yas-minor-mode)
 
@@ -22,6 +24,7 @@
  cider-repl-print-length            100
  cider-repl-wrap-history            t
  cider-repl-history-file           (concat user-emacs-directory "cider-repl-history")
+ cider-repl-pop-to-buffer-on-connect 'display-only
  cljr-suppress-middleware-warnings  t
  cider-repl-display-help-banner     nil)
 
@@ -51,6 +54,32 @@
 
 (define-key clojure-mode-map (kbd "C-c d") 'tc/insert-divider-comment)
 
+(defun tc/insert-note (type)
+  (move-beginning-of-line nil)
+  (insert (format ";; %s: (toby) " type))
+  ;;(previous-line)
+  ;;(search-forward ") ")
+  (indent-for-tab-command))
+
+(defun tc/insert-fixme ()
+  (interactive)
+  (tc/insert-note "FIXME"))
+
+(defun tc/insert-todo ()
+  (interactive)
+  (tc/insert-note "TODO"))
+
+(define-key clojure-mode-map (kbd "C-c C-n f") 'tc/insert-fixme)
+(define-key clojure-mode-map (kbd "C-c C-n t") 'tc/insert-todo)
+
+(defun tc/insert-spy ()
+  (interactive)
+  (move-beginning-of-line nil)
+  (insert "(sc.api/spy)")
+  (indent-for-tab-command))
+
+(define-key clojure-mode-map (kbd "C-c s") 'tc/insert-spy)
+
 (defun run-cider-command (command)
   (with-current-buffer (cider-current-repl-buffer)
     (goto-char (point-max))
@@ -68,14 +97,17 @@
 
 (define-key cider-mode-map (kbd "C-c C-c") 'send-previous-expr-to-repl)
 
-(defun clojure-sort-ns ()
+
+;; copied from clojure-mode with redisplay calls commented out to
+;; prevent buffer jumping when used as a before-save-hook
+(defun tc/clojure-sort-ns ()
   "Internally sort each sexp inside the ns form."
   (interactive)
   (comment-normalize-vars)
   (if (clojure-find-ns)
       (save-excursion
         (goto-char (match-beginning 0))
-;        (redisplay)
+        ;;        (redisplay)
         (let ((beg (point))
               (ns))
           (forward-sexp 1)
@@ -91,13 +123,13 @@
           (if (looking-at (regexp-quote ns))
               (message "ns form is already sorted")
             (sleep-for 0.1)
- ;           (redisplay)
+            ;;           (redisplay)
             (message "ns form has been sorted")
             (sleep-for 0.1))))
     (user-error "Namespace not found")))
 
 (defun tc/turn-on-sorting-on-save ()
-  (add-hook 'before-save-hook 'clojure-sort-ns nil 'local))
+  (add-hook 'before-save-hook 'tc/clojure-sort-ns nil 'local))
 
 (add-hook 'clojure-mode-hook 'tc/turn-on-sorting-on-save)
 
@@ -158,8 +190,8 @@ boot command."
   (setq cider-current-clojure-buffer (current-buffer))
   (let ((project-dir (locate-dominating-file default-directory "clubhouse-module.edn")))
     (if project-dir
-        (when-let ((repl-buff (cider-find-reusable-repl-buffer nil project-dir)))
-          (let ((nrepl-create-client-buffer-function  #'cider-repl-create)
-                (nrepl-use-this-as-repl-buffer repl-buff))
-            (nrepl-start-server-process project-dir clubhouse-jack-in-command)))
+        (cider-jack-in-clj
+         (thread-first '()
+           (plist-put :project-dir project-dir)
+           (plist-put :jack-in-cmd clubhouse-jack-in-command)))
       (user-error "Could not find clubhouse-module.edn from %s" default-directory))))

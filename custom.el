@@ -14,13 +14,14 @@
  '(org-export-backends (quote (ascii html icalendar latex md)))
  '(package-selected-packages
    (quote
-    (ag projectile clojure-snippets dired-collapse dired-rainbow json-navigator terraform-mode find-things-fast counsel swiper amx telephone-line spaceline plantuml-mode whitespace-cleanup-mode restclient elpy git-gutter json-mode mustache-mode yaml-mode websocket toml-mode swift-mode smex scala-mode rust-mode request rainbow-delimiters oauth2 maxframe markdown-mode magit lua-mode link js2-mode jinja2-mode jade-mode inf-ruby ido-vertical-mode ido-ubiquitous idle-highlight htmlize highlight-parentheses helm-swoop guru-mode groovy-mode gradle-mode go-mode git-link gist fuzzy fold-dwim-org flymake-cursor flycheck-swift fish-mode expand-region emojify editorconfig downplay-mode dockerfile-mode dired-details diminish dictionary connection cm-mode clj-refactor circe browse-kill-ring auto-complete align-cljlet alert adoc-mode ace-window))))
+    (git-timemachine flycheck-joker cider clojure-mode ag doom-modeline beacon zprint-mode find-file-in-project erc-hl-nicks projectile clojure-snippets dired-collapse dired-rainbow json-navigator terraform-mode find-things-fast counsel swiper amx telephone-line spaceline plantuml-mode whitespace-cleanup-mode restclient elpy git-gutter json-mode mustache-mode yaml-mode websocket toml-mode swift-mode smex scala-mode rust-mode request rainbow-delimiters oauth2 maxframe markdown-mode magit lua-mode link js2-mode jinja2-mode jade-mode inf-ruby ido-vertical-mode ido-ubiquitous idle-highlight htmlize highlight-parentheses helm-swoop guru-mode groovy-mode gradle-mode go-mode git-link gist fuzzy fold-dwim-org flymake-cursor flycheck-swift fish-mode expand-region emojify editorconfig downplay-mode dockerfile-mode dired-details diminish dictionary connection cm-mode clj-refactor circe browse-kill-ring auto-complete align-cljlet alert adoc-mode ace-window))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ace-jump-face-foreground ((t (:background "black" :foreground "yellow" :slant italic :weight bold :height 1.0))) t)
+ '(ag-hit-face ((t nil)))
  '(cursor ((t (:background "gray100"))))
  '(erc-button ((t nil)))
  '(fg:erc-color-face12 ((t (:foreground "deep sky blue"))))

@@ -81,7 +81,7 @@ point reaches the beginning or end of the buffer, stop there."
 
 (defun tc/tmp-buffer (suffix)
   "Creates a tmp buffer with the given suffix"
-  (find-file (concat "/tmp/tmp_" (number-to-string (random most-positive-fixnum)) suffix)))
+  (find-file (concat "~/tmp/tmp_" (number-to-string (random most-positive-fixnum)) suffix)))
 
 (defun tc/tmp-md ()
   "Creates a tmp markdown buffer"

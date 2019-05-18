@@ -288,17 +288,20 @@
 ;; display git status for the line in the gutter in all git-controlled files
 (global-git-gutter-mode +1)
 
+(global-set-key (kbd "C-c m c") 'mc/edit-lines)
+
 ;; load everything else
+(load "ffip")
 (load "functions")
 (load "theme")
 ;;(load "ftf")
-(load "projectile")
 ;;(load "auto-complete-init")
 (load "coding-utils")
 ;;(load "modes/adoc")
 (load "modes/clojure")
 (load "modes/dired")
 (load "modes/elisp")
+(load "modes/git-commit")
 ;;(load "modes/go")
 ;;(load "modes/java")
 (load "modes/org")
@@ -306,7 +309,7 @@
 ;;(load "modes/ruby")
 (load "modes/javascript")
 (load "modes/sh")
-;;(load "modes/shell")
+(load "modes/shell")
 ;;(load "modes/term")
 (load "modes/text")
 (load "modes/markdown")

@@ -1,4 +1,4 @@
-(require 'flymake-cursor)
+;;(require 'flymake-cursor)
 (require 'diminish)
 (require 'rainbow-delimiters)
 (require 'whitespace-cleanup-mode)
@@ -134,20 +134,25 @@ Symbols matching the text at point are put first in the completion list."
 
 (require 'ansi-color)
 (defun colorize-compilation-buffer ()
-  (toggle-read-only)
-  (ansi-color-apply-on-region (point-min) (point-max))
-  (toggle-read-only))
+  ;; only colorize when the buffer is actually a compilation-mode
+  ;; buffer, not a mode that inherits from compilation-mode
+  (when (eq major-mode 'compilation-mode)
+    (toggle-read-only)
+    (ansi-color-apply-on-region (point-min) (point-max))
+    (toggle-read-only)))
 
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
 ;; notify when compilation completes
-(load "notify")
-(defun add-compile-notify-hook ()
-  (add-to-list 'compilation-finish-functions
-               (lambda (buf result)
-                 (tc/notify "Compilation Finished" result))))
+;;(load "notify")
 
-(add-hook 'compilation-mode-hook 'add-compile-notify-hook)
+;; (defun add-compile-notify-hook ()
+;;   (add-to-list 'compilation-finish-functions
+;;                (lambda (buf result)
+;;                  (tc/notify "Compilation Finished" result))))
+
+;; (add-hook 'compilation-mode-hook 'add-compile-notify-hook)
+
 
 ;; scroll compilation buffer until an error occurs
 (setq compilation-scroll-output 'first-error)
@@ -171,35 +176,35 @@ Symbols matching the text at point are put first in the completion list."
 (global-set-key (kbd "C-c c") 'compile)
 
 ;; from https://www.emacswiki.org/emacs/ElectricPair
-(defun tc/electric-pair ()
-  "If at end of line, insert character pair without surrounding spaces.
-    Otherwise, just insert the typed character."
-  (interactive)
-  (if (eolp) (let (parens-require-spaces) (insert-pair)) (self-insert-command 1)))
+;; (defun tc/electric-pair ()
+;;   "If at end of line, insert character pair without surrounding spaces.
+;;     Otherwise, just insert the typed character."
+;;   (interactive)
+;;   (if (eolp) (let (parens-require-spaces) (insert-pair)) (self-insert-command 1)))
 
 ;; based on paredit-doublequote
-(defun paredit-singlequote (&optional n)
-  "Insert a pair of single-quotes.
-With a prefix argument N, wrap the following N S-expressions in
-  single-quotes, escaping intermediate characters if necessary.
-If the region is active, `transient-mark-mode' is enabled, and the
-  region's start and end fall in the same parenthesis depth, insert a
-  pair of single-quotes around the region, again escaping intermediate
-  characters if necessary.
-Inside a comment, insert a literal single-quote.
-At the end of a string, move past the closing single-quote.
-In the middle of a string, insert a backslash-escaped single-quote.
-If in a character literal, do nothing.  This prevents accidentally
-  changing a what was in the character literal to become a meaningful
-  delimiter unintentionally."
-  (interactive "P")
-  (cond ((paredit-in-string-p)
-         (if (eq (point) (- (paredit-enclosing-string-end) 1))
-             (forward-char)             ; Just move past the closing quote.
-           ;; Don't split a \x into an escaped backslash and a string end.
-           (if (paredit-in-string-escape-p) (forward-char))
-           (insert ?\\ ?\' )))
-        ((paredit-in-comment-p)
-         (insert ?\' ))
-        ((not (paredit-in-char-p))
-         (paredit-insert-pair n ?\' ?\' 'paredit-forward-for-quote))))
+;; (defun paredit-singlequote (&optional n)
+;;   "Insert a pair of single-quotes.
+;; With a prefix argument N, wrap the following N S-expressions in
+;;   single-quotes, escaping intermediate characters if necessary.
+;; If the region is active, `transient-mark-mode' is enabled, and the
+;;   region's start and end fall in the same parenthesis depth, insert a
+;;   pair of single-quotes around the region, again escaping intermediate
+;;   characters if necessary.
+;; Inside a comment, insert a literal single-quote.
+;; At the end of a string, move past the closing single-quote.
+;; In the middle of a string, insert a backslash-escaped single-quote.
+;; If in a character literal, do nothing.  This prevents accidentally
+;;   changing a what was in the character literal to become a meaningful
+;;   delimiter unintentionally."
+;;   (interactive "P")
+;;   (cond ((paredit-in-string-p)
+;;          (if (eq (point) (- (paredit-enclosing-string-end) 1))
+;;              (forward-char)             ; Just move past the closing quote.
+;;            ;; Don't split a \x into an escaped backslash and a string end.
+;;            (if (paredit-in-string-escape-p) (forward-char))
+;;            (insert ?\\ ?\' )))
+;;         ((paredit-in-comment-p)
+;;          (insert ?\' ))
+;;         ((not (paredit-in-char-p))
+;;          (paredit-insert-pair n ?\' ?\' 'paredit-forward-for-quote))))

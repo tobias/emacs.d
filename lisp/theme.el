@@ -2,7 +2,8 @@
 
 (defun tc/light-theme ()
   (interactive)
-  (load-theme 'sorta-blind))
+  (load-theme 'sorta-blind)
+  (add-hook 'after-init-hook 'tc/light-customizations))
 
 (defun tc/preso-theme ()
   (interactive)
@@ -11,6 +12,11 @@
   ;; the gtk selection color. This lets font-lock decoration
   ;; remain active
   (set-face-foreground 'region nil))
+
+(defun tc/light-customizations ()
+  ;; make the cursor dark
+  (set-face-attribute 'cursor nil
+                      :background "grey65"))
 
 (defun tc/dark-customizations ()
   ;; make the cursor whiteish
@@ -105,3 +111,10 @@
   (if tc/presentation-mode-p
       (embiggen 16)
     (embiggen 14)))
+
+;; flash the cursor line when jumping around
+(beacon-mode 1)
+
+(setq beacon-color "yellow"
+      beacon-blink-when-focused t)
+
