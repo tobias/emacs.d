@@ -77,7 +77,7 @@
     (setq tc/default-font "-apple-inconsolata-medium-r-normal--%s-0-72-72-m-0-iso10646-1")
   (setq tc/default-font "Liberation Mono-%s"))
 
-(defvar embiggened-size 14)
+(defvar embiggened-size (if tc/macos-p 14 12))
 
 (defun embiggen (size)
   (interactive (list (read-string (format "Font size (%s): " embiggened-size))))

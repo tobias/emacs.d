@@ -22,7 +22,12 @@
 (load custom-file 'noerror)
 
 ;; setup and use the same path as fish
-(let ((path (split-string (shell-command-to-string "/usr/local/bin/fish -c 'echo -n $PATH'") " ")))
+(let ((path (split-string (shell-command-to-string
+                           (format "%s/fish -c 'echo -n $PATH'"
+                                   (if tc/macos-p
+                                       "/usr/local/bin"
+                                     "/usr/bin")))
+                          " ")))
   (setenv "PATH" (mapconcat 'identity path ":"))
   (setq exec-path (append path exec-path)))
 
