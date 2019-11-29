@@ -113,7 +113,7 @@
 
 ;; do a better job of making buffer names unique
 (require 'uniquify)
-(setq uniquify-buffer-name-style 'post-forward)
+(setq uniquify-buffer-name-style 'forward)
 
 ;; Allow y for yes - I type enough as it is
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -179,11 +179,6 @@
 ;; make ido list files vertically
 ;; (require 'ido-vertical-mode)
 ;; (ido-vertical-mode)
-
-;; start an emacs server
-(require 'server)
-(unless (server-running-p)
-  (add-hook 'after-init-hook 'server-start))
 
 ;; disable upcase-region because I often fat-finger it. I could also
 ;; unbind C-x C-u I supppose.
@@ -295,6 +290,16 @@
 
 (global-set-key (kbd "C-c m c") 'mc/edit-lines)
 
+;; display matching indents
+(require 'indent-guide)
+
+(indent-guide-global-mode)
+
+;; override the keybinding for command-log-mode, since it overlaps
+;; with my weekpage bindings
+(global-unset-key (kbd "C-c o"))
+(global-set-key (kbd "C-c l") 'clm/toggle-command-log-buffer)
+
 ;; load everything else
 (load "ffip")
 (load "functions")
@@ -313,6 +318,7 @@
 ;;(load "modes/python")
 ;;(load "modes/ruby")
 (load "modes/javascript")
+(load "modes/restclient")
 (load "modes/sh")
 (load "modes/shell")
 ;;(load "modes/term")
@@ -333,3 +339,10 @@
 
 ;; (when (display-graphic-p)
 ;;   (fullscreen))
+
+;; start an emacs server
+(require 'server)
+(unless (server-running-p)
+  (add-hook 'after-init-hook 'server-start))
+
+(add-hook 'after-init-hook 'tc/startup-buffers)

@@ -24,9 +24,12 @@
        '((lambda (endp delimiter) nil)))
   (tc/turn-on-paredit))
 
+(require 'flycheck)
+
 (defun tc/turn-on-flycheck ()
-  (require 'flycheck)
   (flycheck-mode t))
+
+(define-key flycheck-mode-map (kbd "<f3>") 'flycheck-next-error)
 
 (defun tc/turn-on-show-paren ()
   (show-paren-mode t))
@@ -54,7 +57,8 @@
 
 (defun tc/enable-autocomplete ()
   (company-mode)
-  (auto-complete-mode))
+  ;;(auto-complete-mode)
+  )
 
 (add-hook 'tc/common-coding-hooks 'tc/local-comment-auto-fill)
 (add-hook 'tc/common-coding-hooks 'tc/add-watchwords)

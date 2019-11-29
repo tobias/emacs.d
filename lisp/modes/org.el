@@ -7,6 +7,9 @@
 (require 'ox-odt)
 (setq org-odt-preferred-output-format "docx")
 
+(require 'org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+
 ;; Make windmove work in org-mode:
 (add-hook 'org-shiftup-final-hook 'windmove-up)
 (add-hook 'org-shiftleft-final-hook 'windmove-left)
@@ -22,7 +25,7 @@
       "/usr/local/Cellar/plantuml/1.2018.2/libexec/plantuml.jar")
 
 (setq clubhouse-link-regex
-  "^https://app[^.]*\\.clubhouse\\.io/[^/]+/\\(story\\|epic\\)/\\([0-9]+\\)/\\(.+\\)")
+  "^https://app[^.]*\\.clubhouse\\.io/[^/]+/\\(story\\|epic\\)/\\([0-9]+\\)")
 
 (defun tc/org-insert-link (url description)
   (insert "[[" url "][" description "]]"))
@@ -41,8 +44,10 @@
 ;;       '((sequence "☐" "☆" "☒")))
 ;; ☑ ☒
 
-(setq org-todo-keywords
-      '((sequence "TODO(t)" "STARTED(s)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)")))
+(setq org-todo-keywords       '((sequence "TODO(t)" "STARTED(s)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)"))
+      org-ellipsis            "⁙"
+      org-log-done            'time
+      org-bullets-bullet-list '("⁂"))
 
 ;; (require 'org-daypage)
 
@@ -60,6 +65,8 @@
 
 (define-key weekpage-mode-map (kbd "<C-left>") 'weekpage-prev)
 (define-key weekpage-mode-map (kbd "<C-right>") 'weekpage-next)
+;; override compile
+(define-key weekpage-mode-map (kbd "C-c c") 'org-ctrl-c-ctrl-c)
 
 (global-set-key "\C-con" 'this-weeks-weekpage)
 (global-set-key "\C-coN" 'find-weekpage)

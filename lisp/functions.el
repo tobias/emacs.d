@@ -93,14 +93,25 @@ point reaches the beginning or end of the buffer, stop there."
   (interactive)
   (tc/tmp-buffer ".clj"))
 
-(defun tc/standup ()
-  "Creates a new buffer with a standup template inserted"
+(defun tc/file-name-to-kill-ring ()
+  "Copy the current buffer file name to the kill-ring."
   (interactive)
-  (find-file (concat user-emacs-directory "/../.standup-template.md"))
-  (set-visited-file-name (concat "/tmp/" "standup" (number-to-string (random)) ".md"))
-  (goto-char (point-min)))
+  (let ((filename (if (equal major-mode 'dired-mode)
+                      default-directory
+                    (buffer-file-name))))
+    (when filename
+      (kill-new filename)
+      (message "Buffer file name '%s' now on kill-ring." filename))))
 
-(defun tc/generate-jira-url ()
-  "Takes the thing at point places it at the end of a url string, putting the result on the kill ring"
+
+(defun tc/startup-buffers ()
+  "Opens startup buffers in a window layout."
   (interactive)
-  (kill-new (concat "https://farmlogs.atlassian.net/browse/" (thing-at-point 'symbol))))
+  (delete-other-windows)
+  (this-weeks-weekpage)
+  (split-window-horizontally)
+  (dired "~/work/backend")
+  (split-window-horizontally)
+  (split-window-vertically)
+  (balance-windows)
+  (fullscreen))

@@ -23,3 +23,7 @@
 ;; make curlies better
 (define-key js2-mode-map "{" 'paredit-open-curly)
 (define-key js2-mode-map "}" 'paredit-close-curly-and-newline)
+
+;; set up nvm
+;; TODO: make this better, maybe read the correct version from config?
+(nvm-use "v10.16.1")

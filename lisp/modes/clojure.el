@@ -1,7 +1,8 @@
 (require 'cider)
 (require 'clj-refactor)
 ;;(require 'align-cljlet)
-(require 'flycheck-joker)
+;;(require 'flycheck-joker)
+(require 'flycheck-clj-kondo)
 
 (add-hook 'clojure-mode-hook 'tc/run-common-coding-hooks)
 (add-hook 'clojure-mode-hook 'tc/run-lisp-coding-hooks)
@@ -78,7 +79,13 @@
   (insert "(sc.api/spy)")
   (indent-for-tab-command))
 
+(defun tc/insert-spy-letsc ()
+  (interactive)
+  (insert "(sc.api/letsc )")
+  (backward-char))
+
 (define-key clojure-mode-map (kbd "C-c s") 'tc/insert-spy)
+(define-key cider-repl-mode-map (kbd "C-c s") 'tc/insert-spy-letsc)
 
 (defun run-cider-command (command)
   (with-current-buffer (cider-current-repl-buffer)
