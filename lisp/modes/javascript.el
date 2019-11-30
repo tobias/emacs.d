@@ -26,4 +26,6 @@
 
 ;; set up nvm
 ;; TODO: make this better, maybe read the correct version from config?
-(nvm-use "v10.16.1")
+(when (file-directory-p (concat user-emacs-directory
+                                "../.nvm/versions"))
+  (nvm-use "v10.16.1"))

@@ -3,7 +3,7 @@
 
 (custom-theme-set-faces
  'sorta-blind
- '(default ((t (:inherit nil :background "gray90" :foreground "#000000" :width normal :foundry "apple" :family "Monaco"))))
+ '(default ((t (:inherit nil :background "gray90" :foreground "#000000" :width normal :foundry "apple" :family "Liberation Mono"))))
  '(cursor ((t (:background "dark cyan"))))
  '(fixed-pitch ((t (:family "Monospace"))))
  '(variable-pitch ((t (:family "Sans Serif"))))
@@ -57,6 +57,7 @@
  '(message-header-name ((t (:foreground "#093"))))
  '(mu4e-header-highlight-face ((t (:inherit region :foreground "black" :underline t :weight bold))))
  '(region ((t (:background "pale green" :foreground "black"))))
+ '(indent-guide-face ((t (:foreground "#aaaaaa"))))
  '(query-replace ((t (:inherit isearch)))))
 
 (custom-theme-set-variables 'sorta-blind
