@@ -166,6 +166,13 @@
   ;; don't open a new frame when the os tells emacs to open a file
   (setq ns-pop-up-frames nil))
 
+;; display ivy selection in overlay instead of minibuffer
+;; https://github.com/tumashu/ivy-posframe
+(require 'ivy-posframe)
+(setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center))
+      ivy-posframe-height-alist '((t . 30)))
+(ivy-posframe-mode 1)
+
 ;; speed up tramp
 (setq tramp-default-method "ssh")
 
