@@ -169,7 +169,11 @@
 ;; display ivy selection in overlay instead of minibuffer
 ;; https://github.com/tumashu/ivy-posframe
 (require 'ivy-posframe)
-(setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center))
+(setq ivy-posframe-display-functions-alist
+      '((swiper          . nil)
+        (complete-symbol . ivy-posframe-display-at-point)
+        (t               . ivy-posframe-display-at-frame-center))
+      
       ivy-posframe-height-alist '((t . 30)))
 (ivy-posframe-mode 1)
 
