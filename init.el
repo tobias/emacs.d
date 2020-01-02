@@ -58,7 +58,7 @@
   (scroll-bar-mode -1)
   (mouse-wheel-mode t)
   (blink-cursor-mode t)
-  (setq-default cursor-type '(hbar . 5))
+  (setq-default cursor-type  '(bar . 2))
   (global-hl-line-mode t)
   (mouse-avoidance-mode 'exile))
 

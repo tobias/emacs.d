@@ -14,10 +14,7 @@
   (set-face-foreground 'region nil))
 
 (defun tc/light-customizations ()
-  ;; make the cursor dark
-  (set-face-attribute 'cursor nil
-                      :background "grey65")
-  (set-face-foreground 'region nil))
+  )
 
 (defun tc/dark-customizations ()
   ;; make the cursor whiteish
@@ -53,6 +50,35 @@
                       :slant 'italic)
   (set-face-attribute 'font-lock-string-face nil
                       :foreground "khaki")
+  
+  ;; org mode improvements
+  (set-face-attribute 'org-done nil
+                      :foreground "DarkOliveGreen3"
+                      :weight 'bold)
+  (set-face-attribute 'org-tag nil
+                      :foreground "yellow"
+                      :weight 'bold)
+  (set-face-attribute 'org-todo nil
+                      :background "Black"
+                      :foreground "Yellow"
+                      :weight 'bold)
+  
+  ;; have ace-window char stand out more
+  (set-face-attribute 'aw-leading-char-face nil
+                      :background "yellow"
+                      :foreground "black"
+                      :weight 'bold
+                      :height 2.0)
+
+  (set-face-attribute 'ag-hit-face nil
+                      :foreground "CornflowerBlue"
+                      :weight 'bold)
+
+  (set-face-attribute 'compilation-info nil
+                      :foreground "CornflowerBlue"
+                      :weight 'bold)
+ 
+ 
   ;; powerline readability
   ;; (set-face-attribute 'powerline-active1 nil
   ;;                     :background "grey22"
