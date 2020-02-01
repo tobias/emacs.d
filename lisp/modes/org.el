@@ -67,6 +67,6 @@
 (define-key weekpage-mode-map (kbd "<C-right>") 'weekpage-next)
 ;; override compile
 (define-key weekpage-mode-map (kbd "C-c c") 'org-ctrl-c-ctrl-c)
-
+;; (global-unset-key "\C-co")
 (global-set-key "\C-con" 'this-weeks-weekpage)
 (global-set-key "\C-coN" 'find-weekpage)

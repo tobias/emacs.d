@@ -50,7 +50,13 @@
                       :slant 'italic)
   (set-face-attribute 'font-lock-string-face nil
                       :foreground "khaki")
-  
+
+  ;; header line
+  (set-face-attribute 'header-line nil
+                    :background "gray25"
+                    :foreground "gray90"
+                    :box '(:line-width -1 :color "*" :style released-button))
+
   ;; org mode improvements
   (set-face-attribute 'org-done nil
                       :foreground "DarkOliveGreen3"
@@ -67,8 +73,7 @@
   (set-face-attribute 'aw-leading-char-face nil
                       :background "yellow"
                       :foreground "black"
-                      :weight 'bold
-                      :height 2.0)
+                      :weight 'bold)
 
   (set-face-attribute 'ag-hit-face nil
                       :foreground "CornflowerBlue"
@@ -101,10 +106,13 @@
   (add-hook 'after-init-hook 'tc/dark-customizations))
 
 (if tc/macos-p
-    (setq tc/default-font "-apple-inconsolata-medium-r-normal--%s-0-72-72-m-0-iso10646-1")
+    (progn
+      (setq tc/default-font "Jetbrains Mono-%s";;"-apple-inconsolata-medium-r-normal--%s-0-72-72-m-0-iso10646-1"
+            )
+      (setq-default line-spacing 2))
   (setq tc/default-font "Liberation Mono-%s"))
 
-(defvar embiggened-size (if tc/macos-p 14 12))
+(defvar embiggened-size (if tc/macos-p 13 12))
 
 (defun embiggen (size)
   (interactive (list (read-string (format "Font size (%s): " embiggened-size))))
@@ -145,3 +153,18 @@
 (setq beacon-color "yellow"
       beacon-blink-when-focused t)
 
+;; display ivy selection in overlay instead of minibuffer
+;; https://github.com/tumashu/ivy-posframe
+;; (require 'ivy-posframe)
+;; (setq ivy-posframe-display-functions-alist
+;;       '((swiper          . nil)
+;;         (complete-symbol . ivy-posframe-display-at-point)
+;;         (t               . ivy-posframe-display-at-frame-center))
+      
+;;       ivy-posframe-height-alist '((swiper . 20)
+;;                                   (t      . 50))
+;;       ivy-posframe-font (format tc/default-font (+ embiggened-size 2))
+;;       ivy-posframe-parameters '((left-fringe  . 8)
+;;                                 (right-fringe . 8)
+;;                                 (background-color . "gray25")))
+;; (ivy-posframe-mode 1)
