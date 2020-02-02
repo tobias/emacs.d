@@ -51,6 +51,10 @@
   (set-face-attribute 'font-lock-string-face nil
                       :foreground "khaki")
 
+  ;; other buffers
+  (set-face-attribute 'auto-dim-other-buffers-face nil
+                      :background "gray15")
+  
   ;; header line
   (set-face-attribute 'header-line nil
                     :background "gray25"
@@ -106,11 +110,9 @@
   (add-hook 'after-init-hook 'tc/dark-customizations))
 
 (if tc/macos-p
-    (progn
-      (setq tc/default-font "Jetbrains Mono-%s";;"-apple-inconsolata-medium-r-normal--%s-0-72-72-m-0-iso10646-1"
-            )
-      (setq-default line-spacing 2))
-  (setq tc/default-font "Liberation Mono-%s"))
+    (setq tc/default-font "Jetbrains Mono-%s")
+  (setq tc/default-font "JetBrainsMono-%s"))
+(setq-default line-spacing 2)
 
 (defvar embiggened-size (if tc/macos-p 13 12))
 
@@ -168,3 +170,10 @@
 ;;                                 (right-fringe . 8)
 ;;                                 (background-color . "gray25")))
 ;; (ivy-posframe-mode 1)
+
+;; mini-modeline - https://github.com/kiennq/emacs-mini-modeline
+(setq mini-modeline-color "gray25")
+(mini-modeline-mode 1)
+
+;; auto-dim-other-buffers: https://github.com/mina86/auto-dim-other-buffers.el
+(auto-dim-other-buffers-mode 1)
