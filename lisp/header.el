@@ -2,33 +2,42 @@
 (defun with-face (str &rest face-plist)
   (propertize str 'face face-plist))
 
+(setq
+ tc/header-drop-str (with-face "[...]"
+                               :background "blue"
+                               :weight 'bold)
+ tc/header-modified-msg (with-face " (modified)"
+                                   :foreground "yellow"
+                                   :weight 'bold
+                                   :slant 'italic))
+
 (defun tc/make-header ()
-  ""
-  (let* ((tc/full-header (abbreviate-file-name buffer-file-name))
-         (tc/header (file-name-directory tc/full-header))
-         (tc/drop-str "[...]"))
-    (if (> (length tc/full-header)
-           (window-body-width))
-        (if (> (length tc/header)
-               (window-body-width))
-            (progn
-              (concat (with-face tc/drop-str
-                                 :background "blue"
-                                 :weight 'bold)
-                      (with-face (substring tc/header
-                                            (+ (- (length tc/header)
-                                                  (window-body-width))
-                                               (length tc/drop-str))
-                                            (length tc/header))
-                                 :weight 'bold)))
-          (concat (with-face tc/header
-                             :foreground "#8fb28f"
-                             :weight 'bold)))
-      (concat (with-face tc/header
-                         :weight 'bold
-                         :foreground "#8fb28f")
-              (with-face (file-name-nondirectory buffer-file-name)
-                         :weight 'bold)))))
+  "Generates a buffer header with the filename and modified status, truncating to fit."
+  (let* ((abbrev-file-name (abbreviate-file-name buffer-file-name))
+         (file-dir (file-name-directory abbrev-file-name))
+         (avail-width (if (buffer-modified-p)
+                       (- (window-body-width) (length tc/header-modified-msg))
+                     (window-body-width)))
+         (new-header (if (> (length abbrev-file-name) avail-width)
+                         (if (> (length file-dir) avail-width)
+                             (concat tc/header-drop-str
+                                     (with-face (substring file-dir
+                                                           (+ (- (length file-dir)
+                                                                 avail-width)
+                                                              (length tc/header-drop-str))
+                                                           (length file-dir))
+                                                :weight 'bold))
+                           (concat (with-face file-dir
+                                              :foreground "#8fb28f"
+                                              :weight 'bold)))
+                       (concat (with-face file-dir
+                                          :weight 'bold
+                                          :foreground "#8fb28f")
+                               (with-face (file-name-nondirectory buffer-file-name)
+                                          :weight 'bold)))))
+    (if (buffer-modified-p)
+        (concat new-header tc/header-modified-msg)
+      new-header)))
 
 (defun tc/display-header ()
   (setq header-line-format
