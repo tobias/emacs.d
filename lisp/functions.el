@@ -115,3 +115,30 @@ point reaches the beginning or end of the buffer, stop there."
   (split-window-vertically)
   (balance-windows)
   (fullscreen))
+
+(defun tc/strip-org-links (begin end)
+  "Strips any links in the region to just be the link text."
+  (interactive "*r")
+  (save-restriction
+    (narrow-to-region begin end)
+    (save-excursion
+      (goto-char (point-min))
+      (while (search-forward-regexp "\\[\\[.*?\\]\\[\\(.*\\)\\]\\]" nil t)
+        (replace-match "\\1" t nil)))))
+
+(defun tc/strip-org-non-header-lines (begin end)
+  "Strips all but org header lines from region"
+  (interactive "*r")
+  (save-restriction
+    (narrow-to-region begin end)
+    (save-excursion
+      (goto-char (point-min))
+      (while (search-forward-regexp "^[^\\*] " nil t)
+        (move-beginning-of-line nil)
+        (kill-line)))))
+
+(defun tc/prep-org-status (begin end)
+  "A composition of tc/strip-org-links and tc/strip-org-non-header-lines"
+  (interactive "*r")
+  (tc/strip-org-links begin end)
+  (tc/strip-org-non-header-lines begin end))

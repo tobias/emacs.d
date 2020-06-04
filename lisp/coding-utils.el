@@ -2,14 +2,18 @@
 (require 'diminish)
 (require 'rainbow-delimiters)
 (require 'whitespace-cleanup-mode)
+(require 'ws-butler)
 
 (defun tc/local-comment-auto-fill ()
   (set (make-local-variable 'comment-auto-fill-only-comments) t)
   (auto-fill-mode t)
   (diminish 'auto-fill-function))
 
-(defun tc/turn-on-whitespace ()
+(defun tc/turn-on-whitespace-cleanup ()
   (whitespace-cleanup-mode t))
+
+(defun tc/turn-on-whitespace-butler ()
+  (ws-butler-mode t))
 
 (defun tc/turn-on-paredit ()
   (paredit-mode t)
@@ -63,7 +67,8 @@
 (add-hook 'tc/common-coding-hooks 'tc/local-comment-auto-fill)
 (add-hook 'tc/common-coding-hooks 'tc/add-watchwords)
 (add-hook 'tc/common-coding-hooks 'tc/enable-dwim-fold)
-(add-hook 'tc/common-coding-hooks 'tc/turn-on-whitespace)
+(add-hook 'tc/common-coding-hooks 'tc/turn-on-whitespace-cleanup)
+(add-hook 'tc/common-coding-hooks 'tc/turn-on-whitespace-butler)
 (add-hook 'tc/common-coding-hooks 'tc/enable-autocomplete)
 
 (when (not tc/presentation-mode-p)

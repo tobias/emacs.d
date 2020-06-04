@@ -262,6 +262,16 @@
 (require 'ivy)
 (ivy-mode 1)
 (global-set-key (kbd "C-s") 'swiper)
+
+(require 'swiper)
+(define-key swiper-map (kbd "C-.")
+  (lambda () (interactive) (insert (format "\\<%s\\>" (with-ivy-window (thing-at-point 'symbol))))))
+(define-key swiper-map (kbd "M-.")
+  (lambda () (interactive) (insert (format "\\<%s\\>" (with-ivy-window (thing-at-point 'word))))))
+
+(require 'undo-tree)
+(global-undo-tree-mode)
+
 ;; (global-set-key (kbd "M-x") 'counsel-M-x)
 
 ;; amx - a better M-x
@@ -299,7 +309,7 @@
 ;; override the keybinding for command-log-mode, since it overlaps
 ;; with my weekpage bindings
 (global-unset-key (kbd "C-c o"))
-(global-set-key (kbd "C-c l") 'clm/toggle-command-log-buffer)
+;; (global-set-key (kbd "C-c l") 'clm/toggle-command-log-buffer)
 
 ;; load everything else
 (load "header")

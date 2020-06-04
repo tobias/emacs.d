@@ -114,7 +114,8 @@
   (setq tc/default-font "JetBrainsMono-%s"))
 (setq-default line-spacing 2)
 
-(defvar embiggened-size (if tc/macos-p 13 12))
+(defvar embiggened-size 12 ;;(if tc/macos-p 13 12)
+  )
 
 (defun embiggen (size)
   (interactive (list (read-string (format "Font size (%s): " embiggened-size))))
@@ -172,22 +173,22 @@
 ;; (ivy-posframe-mode 1)
 
 ;; mini-modeline - https://github.com/kiennq/emacs-mini-modeline
-(require 'mini-modeline)
+;; (require 'mini-modeline)
 
-(defface tc/mini-modeline-msg-face
-  '((t (:foreground "yellow")))
-  "Face used for mini-modeline messages")
+;; (defface tc/mini-modeline-msg-face
+;;   '((t (:foreground "yellow")))
+;;   "Face used for mini-modeline messages")
   
-(defun tc/mini-modeline-msg ()
-  "Customized mini modeline message that just applies the
-tc/mini-modeline-msg-face face to it."
-  (when mini-modeline--msg
-    (propertize mini-modeline--msg
-                'face 'tc/mini-modeline-msg-face)))
+;; (defun tc/mini-modeline-msg ()
+;;   "Customized mini modeline message that just applies the
+;; tc/mini-modeline-msg-face face to it."
+;;   (when mini-modeline--msg
+;;     (propertize mini-modeline--msg
+;;                 'face 'tc/mini-modeline-msg-face)))
 
-(setq mini-modeline-color "gray25"
-      mini-modeline-l-format (quote (:eval (tc/mini-modeline-msg))))
-(mini-modeline-mode 1)
+;; (setq mini-modeline-color "gray25"
+;;       mini-modeline-l-format (quote (:eval (tc/mini-modeline-msg))))
+;; (mini-modeline-mode 1)
 
 ;; auto-dim-other-buffers: https://github.com/mina86/auto-dim-other-buffers.el
 (auto-dim-other-buffers-mode 1)

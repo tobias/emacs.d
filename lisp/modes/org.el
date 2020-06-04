@@ -19,7 +19,8 @@
 
 (org-babel-do-load-languages
  'org-babel-load-languages
- '((plantuml . t)))
+ '((plantuml . t)
+   (restclient . t)))
 
 (setq org-plantuml-jar-path
       "/usr/local/Cellar/plantuml/1.2018.2/libexec/plantuml.jar")
@@ -38,16 +39,20 @@
   (when (null (string-match clubhouse-link-regex url))
     (error "Invalid Clubhouse URL '%s'" url))
   (let ((clubhouse-id (match-string 2 url)))
-    (tc/org-insert-link url (concat "#" clubhouse-id))))
+    (tc/org-insert-link url (concat "ch" clubhouse-id))))
 
 ;; (setq org-todo-keywords
 ;;       '((sequence "☐" "☆" "☒")))
 ;; ☑ ☒
 
-(setq org-todo-keywords       '((sequence "TODO(t)" "STARTED(s)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)"))
+(setq org-todo-keywords       '((sequence "TODO(t)" "STARTED(s)" "WAITING(w)" "PENDING(p)" "TOMERGE(m)" "|" "DONE(d)" "CANCELED(c)"))
       org-ellipsis            "⁙"
       org-log-done            'time
-      org-bullets-bullet-list '("⁂"))
+      ;; org-bullets-bullet-list '("⁂")
+      )
+
+(require 'org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
 ;; (require 'org-daypage)
 

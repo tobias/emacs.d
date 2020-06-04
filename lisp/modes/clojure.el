@@ -3,12 +3,14 @@
 ;;(require 'align-cljlet)
 ;;(require 'flycheck-joker)
 (require 'flycheck-clj-kondo)
+(require 'cljstyle-mode)
 
 (add-hook 'clojure-mode-hook 'tc/run-common-coding-hooks)
 (add-hook 'clojure-mode-hook 'tc/run-lisp-coding-hooks)
 (add-hook 'clojure-mode-hook 'tc/turn-on-flycheck)
 (add-hook 'clojure-mode-hook 'subword-mode)
 (add-hook 'clojure-mode-hook 'yas-minor-mode)
+(add-hook 'clojure-mode-hook 'cljstyle-mode)
 
 (add-to-list 'auto-mode-alist '("\\.dtm$" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
@@ -18,7 +20,7 @@
 (add-to-list 'auto-mode-alist '("\\.cljs$" . clojurescript-mode))
 
 (setq
- clojure-indent-style               :align-arguments
+ clojure-indent-style               :always-align
  cider-font-lock-dynamically        nil
  cider-popup-stacktraces            t
  cider-auto-select-error-buffer     t
@@ -26,6 +28,7 @@
  cider-repl-wrap-history            t
  cider-repl-history-file           (concat user-emacs-directory "cider-repl-history")
  cider-repl-pop-to-buffer-on-connect 'display-only
+ cider-repl-use-content-types       nil
  cljr-suppress-middleware-warnings  t
  cider-repl-display-help-banner     nil)
 
@@ -36,12 +39,11 @@
 
 (add-hook 'clojure-mode-hook 'tc/turn-on-clj-refactor)
 
-(when (not tc/presentation-mode-p)
-  (add-to-list 'pretty-symbol-patterns
-               '(?λ lambda "(\\(fn\\)\\>" (clojure-mode cider-repl-mode) 1))
-  (add-to-list 'pretty-symbol-patterns
-               '(?λ lambda "\\(#\\)(" (clojure-mode cider-repl-mode) 1)))
-
+;; (when (not tc/presentation-mode-p)
+;;   (add-to-list 'pretty-symbol-patterns
+;;                '(?λ lambda "(\\(fn\\)\\>" (clojure-mode cider-repl-mode) 1))
+;;   (add-to-list 'pretty-symbol-patterns
+;;                '(?λ lambda "\\(#\\)(" (clojure-mode cider-repl-mode) 1)))
 
 (add-hook 'cider-repl-mode-hook 'tc/run-lisp-coding-hooks)
 (add-hook 'cider-repl-mode-hook 'subword-mode)
@@ -138,7 +140,7 @@
 (defun tc/turn-on-sorting-on-save ()
   (add-hook 'before-save-hook 'tc/clojure-sort-ns nil 'local))
 
-(add-hook 'clojure-mode-hook 'tc/turn-on-sorting-on-save)
+;;(add-hook 'clojure-mode-hook 'tc/turn-on-sorting-on-save)
 
 (require 'compile)
 
