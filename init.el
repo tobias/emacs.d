@@ -253,12 +253,6 @@
 ;; add the system clipboard to the kill ring
 (setq save-interprogram-paste-before-kill t)
 
-;; quick search
-(require 'helm-swoop)
-(global-set-key (kbd "C-o") 'helm-swoop)
-(global-set-key (kbd "M-o") 'helm-multi-swoop)
-;;(setq swoop-font-size-change: nil)
-
 (require 'ivy)
 (ivy-mode 1)
 (global-set-key (kbd "C-s") 'swiper)
