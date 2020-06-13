@@ -217,6 +217,7 @@
   ;; use ace-window to jump between windows
   (require 'ace-window)
   (global-set-key (kbd "C-:") 'ace-window)
+  (global-set-key (kbd "C-x :") 'ace-window)
   (setq aw-keys
         '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
 
@@ -342,13 +343,10 @@
   (when tc/presentation-name
     (load (concat user-emacs-directory "presentations/" tc/presentation-name))))
 
-
-;; (when (display-graphic-p)
-;;   (fullscreen))
-
 ;; start an emacs server
 (require 'server)
 (unless (server-running-p)
   (add-hook 'after-init-hook 'server-start))
 
 (add-hook 'after-init-hook 'tc/startup-buffers)
+

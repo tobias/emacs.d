@@ -114,7 +114,8 @@ point reaches the beginning or end of the buffer, stop there."
   (split-window-horizontally)
   (split-window-vertically)
   (balance-windows)
-  (fullscreen))
+  (when (display-graphic-p)
+    (fullscreen)))
 
 (defun tc/strip-org-links (begin end)
   "Strips any links in the region to just be the link text."

@@ -190,5 +190,7 @@
 ;;       mini-modeline-l-format (quote (:eval (tc/mini-modeline-msg))))
 ;; (mini-modeline-mode 1)
 
-;; auto-dim-other-buffers: https://github.com/mina86/auto-dim-other-buffers.el
-(auto-dim-other-buffers-mode 1)
+;; auto-dim-other-buffers:
+;; https://github.com/mina86/auto-dim-other-buffers.el
+(when (display-graphic-p)
+  (auto-dim-other-buffers-mode 1))
