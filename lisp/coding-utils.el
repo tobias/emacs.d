@@ -57,7 +57,7 @@
 (defun tc/enable-dwim-fold ()
   (interactive)
   (hs-minor-mode)
-  (local-set-key (kbd "C-c TAB") 'fold-dwim-org/minor-mode))
+  (local-set-key (kbd "C-c f") 'fold-dwim-org/minor-mode))
 
 (defun tc/enable-autocomplete ()
   (company-mode)

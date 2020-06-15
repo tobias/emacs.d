@@ -3,14 +3,13 @@
 ;;(require 'align-cljlet)
 ;;(require 'flycheck-joker)
 (require 'flycheck-clj-kondo)
-;; (require 'cljstyle-mode)
+(require 'cljstyle-mode)
 
 (add-hook 'clojure-mode-hook 'tc/run-common-coding-hooks)
 (add-hook 'clojure-mode-hook 'tc/run-lisp-coding-hooks)
 (add-hook 'clojure-mode-hook 'tc/turn-on-flycheck)
 (add-hook 'clojure-mode-hook 'subword-mode)
 (add-hook 'clojure-mode-hook 'yas-minor-mode)
-;;(add-hook 'clojure-mode-hook 'cljstyle-mode)
 
 (add-to-list 'auto-mode-alist '("\\.dtm$" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
@@ -47,6 +46,11 @@
 
 (add-hook 'cider-repl-mode-hook 'tc/run-lisp-coding-hooks)
 (add-hook 'cider-repl-mode-hook 'subword-mode)
+
+;; run cljstyle on file. I don't use cljstyle-mode to do this
+;; automatically on save since it causes the buffer to jump and breaks
+;; compilation buffer references in the file
+(define-key clojure-mode-map (kbd "C-c TAB") 'cljstyle)
 
 (defun tc/insert-divider-comment ()
   (interactive)
