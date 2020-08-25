@@ -47,7 +47,6 @@
 
 (setq org-todo-keywords       '((sequence "TODO(t)" "STARTED(s)" "WAITING(w)" "PENDING(p)" "TOMERGE(m)" "|" "DONE(d)" "CANCELED(c)"))
       org-ellipsis            "⁙"
-      org-log-done            'time
       ;; org-bullets-bullet-list '("⁂")
       )
 
