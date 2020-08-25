@@ -306,6 +306,13 @@
 (global-unset-key (kbd "C-c o"))
 ;; (global-set-key (kbd "C-c l") 'clm/toggle-command-log-buffer)
 
+;; use zoom-mode to auto-adjust window sizes
+(require 'zoom)
+(zoom-mode)
+
+;; use zoom to rebalance windows instead of the default algo
+(global-set-key (kbd "C-x +") 'zoom)
+
 ;; load everything else
 (load "header")
 (load "ffip")
