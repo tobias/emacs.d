@@ -124,11 +124,6 @@ NICKUSERHOST will be ignored."
 (add-hook 'erc-mode-hook 'ncm-mode)
 (add-hook 'erc-mode-hook 'tc/mostly-ignore-channels)
 
-(defun irc-connect-internal ()
-  (interactive)
-  (load-private-data)
-  (erc :server my-internal-irc-server :port 6667 :nick "tcrawley"))
-
 (defun irc-connect (server port &optional password)
   (load-private-data)
   (let ((server-port (format "%s:%s" server port)))
@@ -137,30 +132,15 @@ NICKUSERHOST will be ignored."
         (erc-tls :server server
                  :port port
                  :nick "tcrawley"
-                 :password (or password my-bouncer-password)))))
+                 :password password))))
 
-(defun irc-connect-clojurians ()
+(defun irc-connect-freenode ()
   (interactive)
-  (irc-connect "clojurians.irc.slack.com" 8000 my-clojurians-password))
-
-(defun irc-connect-avlcoders ()
-  (interactive)
-  (irc-connect "avlcoders.irc.slack.com" 8000 my-avlcoders-password))
-
-(defun irc-connect-bouncer ()
-  (interactive)
-  (irc-connect "bouncer" 6565))
+  (irc-connect "chat.freenode.net" 6697 my-freenode-password))
 
 (defun irc-connect-local ()
   (interactive)
   (irc-connect "localhost" 6565))
-
-(defun irc-connect-all ()
-  (interactive)
-  (irc-connect-bouncer)
-  ;;(irc-connect-internal)
-  (irc-connect-avlcoders)
-  (irc-connect-clojurians))
 
 (load "notify")
 
