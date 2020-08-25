@@ -28,4 +28,4 @@
 ;; TODO: make this better, maybe read the correct version from config?
 (when (file-directory-p (concat user-emacs-directory
                                 "../.nvm/versions"))
-  (nvm-use "v10.16.1"))
+  (nvm-use "v12.18.0"))
