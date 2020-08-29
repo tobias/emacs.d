@@ -79,9 +79,9 @@
                       :foreground "black"
                       :weight 'bold)
 
-  (set-face-attribute 'ag-hit-face nil
-                      :foreground "CornflowerBlue"
-                      :weight 'bold)
+  ;; (set-face-attribute 'ag-hit-face nil
+  ;;                     :foreground "CornflowerBlue"
+  ;;                     :weight 'bold)
 
   (set-face-attribute 'compilation-info nil
                       :foreground "CornflowerBlue"
@@ -109,13 +109,17 @@
   (load-theme 'tango-dark)
   (add-hook 'after-init-hook 'tc/dark-customizations))
 
-(if tc/macos-p
-    (setq tc/default-font "Jetbrains Mono-%s")
-  (setq tc/default-font "JetBrainsMono-%s"))
-(setq-default line-spacing 2)
+(setq-default line-spacing 1)
 
-(defvar embiggened-size 12 ;;(if tc/macos-p 13 12)
-  )
+(setq tc/default-font "Jetbrains Mono-%s")
+
+;; (if tc/macos-p
+;;     (setq tc/default-font "Jetbrains Mono-%s")
+;;   (setq tc/default-font "Inconsolata-%s")
+;;   ;;(setq tc/default-font "Fira Code-%s")
+;;   )
+
+(defvar embiggened-size 10)
 
 (defun embiggen (size)
   (interactive (list (read-string (format "Font size (%s): " embiggened-size))))
@@ -166,7 +170,9 @@
       
 ;;       ivy-posframe-height-alist '((swiper . 20)
 ;;                                   (t      . 50))
-;;       ivy-posframe-font (format tc/default-font (+ embiggened-size 2))
+;;       ivy-posframe-font (format tc/default-font embiggened-size ;;(+
+;;                                         ;embiggened-size 2)
+;;                                 )
 ;;       ivy-posframe-parameters '((left-fringe  . 8)
 ;;                                 (right-fringe . 8)
 ;;                                 (background-color . "gray25")))
@@ -194,3 +200,6 @@
 ;; https://github.com/mina86/auto-dim-other-buffers.el
 (when (display-graphic-p)
   (auto-dim-other-buffers-mode 1))
+
+(require 'spaceline-config)
+(spaceline-emacs-theme)
