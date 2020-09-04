@@ -61,12 +61,12 @@
 
 (define-key clojure-mode-map (kbd "C-c d") 'tc/insert-divider-comment)
 
-(defun tc/insert-note (type)
+(defun tc/insert-comment (text)
   (move-beginning-of-line nil)
-  (insert (format ";; %s: (toby) " type))
-  ;;(previous-line)
-  ;;(search-forward ") ")
-  (indent-for-tab-command))
+  (insert (format ";; %s" text)))
+
+(defun tc/insert-note (type)
+  (tc/insert-comment (format "%s: (toby) " type)))
 
 (defun tc/insert-fixme ()
   (interactive)
@@ -76,8 +76,28 @@
   (interactive)
   (tc/insert-note "TODO"))
 
+(defun tc/insert-scenario ()
+  (interactive)
+  (tc/insert-comment "Scenario: "))
+
+(defun tc/insert-given ()
+  (interactive)
+  (tc/insert-comment "Given: "))
+
+(defun tc/insert-when ()
+  (interactive)
+  (tc/insert-comment "When: "))
+
+(defun tc/insert-then ()
+  (interactive)
+  (tc/insert-comment "Then: "))
+
 (define-key clojure-mode-map (kbd "C-c C-n f") 'tc/insert-fixme)
 (define-key clojure-mode-map (kbd "C-c C-n t") 'tc/insert-todo)
+(define-key clojure-mode-map (kbd "C-c C-n s") 'tc/insert-scenario)
+(define-key clojure-mode-map (kbd "C-c C-n g") 'tc/insert-given)
+(define-key clojure-mode-map (kbd "C-c C-n w") 'tc/insert-when)
+(define-key clojure-mode-map (kbd "C-c C-n n") 'tc/insert-then)
 
 (defun tc/insert-spy ()
   (interactive)
