@@ -136,6 +136,7 @@ NICKUSERHOST will be ignored."
 
 (defun irc-connect-freenode ()
   (interactive)
+  (load-private-data)
   (irc-connect "chat.freenode.net" 6697 my-freenode-password))
 
 (defun irc-connect-local ()
