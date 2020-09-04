@@ -1,3 +1,7 @@
+;; use word wrapping instead of truncation in test report and doc
+;; buffers. Must be set before loading cider.
+(setq cider-special-mode-truncate-lines nil)
+
 (require 'cider)
 (require 'clj-refactor)
 ;;(require 'align-cljlet)
@@ -29,7 +33,10 @@
  cider-repl-pop-to-buffer-on-connect 'display-only
  cider-repl-use-content-types       nil
  cljr-suppress-middleware-warnings  t
- cider-repl-display-help-banner     nil)
+ cider-repl-display-help-banner     nil
+ ;; try symbol at point before asking
+ cider-prompt-for-symbol            nil
+ cider-eval-spinner-type            'moon)
 
 (defun tc/turn-on-clj-refactor ()
   (clj-refactor-mode 1)
