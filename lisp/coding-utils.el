@@ -52,7 +52,7 @@
 (defun tc/add-watchwords ()
   (font-lock-add-keywords
    nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\|Scenario\\|Given\\|When\\|Then\\):"
-          1 font-lock-warning-face t))))
+          1 font-lock-doc-face t))))
 
 (defun tc/enable-dwim-fold ()
   (interactive)

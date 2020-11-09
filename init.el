@@ -224,8 +224,8 @@
 ;;(global-set-key (kbd "C-x C-d") 'ido-dired)
 
 ;; alter the font size for the current buffer
-(define-key global-map (kbd "C-+") 'text-scale-increase)
-(define-key global-map (kbd "C--") 'text-scale-decrease)
+(define-key global-map (kbd "C-x C-+") 'text-scale-increase)
+(define-key global-map (kbd "C-x C--") 'text-scale-decrease)
 
 ;; lookup the word at point in the dict
 (global-set-key (kbd "C-c s") 'ispell-word)

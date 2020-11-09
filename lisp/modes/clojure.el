@@ -24,19 +24,23 @@
 
 (setq
  clojure-indent-style               :always-align
+
  cider-font-lock-dynamically        nil
  cider-popup-stacktraces            t
  cider-auto-select-error-buffer     t
+ ;; try symbol at point before asking
+ cider-prompt-for-symbol            nil
+ cider-eval-spinner-type            'moon
+
  cider-repl-print-length            100
  cider-repl-wrap-history            t
  cider-repl-history-file           (concat user-emacs-directory "cider-repl-history")
  cider-repl-pop-to-buffer-on-connect 'display-only
  cider-repl-use-content-types       nil
- cljr-suppress-middleware-warnings  t
  cider-repl-display-help-banner     nil
- ;; try symbol at point before asking
- cider-prompt-for-symbol            nil
- cider-eval-spinner-type            'moon)
+ cider-repl-prompt-function         (lambda (namespace)
+                                      (format "%s>\n" namespace))
+ cljr-suppress-middleware-warnings  t)
 
 (defun tc/turn-on-clj-refactor ()
   (clj-refactor-mode 1)
@@ -70,7 +74,8 @@
 
 (defun tc/insert-comment (text)
   (move-beginning-of-line nil)
-  (insert (format ";; %s" text)))
+  (insert (format ";; %s" text))
+  (indent-for-tab-command))
 
 (defun tc/insert-note (type)
   (tc/insert-comment (format "%s: (toby) " type)))
@@ -83,9 +88,9 @@
   (interactive)
   (tc/insert-note "TODO"))
 
-(defun tc/insert-scenario ()
+(defun tc/insert-nocommit ()
   (interactive)
-  (tc/insert-comment "Scenario: "))
+  (tc/insert-note "NOCOMMIT"))
 
 (defun tc/insert-given ()
   (interactive)
@@ -101,7 +106,7 @@
 
 (define-key clojure-mode-map (kbd "C-c C-n f") 'tc/insert-fixme)
 (define-key clojure-mode-map (kbd "C-c C-n t") 'tc/insert-todo)
-(define-key clojure-mode-map (kbd "C-c C-n s") 'tc/insert-scenario)
+(define-key clojure-mode-map (kbd "C-c C-n c") 'tc/insert-nocommit)
 (define-key clojure-mode-map (kbd "C-c C-n g") 'tc/insert-given)
 (define-key clojure-mode-map (kbd "C-c C-n w") 'tc/insert-when)
 (define-key clojure-mode-map (kbd "C-c C-n n") 'tc/insert-then)
@@ -119,6 +124,10 @@
 
 (define-key clojure-mode-map (kbd "C-c s") 'tc/insert-spy)
 (define-key cider-repl-mode-map (kbd "C-c s") 'tc/insert-spy-letsc)
+
+;; return inserts newline, C-return submits
+(define-key cider-repl-mode-map (kbd "RET") 'indent-new-comment-line)
+(define-key cider-repl-mode-map (kbd "C-RET") 'cider-repl-return)
 
 (defun run-cider-command (command)
   (with-current-buffer (cider-current-repl-buffer)
@@ -222,16 +231,35 @@ boot command."
 ;; ace-window and I never use the feature
 (define-key clojure-mode-map (kbd "C-:") nil)
 
-(defvar clubhouse-jack-in-command "../bin/clj cider")
+(setq clubhouse-jack-in-command "make; lein repl :headless :host localhost")
+
+(defun clubhouse-jack-in-for-dir (project-dir)
+  (lexical-let* ((params (thread-first '()
+                           (plist-put :project-dir project-dir)
+                           (plist-put :jack-in-cmd clubhouse-jack-in-command)
+                           (cider--update-project-dir)
+                           (cider--check-existing-session))))
+    (nrepl-start-server-process
+     (plist-get params :project-dir)
+     (plist-get params :jack-in-cmd)
+     (lambda (server-buffer)
+       (cider-connect-sibling-clj params server-buffer)))))
 
 (defun clubhouse-jack-in ()
-  "Start an nREPL server for the current project and connect to it."
+  "Start an nREPL server for the current module and connect to it."
   (interactive)
   (setq cider-current-clojure-buffer (current-buffer))
   (let ((project-dir (locate-dominating-file default-directory "clubhouse-module.edn")))
     (if project-dir
-        (cider-jack-in-clj
-         (thread-first '()
-           (plist-put :project-dir project-dir)
-           (plist-put :jack-in-cmd clubhouse-jack-in-command)))
-      (user-error "Could not find clubhouse-module.edn from %s" default-directory))))
+        (clubhouse-jack-in-for-dir project-dir)
+      (user-error "Could not find project dir from %s" default-directory))))
+
+(defun clubhouse-dev-system-jack-in ()
+  "Start an nREPL server for the dev-system module and connect to it."
+  (interactive)
+  (setq cider-current-clojure-buffer (current-buffer))
+  (let ((base-dir (locate-dominating-file default-directory "docker-compose.yml")))
+    (if base-dir
+        (clubhouse-jack-in-for-dir (concat base-dir "/dev-system/"))
+      (user-error "Could not find base dir from %s" default-directory))))
+
