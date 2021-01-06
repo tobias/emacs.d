@@ -23,7 +23,11 @@
    (restclient . t)))
 
 (setq org-plantuml-jar-path
-      "/usr/local/Cellar/plantuml/1.2018.2/libexec/plantuml.jar")
+      ;; linux
+      "/usr/share/plantuml/plantuml.jar"
+      ;; macos
+      ;;"/usr/local/Cellar/plantuml/1.2018.2/libexec/plantuml.jar"
+      )
 
 (setq clubhouse-link-regex
   "^https://app[^.]*\\.clubhouse\\.io/[^/]+/\\(story\\|epic\\)/\\([0-9]+\\)")

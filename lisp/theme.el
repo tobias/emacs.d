@@ -198,8 +198,8 @@
 
 ;; auto-dim-other-buffers:
 ;; https://github.com/mina86/auto-dim-other-buffers.el
-(when (display-graphic-p)
-  (auto-dim-other-buffers-mode 1))
+;; (when (display-graphic-p)
+;;   (auto-dim-other-buffers-mode 1))
 
 (require 'spaceline-config)
 (spaceline-emacs-theme)

@@ -104,12 +104,17 @@
   (interactive)
   (tc/insert-comment "Then: "))
 
+(defun tc/insert-and ()
+  (interactive)
+  (tc/insert-comment "And: "))
+
 (define-key clojure-mode-map (kbd "C-c C-n f") 'tc/insert-fixme)
 (define-key clojure-mode-map (kbd "C-c C-n t") 'tc/insert-todo)
 (define-key clojure-mode-map (kbd "C-c C-n c") 'tc/insert-nocommit)
 (define-key clojure-mode-map (kbd "C-c C-n g") 'tc/insert-given)
 (define-key clojure-mode-map (kbd "C-c C-n w") 'tc/insert-when)
 (define-key clojure-mode-map (kbd "C-c C-n n") 'tc/insert-then)
+(define-key clojure-mode-map (kbd "C-c C-n a") 'tc/insert-and)
 
 (defun tc/insert-spy ()
   (interactive)
@@ -230,36 +235,3 @@ boot command."
 ;; disable clojure-toggle-keyword-string, since the binding shadows
 ;; ace-window and I never use the feature
 (define-key clojure-mode-map (kbd "C-:") nil)
-
-(setq clubhouse-jack-in-command "make; lein repl :headless :host localhost")
-
-(defun clubhouse-jack-in-for-dir (project-dir)
-  (lexical-let* ((params (thread-first '()
-                           (plist-put :project-dir project-dir)
-                           (plist-put :jack-in-cmd clubhouse-jack-in-command)
-                           (cider--update-project-dir)
-                           (cider--check-existing-session))))
-    (nrepl-start-server-process
-     (plist-get params :project-dir)
-     (plist-get params :jack-in-cmd)
-     (lambda (server-buffer)
-       (cider-connect-sibling-clj params server-buffer)))))
-
-(defun clubhouse-jack-in ()
-  "Start an nREPL server for the current module and connect to it."
-  (interactive)
-  (setq cider-current-clojure-buffer (current-buffer))
-  (let ((project-dir (locate-dominating-file default-directory "clubhouse-module.edn")))
-    (if project-dir
-        (clubhouse-jack-in-for-dir project-dir)
-      (user-error "Could not find project dir from %s" default-directory))))
-
-(defun clubhouse-dev-system-jack-in ()
-  "Start an nREPL server for the dev-system module and connect to it."
-  (interactive)
-  (setq cider-current-clojure-buffer (current-buffer))
-  (let ((base-dir (locate-dominating-file default-directory "docker-compose.yml")))
-    (if base-dir
-        (clubhouse-jack-in-for-dir (concat base-dir "/dev-system/"))
-      (user-error "Could not find base dir from %s" default-directory))))
-

@@ -49,11 +49,6 @@
   (ignore-errors
     (diminish 'hi-lock-mode)))
 
-(defun tc/add-watchwords ()
-  (font-lock-add-keywords
-   nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\|Scenario\\|Given\\|When\\|Then\\):"
-          1 font-lock-doc-face t))))
-
 (defun tc/enable-dwim-fold ()
   (interactive)
   (hs-minor-mode)
@@ -65,7 +60,6 @@
   )
 
 (add-hook 'tc/common-coding-hooks 'tc/local-comment-auto-fill)
-(add-hook 'tc/common-coding-hooks 'tc/add-watchwords)
 (add-hook 'tc/common-coding-hooks 'tc/enable-dwim-fold)
 (add-hook 'tc/common-coding-hooks 'tc/turn-on-whitespace-cleanup)
 (add-hook 'tc/common-coding-hooks 'tc/turn-on-whitespace-butler)

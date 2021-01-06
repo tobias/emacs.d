@@ -314,6 +314,7 @@
 (global-set-key (kbd "C-x +") 'zoom)
 
 ;; load everything else
+(load "clubhouse-shared")
 (load "header")
 (load "ffip")
 (load "functions")
