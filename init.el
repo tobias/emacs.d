@@ -318,7 +318,7 @@
 (load "header")
 (load "ffip")
 (load "functions")
-(load "theme")
+
 ;;(load "ftf")
 ;;(load "auto-complete-init")
 (load "coding-utils")
@@ -335,6 +335,7 @@
 ;;(load "modes/python")
 ;;(load "modes/ruby")
 (load "modes/javascript")
+(load "modes/magit")
 (load "modes/restclient")
 (load "modes/sh")
 (load "modes/shell")
@@ -347,6 +348,8 @@
   ;; (when (require 'mu4e nil :noerror)
   ;;   (load "modes/mail"))
   )
+
+(load "theme")
 
 (when tc/presentation-mode-p
   (load "presentation")

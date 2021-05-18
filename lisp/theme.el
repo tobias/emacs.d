@@ -52,8 +52,8 @@
                       :foreground "khaki")
 
   ;; other buffers
-  (set-face-attribute 'auto-dim-other-buffers-face nil
-                      :background "gray15")
+  ;; (set-face-attribute 'auto-dim-other-buffers-face nil
+  ;;                     :background "gray15")
   
   ;; header line
   (set-face-attribute 'header-line nil
@@ -111,7 +111,13 @@
 
 (setq-default line-spacing 1)
 
-(setq tc/default-font "Jetbrains Mono-%s")
+;;(setq tc/default-font "Jetbrains Mono-%s")
+;;(setq tc/default-font "DejaVu Sans Mono-%s")
+
+(setq tc/default-font "Source Code Pro Medium-%s")
+
+;;(setq tc/default-font "Fira Code-%s")
+;;(setq tc/default-font "Inconsolata-%s")
 
 ;; (if tc/macos-p
 ;;     (setq tc/default-font "Jetbrains Mono-%s")
@@ -201,5 +207,5 @@
 ;; (when (display-graphic-p)
 ;;   (auto-dim-other-buffers-mode 1))
 
-(require 'spaceline-config)
-(spaceline-emacs-theme)
+;; (require 'spaceline-config)
+;; (spaceline-emacs-theme)

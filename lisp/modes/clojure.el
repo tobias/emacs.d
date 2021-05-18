@@ -9,11 +9,14 @@
 (require 'flycheck-clj-kondo)
 (require 'cljstyle-mode)
 
+(clubhouse-backend-enable-matcher-combinator-test-output-colors)
+
 (add-hook 'clojure-mode-hook 'tc/run-common-coding-hooks)
 (add-hook 'clojure-mode-hook 'tc/run-lisp-coding-hooks)
 (add-hook 'clojure-mode-hook 'tc/turn-on-flycheck)
 (add-hook 'clojure-mode-hook 'subword-mode)
 (add-hook 'clojure-mode-hook 'yas-minor-mode)
+(add-hook 'clojure-mode-hook 'clubhouse-backend-font-lock)
 
 (add-to-list 'auto-mode-alist '("\\.dtm$" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
@@ -39,8 +42,7 @@
  cider-repl-use-content-types       nil
  cider-repl-display-help-banner     nil
  cider-repl-prompt-function         (lambda (namespace)
-                                      (format "%s>\n" namespace))
- cljr-suppress-middleware-warnings  t)
+                                      (format "%s>\n" namespace)))
 
 (defun tc/turn-on-clj-refactor ()
   (clj-refactor-mode 1)
@@ -116,6 +118,11 @@
 (define-key clojure-mode-map (kbd "C-c C-n n") 'tc/insert-then)
 (define-key clojure-mode-map (kbd "C-c C-n a") 'tc/insert-and)
 
+;; use my local cider alias and set up scope-capture
+(setq clubhouse-backend-default-clojure-cli-options
+      "-J-server -J-Xmx8g -J-XX:+UseG1GC -J-Dapple.awt.UIElement=true -J-Dtika.config=tika-config.xml -M:backend-defaults:dev:test:cider")
+(add-to-list 'cider-jack-in-nrepl-middlewares "sc.nrepl.middleware/wrap-letsc")
+
 (defun tc/insert-spy ()
   (interactive)
   (move-beginning-of-line nil)
@@ -130,9 +137,10 @@
 (define-key clojure-mode-map (kbd "C-c s") 'tc/insert-spy)
 (define-key cider-repl-mode-map (kbd "C-c s") 'tc/insert-spy-letsc)
 
-;; return inserts newline, C-return submits
+;; return inserts newline, C-return or C-c return submits
 (define-key cider-repl-mode-map (kbd "RET") 'indent-new-comment-line)
 (define-key cider-repl-mode-map (kbd "C-RET") 'cider-repl-return)
+(define-key cider-repl-mode-map (kbd "C-c RET") 'cider-repl-return)
 
 (defun run-cider-command (command)
   (with-current-buffer (cider-current-repl-buffer)
