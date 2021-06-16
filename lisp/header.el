@@ -39,12 +39,16 @@
         (concat new-header tc/header-modified-msg)
       new-header)))
 
+(defun headerable-buffer ()
+  (not (eq 'erc-mode major-mode)))
+
 (defun tc/display-header ()
-  (setq header-line-format
-        '("" ;; invocation-name
-          (:eval (if (buffer-file-name)
-                     (tc/make-header)
-                   "%b")))))
+  (when (headerable-buffer)
+    (setq header-line-format
+            '("" ;; invocation-name
+              (:eval (if (buffer-file-name)
+                         (tc/make-header)
+                       "%b"))))))
 
 (add-hook 'buffer-list-update-hook
           'tc/display-header)
