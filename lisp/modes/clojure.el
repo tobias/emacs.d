@@ -11,6 +11,13 @@
 
 (clubhouse-backend-enable-matcher-combinator-test-output-colors)
 
+(defun tc/rename-buffer-to-ns ()
+  (interactive)
+  (let ((ns (clojure-expected-ns)))
+    (when (not (string= "" ns))
+      (rename-buffer ns))))
+
+(add-hook 'clojure-mode-hook 'tc/rename-buffer-to-ns)
 (add-hook 'clojure-mode-hook 'tc/run-common-coding-hooks)
 (add-hook 'clojure-mode-hook 'tc/run-lisp-coding-hooks)
 (add-hook 'clojure-mode-hook 'tc/turn-on-flycheck)
