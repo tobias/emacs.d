@@ -57,18 +57,6 @@
       (setq ad-return-value (intern "erc-current-nick-face"))
     ad-do-it))
 
-;; for slack connections, name the buffer #channel/site to
-;; differentiate from freenonde channels
-(defun tc/erc-get-buffer-create-with-server-name
-    (f server port target)
-  (funcall f server port
-           (if (and target
-                    (string-match "\\(.*\\).irc.slack.com" server))
-               (concat target "/" (match-string 1 server))
-             target)))
-
-(advice-add 'erc-get-buffer-create :around #'tc/erc-get-buffer-create-with-server-name)
-
 ;;; change header line face if disconnected
 (defface erc-header-line-disconnected
   '((t (:foreground "black" :background "indianred")))
@@ -134,10 +122,10 @@ NICKUSERHOST will be ignored."
                  :nick "tcrawley"
                  :password password))))
 
-(defun irc-connect-freenode ()
+(defun irc-connect-libera ()
   (interactive)
   (load-private-data)
-  (irc-connect "chat.freenode.net" 6697 my-freenode-password))
+  (irc-connect "irc.libera.chat" 6697 my-libera-password))
 
 (defun irc-connect-local ()
   (interactive)
