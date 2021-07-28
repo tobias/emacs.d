@@ -15,7 +15,7 @@
 
 ;; we need to load erc before custom.el and theme.el since they refer to
 ;; erc faces
-(require 'erc)
+(use-package erc)
 
 ;; keep customize settings in their own file
 (setq custom-file (concat user-emacs-directory "custom.el"))
@@ -45,7 +45,7 @@
 (add-to-list 'load-path (concat user-emacs-directory "lib"))
 
 ;; en/decrypt .gpg files automatically
-(require 'epa-file)
+(use-package epa-file)
 
 ;; get rid of ui cruft
 (menu-bar-mode -1)
@@ -107,13 +107,14 @@
 (setq create-lockfiles nil)
 
 ;; save my place in visited files
-(require 'saveplace)
-(setq save-place-file (concat user-emacs-directory "places"))
-(set-default 'save-place t)
+(use-package saveplace
+  :init
+  (setq save-place-file (concat user-emacs-directory "places"))
+  (set-default 'save-place t))
 
 ;; do a better job of making buffer names unique
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
+(use-package uniquify
+  :init (setq uniquify-buffer-name-style 'forward))
 
 ;; Allow y for yes - I type enough as it is
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -215,11 +216,15 @@
 
 (when (not tc/presentation-mode-p)
   ;; use ace-window to jump between windows
-  (require 'ace-window)
-  (global-set-key (kbd "C-:") 'ace-window)
-  (global-set-key (kbd "C-x :") 'ace-window)
-  (setq aw-keys
-        '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
+  (use-package ace-window
+    ;; force loading so we can set face attributes in theme.el
+    :demand t
+    :init
+    (setq aw-keys
+          '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+    :bind
+    (("C-:" . ace-window)
+     ("C-x :" . ace-window))))
 
 ;;(global-set-key (kbd "C-x C-d") 'ido-dired)
 
@@ -248,45 +253,54 @@
 (electric-pair-mode)
 
 ;; browse-kill-ring
-(require 'browse-kill-ring)
-(browse-kill-ring-default-keybindings)
+(use-package browse-kill-ring
+  :init
+  (browse-kill-ring-default-keybindings))
 
 ;; add the system clipboard to the kill ring
 (setq save-interprogram-paste-before-kill t)
 
-(require 'ivy)
-(ivy-mode 1)
-(global-set-key (kbd "C-s") 'swiper)
+(use-package ivy
+  :config
+  (ivy-mode))
 
-(require 'swiper)
-(define-key swiper-map (kbd "C-.")
-  (lambda () (interactive) (insert (format "\\<%s\\>" (with-ivy-window (thing-at-point 'symbol))))))
-(define-key swiper-map (kbd "M-.")
-  (lambda () (interactive) (insert (format "\\<%s\\>" (with-ivy-window (thing-at-point 'word))))))
+(use-package swiper
+  :bind
+  (("C-s" . swiper)
+   :map swiper-map
+   ("C-." .
+    (lambda () (interactive) (insert (format "\\<%s\\>" (with-ivy-window (thing-at-point 'symbol))))))
+   ("M-." .
+    (lambda () (interactive) (insert (format "\\<%s\\>" (with-ivy-window (thing-at-point 'word)))))))
+  )
 
-(require 'undo-tree)
-(global-undo-tree-mode)
+(use-package undo-tree
+  :config
+  (global-undo-tree-mode))
 
 ;; (global-set-key (kbd "M-x") 'counsel-M-x)
 
 ;; amx - a better M-x
-(require 'amx)
-(global-set-key (kbd "M-x") 'amx)
-(global-set-key (kbd "M-X") 'amx-major-mode-commands)
+(use-package amx
+  :bind
+  ("M-x" . amx)
+  ("M-X" . amx-major-mode-commands))
 
 ;; extra help fns - brought in for describe-keymap, mainly
-(require 'help-fns+)
+(use-package help-fns+)
 
 ;; semantic region expansion
-(require 'expand-region)
-(global-set-key (kbd "M-2") 'er/expand-region)
+(use-package expand-region
+  :bind
+  ("M-2" . er/expand-region))
 
 ;; indent after return
 (define-key global-map (kbd "RET") 'newline-and-indent)
 
 ;; disable magit's taking over of M-w
-(require 'magit)
-(define-key magit-mode-map (kbd "M-w") nil)
+(use-package magit
+  :bind (:map magit-mode-map
+              ("M-w" . nil)))
 
 ;; use C-. for pop-tag-mark, it's easier than M-*
 (global-set-key (kbd "C-.") 'pop-tag-mark)
@@ -297,9 +311,9 @@
 (global-set-key (kbd "C-c m c") 'mc/edit-lines)
 
 ;; display matching indents
-(require 'indent-guide)
-
-(indent-guide-global-mode)
+(use-package indent-guide
+  :config
+  (indent-guide-global-mode))
 
 ;; override the keybinding for command-log-mode, since it overlaps
 ;; with my weekpage bindings
@@ -307,11 +321,14 @@
 ;; (global-set-key (kbd "C-c l") 'clm/toggle-command-log-buffer)
 
 ;; use zoom-mode to auto-adjust window sizes
-(require 'zoom)
-(zoom-mode)
-
-;; use zoom to rebalance windows instead of the default algo
-(global-set-key (kbd "C-x +") 'zoom)
+(use-package zoom
+  ;; the below binding forces deferment, but that binding is rarely
+  ;; used, so we force loading of zoom since we want it active all the
+  ;; time
+  :demand t
+  ;; use zoom to rebalance windows instead of the default algo
+  :bind ("C-x +" . zoom)
+  :config (zoom))
 
 ;; load everything else
 (load "clubhouse-shared")
@@ -357,9 +374,10 @@
     (load (concat user-emacs-directory "presentations/" tc/presentation-name))))
 
 ;; start an emacs server
-(require 'server)
-(unless (server-running-p)
-  (add-hook 'after-init-hook 'server-start))
+(use-package server
+  :config
+  (unless (server-running-p)
+    (add-hook 'after-init-hook 'server-start)))
 
 (add-hook 'after-init-hook 'tc/startup-buffers)
 

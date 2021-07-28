@@ -1,4 +1,4 @@
-(require 'find-things-fast)
+(use-package find-things-fast)
 
 ;; override ftf defuns to show more path info
 ;; this should do a better job of just showing enough to be unique

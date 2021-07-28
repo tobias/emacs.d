@@ -1,8 +1,8 @@
 ;;(require 'flymake-cursor)
-(require 'diminish)
-(require 'rainbow-delimiters)
-(require 'whitespace-cleanup-mode)
-(require 'ws-butler)
+(use-package diminish)
+(use-package rainbow-delimiters)
+(use-package whitespace-cleanup-mode)
+(use-package ws-butler)
 
 (defun tc/local-comment-auto-fill ()
   (set (make-local-variable 'comment-auto-fill-only-comments) t)
@@ -28,7 +28,7 @@
        '((lambda (endp delimiter) nil)))
   (tc/turn-on-paredit))
 
-(require 'flycheck)
+(use-package flycheck)
 
 (defun tc/turn-on-flycheck ()
   (flycheck-mode t))
@@ -68,9 +68,11 @@
 (when (not tc/presentation-mode-p)
   (add-hook 'tc/common-coding-hooks 'display-line-numbers-mode)
   (add-hook 'tc/common-coding-hooks 'tc/turn-on-idle-highlight)
-  (require 'pretty-symbols)
-  (setq pretty-symbol-categories `(lambda))
-  (add-hook 'tc/common-coding-hooks 'pretty-symbols-mode))
+  (use-package pretty-symbols
+    :init
+    (setq pretty-symbol-categories `(lambda))
+    :hook
+    (tc/common-coding . pretty-symbols-mode)))
 
 (defun tc/run-common-coding-hooks ()
   "Enable things that are convenient across all coding buffers."
@@ -86,7 +88,7 @@
   "Enable things that are convenient for lisp code."
   (run-hooks 'tc/lisp-coding-hooks))
 
-(require 'imenu)
+(use-package imenu)
 
 ;; from emacs-starter-kit
 (defun tc/defs-imenu ()
@@ -135,7 +137,7 @@ Symbols matching the text at point are put first in the completion list."
 (global-set-key (kbd "C-x C-i") 'tc/defs-imenu)
 (set-default 'imenu-auto-rescan t)
 
-(require 'ansi-color)
+(use-package ansi-color)
 (defun colorize-compilation-buffer ()
   ;; only colorize when the buffer is actually a compilation-mode
   ;; buffer, not a mode that inherits from compilation-mode

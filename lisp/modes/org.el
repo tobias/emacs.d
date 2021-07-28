@@ -1,20 +1,25 @@
-(setq org-hide-leading-stars t)
+(use-package org
+  :init
+  (setq org-hide-leading-stars t)
+  :hook
+  ;; Make windmove work in org-mode:
+  (org-shiftup-final-hook . windmove-up)
+  (org-shiftleft-final-hook . windmove-left)
+  (org-shiftdown-final-hook . windmove-down)
+  (org-shiftright-final-hook . windmove-right))
 
 ;;(require 'ox-reveal)
 ;;(setq org-reveal-root "file:///home/tcrawley/hack/reveal.js-2.5.0/")
 ;;(setq org-reveal-root "./")
 
-(require 'ox-odt)
-(setq org-odt-preferred-output-format "docx")
+(use-package ox-odt
+  :init
+  (setq org-odt-preferred-output-format "docx"))
 
-(require 'org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+(use-package org-bullets
+  :hook
+  (org-mode . org-bullets-mode))
 
-;; Make windmove work in org-mode:
-(add-hook 'org-shiftup-final-hook 'windmove-up)
-(add-hook 'org-shiftleft-final-hook 'windmove-left)
-(add-hook 'org-shiftdown-final-hook 'windmove-down)
-(add-hook 'org-shiftright-final-hook 'windmove-right)
 (add-hook 'before-save-hook 'time-stamp)
 
 (org-babel-do-load-languages
@@ -54,8 +59,9 @@
       ;; org-bullets-bullet-list '("⁂")
       )
 
-(require 'org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+(use-package org-bullets
+  :hook
+  (org-mode-hook . org-bullets-mode))
 
 ;; (require 'org-daypage)
 

@@ -6,7 +6,7 @@
 
     )
 
-(require 'cider)
+(use-package cider)
 
 (setq tc/ch-repl-prod-connection
       "(do
