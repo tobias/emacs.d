@@ -1,8 +1,8 @@
   (when (file-exists-p "~/work/backend/tools/elisp")
     (add-to-list 'load-path "~/work/backend/tools/elisp")
-    (require 'clubhouse-backend)
+    (require 'shortcut-backend)
 
-    (setq clubhouse-backend-directory "~/work/backend")
+    (setq shortcut-backend-directory "~/work/backend")
 
     )
 
