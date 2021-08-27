@@ -9,7 +9,7 @@
 (require 'flycheck-clj-kondo)
 (require 'cljstyle-mode)
 
-(clubhouse-backend-enable-matcher-combinator-test-output-colors)
+(shortcut-backend-enable-matcher-combinator-test-output-colors)
 
 (defun tc/rename-buffer-to-ns ()
   (interactive)
@@ -23,7 +23,7 @@
 (add-hook 'clojure-mode-hook 'tc/turn-on-flycheck)
 (add-hook 'clojure-mode-hook 'subword-mode)
 (add-hook 'clojure-mode-hook 'yas-minor-mode)
-(add-hook 'clojure-mode-hook 'clubhouse-backend-font-lock)
+(add-hook 'clojure-mode-hook 'shortcut-backend-font-lock)
 
 (add-to-list 'auto-mode-alist '("\\.dtm$" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
@@ -126,7 +126,7 @@
 (define-key clojure-mode-map (kbd "C-c C-n a") 'tc/insert-and)
 
 ;; use my local cider alias and set up scope-capture
-(setq clubhouse-backend-default-clojure-cli-options
+(setq shortcut-backend-default-clojure-cli-options
       "-J-server -J-Xmx8g -J-XX:+UseG1GC -J-Dapple.awt.UIElement=true -J-Dtika.config=tika-config.xml -M:backend-defaults:dev:test:cider")
 (add-to-list 'cider-jack-in-nrepl-middlewares "sc.nrepl.middleware/wrap-letsc")
 
