@@ -9,7 +9,8 @@
 (require 'flycheck-clj-kondo)
 (require 'cljstyle-mode)
 
-(shortcut-backend-enable-matcher-combinator-test-output-colors)
+(when shortcut-elisp-loaded
+  (shortcut-backend-enable-matcher-combinator-test-output-colors))
 
 (defun tc/rename-buffer-to-ns ()
   (interactive)
@@ -23,7 +24,8 @@
 (add-hook 'clojure-mode-hook 'tc/turn-on-flycheck)
 (add-hook 'clojure-mode-hook 'subword-mode)
 (add-hook 'clojure-mode-hook 'yas-minor-mode)
-(add-hook 'clojure-mode-hook 'shortcut-backend-font-lock)
+(when shortcut-elisp-loaded
+  (add-hook 'clojure-mode-hook 'shortcut-backend-font-lock))
 
 (add-to-list 'auto-mode-alist '("\\.dtm$" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
@@ -125,10 +127,11 @@
 (define-key clojure-mode-map (kbd "C-c C-n n") 'tc/insert-then)
 (define-key clojure-mode-map (kbd "C-c C-n a") 'tc/insert-and)
 
-;; use my local cider alias and set up scope-capture
-(setq shortcut-backend-default-clojure-cli-options
+(when shortcut-elisp-loaded
+  ;; use my local cider alias and set up scope-capture
+  (setq shortcut-backend-default-clojure-cli-options
       "-J-server -J-Xmx8g -J-XX:+UseG1GC -J-Dapple.awt.UIElement=true -J-Dtika.config=tika-config.xml -M:backend-defaults:dev:test:cider")
-(add-to-list 'cider-jack-in-nrepl-middlewares "sc.nrepl.middleware/wrap-letsc")
+(add-to-list 'cider-jack-in-nrepl-middlewares "sc.nrepl.middleware/wrap-letsc"))
 
 (defun tc/insert-spy ()
   (interactive)

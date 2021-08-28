@@ -331,7 +331,7 @@
   :config (zoom))
 
 ;; load everything else
-(load "clubhouse-shared")
+(load "shortcut-shared")
 (load "header")
 (load "ffip")
 (load "functions")
