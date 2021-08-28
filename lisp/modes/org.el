@@ -34,21 +34,21 @@
       ;;"/usr/local/Cellar/plantuml/1.2018.2/libexec/plantuml.jar"
       )
 
-(setq clubhouse-link-regex
-  "^https://app[^.]*\\.clubhouse\\.io/[^/]+/\\(story\\|epic\\)/\\([0-9]+\\)")
+(setq shortcut-link-regex
+  "^https://app[^.]*\\.\\(clubhouse\\.io\\|shortcut\\.com\\)/[^/]+/\\(story\\|epic\\)/\\([0-9]+\\)")
 
 (defun tc/org-insert-link (url description)
   (insert "[[" url "][" description "]]"))
 
-(defun org-insert-clubhouse-link (url)
+(defun org-insert-shortcut-link (url)
   (interactive (list (let ((url (current-kill 0 t)))
-                       (if (string-match clubhouse-link-regex url)
+                       (if (string-match shortcut-link-regex url)
                            url
-                         (read-string "Clubhouse URL: ")))))
-  (when (null (string-match clubhouse-link-regex url))
-    (error "Invalid Clubhouse URL '%s'" url))
-  (let ((clubhouse-id (match-string 2 url)))
-    (tc/org-insert-link url (concat "ch" clubhouse-id))))
+                         (read-string "Shortcut URL: ")))))
+  (when (null (string-match shortcut-link-regex url))
+    (error "Invalid Shortcut URL '%s'" url))
+  (let ((shortcut-id (match-string 3 url)))
+    (tc/org-insert-link url (concat "sc-" shortcut-id))))
 
 ;; (setq org-todo-keywords
 ;;       '((sequence "☐" "☆" "☒")))
@@ -82,5 +82,28 @@
 ;; override compile
 (define-key weekpage-mode-map (kbd "C-c c") 'org-ctrl-c-ctrl-c)
 ;; (global-unset-key "\C-co")
-(global-set-key "\C-con" 'this-weeks-weekpage)
-(global-set-key "\C-coN" 'find-weekpage)
+;; (global-set-key "\C-con" 'this-weeks-weekpage)
+;; (global-set-key "\C-coN" 'find-weekpage)
+
+(use-package org-roam
+  :demand t
+  :custom
+  (org-roam-directory (file-truename "~/Dropbox/notes/org-roam"))
+  :init
+  (setq org-roam-v2-ack t)
+  (setq org-roam-dailies-capture-templates
+        '(("d" "daily" entry
+           "* %?"
+           :if-new (file+head "%<%Y-%m-%d>.org"
+                              "#+title: %<%Y-%m-%d>
+#+TAGS: { admin(a) hiring(h) pair(r) personal(m) support(s) maint(n) } discuss(d) PR(p) unplanned(u)\n"))))
+  :bind
+  (("C-c o l" . org-roam-buffer-toggle)
+   ("C-c o f" . org-roam-node-find)
+   ("C-c o i" . org-roam-node-insert)
+   ("C-c o n" . org-roam-dailies-goto-today)
+   ("C-c o y" . org-roam-dailies-goto-yesterday)
+   ("C-c o t" . org-roam-dailies-goto-tomorrow)
+   ("C-c o c" . org-roam-dailies-capture-today))
+  :config
+  (org-roam-setup))

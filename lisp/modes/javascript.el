@@ -11,6 +11,18 @@
 ;; it's a crime to indent 4 spaces
 (add-hook 'js2-mode-hook 'tc/js2-adjust-offset)
 
+(defun tc/make-pretty ()
+  (interactive)
+  (when (locate-dominating-file (expand-file-name default-directory)
+                                "prettier.config.js")
+    (shell-command (format "yarn prettier --write %s" buffer-file-name))
+    (revert-buffer nil t)))
+
+(defun tc/turn-on-prettier-on-save ()
+  (add-hook 'after-save-hook 'tc/make-pretty nil 'local))
+
+(add-hook 'js2-mode-hook 'tc/turn-on-prettier-on-save)
+
 ;; it's a crime to not use paredit (except that it doesn't work well
 ;; with js, dangit)
 ;;(add-hook 'js2-mode-hook 'tc/turn-on-paredit-nonlisp)

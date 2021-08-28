@@ -207,9 +207,6 @@
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-x C-z"))
 
-;; I often get the buffer list by accident
-(global-set-key (kbd "C-x C-b") 'ivy-switch-buffer)
-
 ;; revert - this shadows ido-find-file-read-only, but why would I want
 ;; to edit a file as read-only?
 (global-set-key (kbd "C-x C-r") 'revert-buffer)
@@ -261,6 +258,9 @@
 (setq save-interprogram-paste-before-kill t)
 
 (use-package ivy
+  :bind
+  ;; I often get the buffer list by accident
+  ("C-x C-b" . ivy-switch-buffer)
   :config
   (ivy-mode))
 
@@ -282,6 +282,7 @@
 
 ;; amx - a better M-x
 (use-package amx
+  :demand t
   :bind
   ("M-x" . amx)
   ("M-X" . amx-major-mode-commands))
@@ -328,7 +329,7 @@
   :demand t
   ;; use zoom to rebalance windows instead of the default algo
   :bind ("C-x +" . zoom)
-  :config (zoom))
+  :config (zoom-mode))
 
 ;; load everything else
 (load "shortcut-shared")

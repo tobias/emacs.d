@@ -108,7 +108,7 @@ point reaches the beginning or end of the buffer, stop there."
   "Opens startup buffers in a window layout."
   (interactive)
   (delete-other-windows)
-  (this-weeks-weekpage)
+  (org-roam-dailies-goto-today)
   (split-window-horizontally)
   (dired "~/work/backend")
   (split-window-horizontally)
