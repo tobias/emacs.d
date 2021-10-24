@@ -50,28 +50,12 @@
   (let ((shortcut-id (match-string 3 url)))
     (tc/org-insert-link url (concat "sc-" shortcut-id))))
 
-;; (setq org-todo-keywords
-;;       '((sequence "☐" "☆" "☒")))
-;; ☑ ☒
-
-(setq org-todo-keywords       '((sequence "TODO(t)" "STARTED(s)" "WAITING(w)" "PENDING(p)" "TOMERGE(m)" "|" "DONE(d)" "CANCELED(c)"))
-      org-ellipsis            "⁙"
-      ;; org-bullets-bullet-list '("⁂")
-      )
+(setq org-todo-keywords '((sequence "TODO(t)" "STARTED(s)" "WAITING(w)" "PENDING(p)" "TOMERGE(m)" "|" "DONE(d)" "CANCELED(c)"))
+      org-ellipsis      "⁙")
 
 (use-package org-bullets
   :hook
   (org-mode-hook . org-bullets-mode))
-
-;; (require 'org-daypage)
-
-;; (setq daypage-path "~/Dropbox/journal/")
-
-;; (define-key daypage-mode-map (kbd "<C-left>") 'daypage-prev)
-;; (define-key daypage-mode-map (kbd "<C-right>") 'daypage-next)
-
-;; (global-set-key "\C-con" 'todays-daypage)
-;; (global-set-key "\C-coN" 'find-daypage)
 
 (require 'org-weekpage)
 
@@ -81,29 +65,6 @@
 (define-key weekpage-mode-map (kbd "<C-right>") 'weekpage-next)
 ;; override compile
 (define-key weekpage-mode-map (kbd "C-c c") 'org-ctrl-c-ctrl-c)
-;; (global-unset-key "\C-co")
-;; (global-set-key "\C-con" 'this-weeks-weekpage)
-;; (global-set-key "\C-coN" 'find-weekpage)
-
-(use-package org-roam
-  :demand t
-  :custom
-  (org-roam-directory (file-truename "~/Dropbox/notes/org-roam"))
-  :init
-  (setq org-roam-v2-ack t)
-  (setq org-roam-dailies-capture-templates
-        '(("d" "daily" entry
-           "* %?"
-           :if-new (file+head "%<%Y-%m-%d>.org"
-                              "#+title: %<%Y-%m-%d>
-#+TAGS: { admin(a) hiring(h) pair(r) personal(m) support(s) maint(n) } discuss(d) PR(p) unplanned(u)\n"))))
-  :bind
-  (("C-c o l" . org-roam-buffer-toggle)
-   ("C-c o f" . org-roam-node-find)
-   ("C-c o i" . org-roam-node-insert)
-   ("C-c o n" . org-roam-dailies-goto-today)
-   ("C-c o y" . org-roam-dailies-goto-yesterday)
-   ("C-c o t" . org-roam-dailies-goto-tomorrow)
-   ("C-c o c" . org-roam-dailies-capture-today))
-  :config
-  (org-roam-setup))
+(global-unset-key "\C-co")
+(global-set-key "\C-con" 'this-weeks-weekpage)
+(global-set-key "\C-coN" 'find-weekpage)
